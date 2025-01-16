@@ -42,7 +42,7 @@ export const lessons: Lesson[] = [
 um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, \n\
 und sie können verschiedene Arten von Daten speichern,wie Zahlen, Texte oder sogar Listen.',
     functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). \
-                Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
+Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
     Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl" \n\
 text = "Hallo, Welt!"  # Speichert den Text in der Variable "text" \n\
 ist_wahr = True  # Speichert einen Wahrheitswert',
@@ -476,12 +476,29 @@ while count < 5:\n\
     icon: Brush,
     definition: 'Turtle Grafik ist wie ein Zeichenstift, den du mit Befehlen steuern kannst. \
 Die Schildkröte bewegt sich auf dem Bildschirm und zeichnet dabei Linien.',
-    Example: 'Wichtige Befehle:\n\
+    functions: 'Wichtige Befehle:\n\
     - forward(x): Bewege x Schritte vorwärts\n\
     - right(x): Drehe x Grad nach rechts\n\
     - left(x): Drehe x Grad nach links\n\
     - penup(): Hebe den Stift ab\n\
     - pendown(): Setze den Stift auf',
+    Example: 'import turtle\n\
+\n\
+# Fenster einrichten\n\
+screen = turtle.Screen()\n\
+screen.bgcolor("lightblue")\n\
+\n\
+# Turtle erstellen\n\
+stift = turtle.Turtle()\n\
+stift.pensize(2)\n\
+stift.speed(5)\n\
+\n\
+# Quadrat zeichnen\n\
+for _ in range(4):\n\
+    stift.forward(100)\n\
+    stift.left(90)\n\
+\n\
+turtle.done()',
     subLessons: [
       {
         id: 'turtle-1',

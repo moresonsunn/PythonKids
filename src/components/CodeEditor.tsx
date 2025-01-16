@@ -3,7 +3,6 @@ import Editor from "@monaco-editor/react";
 interface CodeEditorProps {
   code: string;
   setCode: (code: string) => void;
-  onRun: () => void;
 }
 
 export default function CodeEditor({ code, setCode }: CodeEditorProps) {
