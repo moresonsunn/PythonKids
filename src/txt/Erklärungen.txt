@@ -1,0 +1,146 @@
+1. Variablen
+Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen, Texte oder sogar Listen.
+
+Warum sind Variablen wichtig?
+Sie erlauben es uns, Daten zu speichern und diese wiederzuverwenden oder zu verändern, ohne den Wert ständig neu eingeben zu müssen.
+
+So funktioniert es:
+
+Einen Namen für die Variable auswählen (z. B. alter, name, punkte).
+Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.
+Beispiele:
+
+zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"
+text = "Hallo, Welt!"  # Speichert den Text in der Variable "text"
+ist_wahr = True  # Speichert einen Wahrheitswert
+Wichtig:
+
+Variablennamen dürfen nicht mit Zahlen beginnen oder Sonderzeichen enthalten.
+Sie sind wie Platzhalter, die wir für Berechnungen oder andere Befehle nutzen können.
+2. Funktionen
+Funktionen sind kleine Programme innerhalb deines Programms. Sie helfen dir, Code zu organisieren und wiederzuverwenden.
+
+Mit einer Funktion kannst du Befehle bündeln und später mit nur einem Namen darauf zugreifen.
+
+Wie definiere ich eine Funktion?
+Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:
+
+def begruessung():
+    print("Hallo!")
+Parameter in Funktionen:
+Funktionen können Informationen als Eingabe erhalten (Parameter), die sie dann verwenden.
+
+def begruessung(name):
+    print(f"Hallo, {name}!")
+Warum nutzen wir Funktionen?
+
+Sie machen deinen Code übersichtlicher.
+Du kannst denselben Code an mehreren Stellen verwenden.
+3. Listen
+Listen sind wie eine Sammlung von Dingen, die du in einer bestimmten Reihenfolge speicherst. Stell dir eine Einkaufsliste vor – das ist genau das, was eine Liste in Python ist.
+
+Warum Listen?
+Wenn du mehrere Daten (z. B. Zahlen oder Texte) speichern möchtest, die zusammengehören, kannst du sie in einer Liste speichern, anstatt viele einzelne Variablen zu verwenden.
+
+Beispiel:
+
+lieblingsessen = ["Pizza", "Burger", "Pasta"]
+print(lieblingsessen[0])  # Ausgabe: Pizza
+lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu
+Besonderheiten:
+
+Der Index einer Liste beginnt bei 0, d. h. das erste Element hat den Index 0, das zweite den Index 1 usw.
+Du kannst Elemente ändern, hinzufügen oder löschen.
+4. Operatoren
+Operatoren sind Symbole, die Aktionen auf Werten ausführen. Es gibt verschiedene Arten:
+
+Rechenoperatoren:
+
++ (Addition), - (Subtraktion), * (Multiplikation), / (Division).
+Vergleichsoperatoren:
+
+== (gleich), != (ungleich), <, >, <=, >=.
+Logische Operatoren:
+
+and (und), or (oder), not (nicht).
+Beispiel:
+
+zahl1 = 10
+zahl2 = 5
+print(zahl1 + zahl2)  # Ausgabe: 15
+print(zahl1 > zahl2)  # Ausgabe: True
+5. Fehlerausgabe
+Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt.
+
+Arten von Fehlern:
+
+Syntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen.
+print("Hallo  # Fehler: fehlendes Anführungszeichen
+Logikfehler: Das Programm läuft, aber es tut nicht das, was du willst.
+Runtime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.
+Python hilft dir:
+
+Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:
+javascript
+Code kopieren
+SyntaxError: unexpected EOF while parsing
+6. Input-Befehl
+Der input()-Befehl erlaubt es, Benutzereingaben in das Programm aufzunehmen.
+
+Warum?
+Damit dein Programm interaktiv wird, kannst du den Benutzer um Eingaben bitten.
+
+Beispiel:
+
+name = input("Wie heißt du? ")
+print(f"Hallo, {name}!")
+Tipp:
+Alle Eingaben sind standardmäßig Text. Um mit Zahlen zu rechnen, musst du sie umwandeln:
+
+zahl = int(input("Gib eine Zahl ein: "))
+print(zahl + 1)
+7. Dictionaries
+Dictionaries sind wie Listen, aber statt einer Position haben sie Schlüssel, um Werte zu speichern.
+
+Warum?
+Sie sind ideal, wenn du Daten strukturieren möchtest, z. B. eine Telefonnummer für jede Person.
+
+Beispiel:
+
+telefonbuch = {"Anna": "12345", "Ben": "67890"}
+print(telefonbuch["Anna"])  # Ausgabe: 12345
+8. Verzweigungen (if-else)
+Mit Bedingungen kannst du steuern, was dein Programm tun soll, abhängig von bestimmten Eingaben oder Zuständen.
+
+Syntax:
+
+if Bedingung:
+    Befehl
+elif Andere_Bedingung:
+    Anderer_Befehl
+else:
+    Standard_Befehl
+Beispiel:
+
+zahl = 10
+if zahl > 5:
+    print("Die Zahl ist groß.")
+elif zahl == 5:
+    print("Die Zahl ist mittel.")
+else:
+    print("Die Zahl ist klein.")
+9. Schleifen
+Schleifen erlauben es, Code mehrmals auszuführen.
+
+For-Schleife:
+Wird genutzt, wenn du weißt, wie oft du etwas wiederholen möchtest.
+
+for i in range(5):  # Wiederhole 5 Mal
+    print("Hallo!")
+While-Schleife:
+Wird genutzt, wenn du eine Bedingung hast, die während der Ausführung überprüft wird.
+
+count = 0
+while count < 5:
+    print("Zahl:", count)
+    count += 1

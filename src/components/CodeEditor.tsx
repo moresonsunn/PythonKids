@@ -1,19 +1,36 @@
-import React from 'react';
+import Editor from "@monaco-editor/react";
 
 interface CodeEditorProps {
   code: string;
   setCode: (code: string) => void;
+  onRun: () => void;
 }
 
-function CodeEditor({ code, setCode }: CodeEditorProps) {
+export default function CodeEditor({ code, setCode }: CodeEditorProps) {
   return (
-    <textarea
-      value={code}
-      onChange={(e) => setCode(e.target.value)}
-      className="w-full h-64 font-mono text-sm p-4 bg-gray-50 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-      placeholder="# Schreibe deinen Python-Code hier..."
-    />
+    <div className="rounded-xl overflow-hidden shadow-lg border-4 border-purple-300">
+      <div className="bg-gradient-to-r from-blue-400 to-purple-400 px-4 py-3 flex justify-between items-center">
+        <span className="text-xl font-bold text-white">🐍 Python Spielplatz</span>
+      </div>
+      <Editor
+        height="400px"
+        defaultLanguage="python"
+        value={code}
+        onChange={(value) => setCode(value || '')}
+        options={{
+          fontSize: 16,
+          fontFamily: "'Comic Code', 'Cascadia Code', monospace",
+          minimap: { enabled: false },
+          scrollBeyondLastLine: false,
+          lineNumbers: "on",
+          roundedSelection: true,
+          padding: { top: 16 },
+          theme: "vs",
+          wordWrap: "on",
+          tabSize: 3,
+        }}
+        theme="vs"
+      />
+    </div>
   );
 }
-
-export default CodeEditor;
