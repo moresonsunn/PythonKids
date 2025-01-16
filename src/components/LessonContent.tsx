@@ -7,7 +7,8 @@ import {
   KeyRound,
   GitFork,
   Repeat,
-  RotateCw
+  RotateCw,
+  Brush
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -37,8 +38,9 @@ export const lessons: Lesson[] = [
     id: 'variables',
     title: 'Variablen',
     icon: CircleDot,
-    definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. \
-                Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen, Texte oder sogar Listen.',
+    definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, \n\
+um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, \n\
+und sie können verschiedene Arten von Daten speichern,wie Zahlen, Texte oder sogar Listen.',
     functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). \
                 Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
     Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl" \n\
@@ -61,7 +63,7 @@ ist_wahr = True  # Speichert einen Wahrheitswert',
         difficulty: 'Mittel',
         content: 'Mathematische Operationen mit Variablen.',
         initialCode: 'zahl1 = 5\nzahl2 = 3',
-        task: 'Addiere die beiden Zahlen',
+        task: 'Addiere die beiden Zahlen 10 und 20',
         solution: 'ergebnis = zahl1 + zahl2\nprint(ergebnis)',
         hint: 'Nutze den Plus-Operator'
       },
@@ -82,7 +84,7 @@ ist_wahr = True  # Speichert einen Wahrheitswert',
     title: 'Funktionen',
     icon: Code2,
     definition: 'Funktionen sind kleine Programme innerhalb deines Programms. \
-                Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
+Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
     functions: 'Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:',
     Example: 'def begruessung():  # Funktion mit dem Namen "hallo_welt"\n\
    print("Hallo!")  # Code-Block der Funktion',
@@ -124,11 +126,13 @@ ist_wahr = True  # Speichert einen Wahrheitswert',
     title: 'Listen',
     icon: ListOrdered,
     definition: 'Listen sind wie eine Sammlung von Dingen, die du in \
-                einer bestimmten Reihenfolge speichern kannst. Sie können \
-                Zahlen, Texte oder sogar andere Listen enthalten. \n\
-                Der Index einer Liste beginnt bei 0, d. h. \
-                das erste Element hat den Index 0, das zweite den Index 1 usw. \n\
-                Du kannst Elemente ändern, hinzufügen oder löschen.',
+einer bestimmten Reihenfolge speichern kannst. Sie können \
+Zahlen, Texte oder sogar andere Listen enthalten. \
+Der Index einer Liste beginnt bei 0, d. h. \
+das erste Element hat den Index 0, das zweite den Index 1 usw. \
+\n\
+\n\
+Du kannst Elemente ändern, hinzufügen oder löschen.',
     functions: 'Eine Liste mit eckigen Klammern [] erstellen, z. B.:',
     Example: 'lieblingsessen = ["Pizza", "Burger", "Pasta"] \n\
 print(lieblingsessen[0])  # Ausgabe: Pizza \n\
@@ -142,7 +146,7 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
         initialCode: 'namen = ["Max", "Moritz", "Erika"]\nprint(namen)',
         task: 'Erstelle eine Liste mit deinen Lieblingsfarben',
         solution: 'farben = ["Rot", "Grün", "Blau"]\nprint(farben)',
-        hint: 'Nutze eckige Klammern []'
+        hint: 'Nutze eckige Klammern [] und vergess nicht die Anführungszeichen'
       },
       {
         id: 'lists-2',
@@ -152,7 +156,7 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
         initialCode: 'farben = ["Rot", "Grün", "Blau"]',
         task: 'Wähle das erste Element aus der Liste aus',
         solution: 'print(farben[0])',
-        hint: 'Nutze denn Index des Elements'
+        hint: 'Nutze denn Index des Elements in eckigen Klammern beim print'
       },
       {
         id: 'lists-3',
@@ -170,6 +174,19 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'operators',
     title: 'Operatoren',
     icon: Terminal,
+    definition: 'Operatoren sind Symbole, die Aktionen auf Werten ausführen.\
+Es gibt verschiedene Arten: \n\
+Rechenoperatoren: \n\
++ (Addition), - (Subtraktion), * (Multiplikation), / (Division). \n\
+Vergleichsoperatoren: \n\
+== (gleich), != (ungleich), <, >, <=, >=. \n\
+Logische Operatoren: \n\
+and (und), or (oder), not (nicht).',
+    functions: 'Operatoren werden in der Regel zwischen zwei Werten verwendet, z. B.:',
+    Example: 'zahl1 = 10 \n\
+zahl2 = 5\n\
+print(zahl1 + zahl2)  # Ausgabe: 15\n\
+print(zahl1 > zahl2)  # Ausgabe: True',
     subLessons: [
       {
         id: 'operators-1',
@@ -207,6 +224,20 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'errors',
     title: 'Fehlerausgaben',
     icon: AlertCircle,
+    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. \
+\n\
+Arten von Fehlern:\n\
+\n\
+Syntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen.\n\
+print("Hallo  # Fehler: fehlendes Anführungszeichen\n\
+Logikfehler: Das Programm läuft, aber es tut nicht das, was du willst.\n\
+Runtime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
+    functions: 'Python hilft dir:\n\
+\n\
+Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:',
+    Example: 'print("Hallo \n\
+      ^ \n\
+SyntaxError: unterminated string literal (detected at line 1)',
     subLessons: [
       {
         id: 'errors-1',
@@ -244,6 +275,13 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'input',
     title: 'Input Befehle',
     icon: KeyRound,
+    definition: 'Der input()-Befehl erlaubt es, Benutzereingaben in das Programm aufzunehmen.\n\
+\n\
+Warum? \n\
+Damit dein Programm interaktiv wird, kannst du den Benutzer um Eingaben bitten.',
+    functions: 'Der input()-Befehl gibt den eingegebenen Wert als Zeichenkette zurück.',
+    Example:'name = input("Wie heißt du? ")\n\
+print(f"Hallo, {name}!")',
     subLessons: [
       {
         id: 'input-1',
@@ -281,6 +319,13 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'dictionaries',
     title: 'Dictionaries',
     icon: RotateCw,
+    definition:'Dictionaries sind wie Listen, aber statt einer Position haben sie Schlüssel, um Werte zu speichern. \n\
+\n\
+Warum? \n\
+Sie sind ideal, wenn du Daten strukturieren möchtest, z. B. eine Telefonnummer für jede Person.',
+    functions: 'Ein Dictionary mit geschweiften Klammern {} erstellen, z. B.:',
+    Example: 'telefonbuch = {"Anna": "12345", "Ben": "67890"} \n\
+print(telefonbuch["Anna"])  # Ausgabe: 12345',
     subLessons: [
       {
         id: 'dictionaries-1',
@@ -318,6 +363,25 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'conditions',
     title: 'Verzweigungen',
     icon: GitFork,
+    definition:'Mit Bedingungen kannst du steuern, was dein Programm tun soll, \
+abhängig von bestimmten Eingaben oder Zuständen.\n\
+\n\
+if Bedingung: \n\
+    Befehl\n\
+elif Andere_Bedingung:\n\
+    Anderer_Befehl\n\
+else:\n\
+    Standard_Befehl',
+    functions: 'if: Führt den Codeblock aus, wenn die Bedingung wahr ist.\n\
+elif: Führt den Codeblock aus, wenn die vorherige Bedingung falsch ist.\n\
+else: Führt den Codeblock aus, wenn keine der Bedingungen wahr ist.',
+    Example:'zahl = 10 \n\
+if zahl > 5: \n\
+    print("Die Zahl ist groß.") \n\
+elif zahl == 5:\n\
+    print("Die Zahl ist mittel.")\n\
+else:\n\
+    print("Die Zahl ist klein.")',
     subLessons: [
       {
         id: 'conditions-1',
@@ -355,6 +419,24 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'loops',
     title: 'Schleifen',
     icon: Repeat,
+    definition:'Schleifen erlauben es, Code mehrmals auszuführen.\n\
+\n\
+For-Schleife:\n\
+Wird genutzt, wenn du weißt, wie oft du etwas wiederholen möchtest.',
+    functions: 'for Element in Liste: \n\
+    Befehl\n\
+    \n\
+    While-Schleife:\n\
+    Anzahl an Wiederholungen',
+    Example:'for i in range(5):  # Wiederhole 5 Mal\n\
+    print("Hallo!")\n\
+While-Schleife:\n\
+Wird genutzt, wenn du eine Bedingung hast, die während der Ausführung überprüft wird.\n\
+\n\
+count = 0\n\
+while count < 5:\n\
+    print("Zahl:", count)\n\
+    count += 1',
     subLessons: [
       {
         id: 'loops-1',
@@ -388,6 +470,51 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
       },
     ],
   },
+  {
+    id: 'turtle',
+    title: 'Turtle Grafik',
+    icon: Brush,
+    definition: 'Turtle Grafik ist wie ein Zeichenstift, den du mit Befehlen steuern kannst. \
+Die Schildkröte bewegt sich auf dem Bildschirm und zeichnet dabei Linien.',
+    Example: 'Wichtige Befehle:\n\
+    - forward(x): Bewege x Schritte vorwärts\n\
+    - right(x): Drehe x Grad nach rechts\n\
+    - left(x): Drehe x Grad nach links\n\
+    - penup(): Hebe den Stift ab\n\
+    - pendown(): Setze den Stift auf',
+    subLessons: [
+      {
+        id: 'turtle-1',
+        title: 'Einfache Formen',
+        difficulty: 'Leicht',
+        content: 'Zeichne ein einfaches Quadrat mit der Turtle.',
+        initialCode: 'import turtle\n\nt = turtle.Turtle()\n\n# Zeichne hier dein Quadrat',
+        task: 'Zeichne ein Quadrat mit der Seitenlänge 100.',
+        solution: 'import turtle\n\nt = turtle.Turtle()\n\nfor i in range(4):\n    t.forward(100)\n    t.right(90)',
+        hint: 'Ein Quadrat hat 4 gleich lange Seiten und 90-Grad Winkel.'
+      },
+      {
+        id: 'turtle-2',
+        title: 'Turtle Rennen',
+        difficulty: 'Mittel',
+        content: 'Erstelle ein Rennen zwischen zwei Turtles mit Zufallsbewegungen.',
+        initialCode: 'import turtle\nimport random\n\nt1 = turtle.Turtle()\nt2 = turtle.Turtle()',
+        task: 'Lass zwei Turtles gegeneinander Rennen, nutze random.randint(1,10) für zufällige Bewegungen.',
+        solution: 'import turtle\nimport random\n\nt1 = turtle.Turtle()\nt2 = turtle.Turtle()\n\nt1.penup()\nt1.goto(-100, 20)\nt1.pendown()\nt2.penup()\nt2.goto(-100, -20)\nt2.pendown()\n\nfor _ in range(100):\n    t1.forward(random.randint(1, 5))\n    t2.forward(random.randint(1, 5))',
+        hint: 'Nutze eine while-Schleife und prüfe die x-Position der Turtles.'
+      },
+      {
+        id: 'turtle-3',
+        title: 'Turtle Fangen',
+        difficulty: 'Schwer',
+        content: 'Programmiere ein Spiel, bei dem eine Turtle die andere fangen muss.',
+        initialCode: 'import turtle\n\nplayer = turtle.Turtle()\ntarget = turtle.Turtle()',
+        task: 'Erstelle ein Spiel, bei dem der Spieler mit den Pfeiltasten eine Turtle steuert.',
+        solution: 'import turtle\n\nplayer = turtle.Turtle()\ntarget = turtle.Turtle()\n\ntarget.penup()\ntarget.goto(100, 100)\n\ndef go_up():\n    player.setheading(90)\n    player.forward(20)\n\ndef go_down():\n    player.setheading(270)\n    player.forward(20)\n\ndef go_left():\n    player.setheading(180)\n    player.forward(20)\n\ndef go_right():\n    player.setheading(0)\n    player.forward(20)\n\nturtle.listen()\nturtle.onkey(go_up, "Up")\nturtle.onkey(go_down, "Down")\nturtle.onkey(go_left, "Left")\nturtle.onkey(go_right, "Right")\n\nturtle.done()',
+        hint: 'Verwende turtle.onkey() für die Tastatursteuerung.'
+      }
+    ]
+  }
 ];
 
 interface LessonContentProps {
@@ -436,12 +563,12 @@ export default function LessonContent({
       <div className="space-y-6">
         <div className="bg-purple-50 p-4 rounded-md">
           <h4 className="font-bold text-purple-700 mb-2">Was sind {currentLesson.title}?</h4>
-          <p className="text-gray-700">{currentLesson.definition}</p>
+          <pre className="text-gray-700">{currentLesson.definition}</pre>
         </div>
         
         <div className="bg-blue-50 p-4 rounded-md">
           <h4 className="font-bold text-blue-700 mb-2">Wie funktioniert das?</h4>
-          <p className="text-gray-700">{currentLesson.functions}</p>
+          <pre className="text-gray-700 ">{currentLesson.functions}</pre>
         </div>
         
         <div className="bg-green-50 p-4 rounded-md">
@@ -462,7 +589,6 @@ export default function LessonContent({
     <div>
       <p>{currentSubLesson.content}</p>
       <div className="prose max-w-none">
-        <p className="mb-4">{currentSubLesson.task}</p>
       </div>
       <h3 className="text-lg font-semibold text-gray-700 mb-2">Deine Aufgabe:</h3>
       <div className="bg-gray-50 p-4 rounded-md">
