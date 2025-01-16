@@ -280,7 +280,7 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
   {
     id: 'dictionaries',
     title: 'Dictionaries',
-    icon: GitFork,
+    icon: RotateCw,
     subLessons: [
       {
         id: 'dictionaries-1',
