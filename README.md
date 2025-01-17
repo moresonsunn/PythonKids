@@ -46,25 +46,15 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 
 python-learning-platform/
 ├── src/
-
 │ ├── components/
-
 │ │ ├── CodeEditor.tsx
-
 │ │ └── ...
-
 │ ├── data/
-
 │ │ └── LessonContent.tsx
-
 │ ├── App.tsx
-
 │ └── index.tsx
-
 ├── public/
-
 ├── package.json
-
 └── README.md
 
 
