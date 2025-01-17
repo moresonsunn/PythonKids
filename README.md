@@ -11,8 +11,6 @@ Eine interaktive Webanwendung zum Erlernen von Python-Grundlagen.
 - [Projektstruktur](#projektstruktur)
 - [Verwendung](#verwendung)
 - [Lektionen](#lektionen)
-- [Beitragen](#beitragen)
-- [Lizenz](#lizenz)
 
 ## Überblick
 
