@@ -37,3 +37,54 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 
 1. Klonen Sie das Repository:
 
+2. Navigieren Sie in das Projektverzeichnis:
+
+3. Installieren Sie die Abhängigkeiten:
+
+4. Starten Sie die Entwicklungsumgebung:
+
+
+## Projektstruktur
+
+python-learning-platform/
+├── src/
+│ ├── components/
+│ │ ├── CodeEditor.tsx
+│ │ └── ...
+│ ├── data/
+│ │ └── LessonContent.tsx
+│ ├── App.tsx
+│ └── index.tsx
+├── public/
+├── package.json
+└── README.md
+
+
+## Verwendung
+
+Nach dem Start der Anwendung können Benutzer:
+
+1. Lektionen aus der Seitenleiste auswählen
+2. Lektionsinhalte lesen und Beispiele anschauen
+3. Aufgaben im integrierten Code-Editor lösen
+4. Sofortiges Feedback erhalten und Lösungen überprüfen
+
+## Lektionen
+
+Die Plattform bietet folgende Lektionen:
+
+1. Variablen
+2. Funktionen
+3. Listen
+4. Operatoren
+5. Fehlerausgaben
+6. Input-Befehle
+7. Dictionaries
+8. Verzweigungen
+9. Schleifen
+10. Turtle-Grafik
+
+Jede Lektion enthält:
+- Eine Definition des Konzepts
+- Beispiele zur Verwendung
+- Praktische Übungen mit verschiedenen Schwierigkeitsgraden
