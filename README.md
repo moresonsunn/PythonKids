@@ -31,7 +31,7 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 - Frontend: React
 - Code-Editor: Monaco Editor
 - Styling: CSS (möglicherweise mit einem Framework wie Tailwind)
-- Bundler: Vermutlich Create React App oder Vite
+- Bundler: Vite
 
 ## Installation
 
