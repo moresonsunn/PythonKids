@@ -224,7 +224,8 @@ print(zahl1 > zahl2)  # Ausgabe: True',
     id: 'errors',
     title: 'Fehlerausgaben',
     icon: AlertCircle,
-    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. \
+    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir,\n\
+diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. \
 \n\
 Arten von Fehlern:\n\
 \n\
