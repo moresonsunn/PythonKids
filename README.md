@@ -45,7 +45,7 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 ## Projektstruktur
 
 python-learning-platform/
-├── src/
+├── src/ \n
 │ ├── components/
 │ │ ├── CodeEditor.tsx
 │ │ └── ...
