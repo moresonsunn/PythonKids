@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Definiert die Struktur einer Unterlektion
 export interface SubLesson {
   id: string;
   title: string;
@@ -23,6 +24,7 @@ export interface SubLesson {
   hint: string;
 }
 
+// Definiert die Struktur einer Hauptlektion
 export interface Lesson {
   id: string;
   title: string;
@@ -33,7 +35,9 @@ export interface Lesson {
   subLessons: SubLesson[];
 }
 
+// Array aller Lektionen
 export const lessons: Lesson[] = [
+  // Jedes Objekt repräsentiert eine Hauptlektion
   {
     id: 'variables',
     title: 'Variablen',
@@ -47,6 +51,7 @@ Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
 text = "Hallo, Welt!"  # Speichert den Text in der Variable "text" \n\
 ist_wahr = True  # Speichert einen Wahrheitswert',
     subLessons: [
+      // Jedes Objekt repräsentiert eine Unterlektion
       {
         id: 'variables-1',
         title: 'Erste Schritte mit Variablen',
