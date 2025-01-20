@@ -50,12 +50,12 @@ function Navigation({ selectedTopic, setSelectedTopic, selectedSubLesson, setSel
                       }`}
                     >
                       {subLesson.title}
-                      <span className={`ml-2 text-xs px-2 py-1 rounded ${
+                        <span className={`ml-2 text-xs px-2 py-1 rounded inline-block ${
                         subLesson.difficulty === 'Leicht' ? 'bg-green-100 text-green-700' :
                         subLesson.difficulty === 'Mittel' ? 'bg-yellow-100 text-yellow-700' :
                         subLesson.difficulty === 'Schwer' ? 'bg-red-100 text-red-700':
                         'bg-gray-100 text-gray-700'
-                      }`}>
+                        }`}>
                         {subLesson.difficulty}
                       </span>
                     </button>

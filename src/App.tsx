@@ -121,7 +121,6 @@ const App: React.FC = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg shadow-lg p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-md font-semibold text-gray-800">Code Editor</h3>
                     <button
                       onClick={executeCode}
                       disabled={isLoading}
