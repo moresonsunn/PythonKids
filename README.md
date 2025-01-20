@@ -97,7 +97,7 @@ Jede Lektion enthält:
 - Praktische Übungen mit verschiedenen Schwierigkeitsgraden
 
 # Befehle
-1. npm install // Installiert alle nötwenigen dateien
+1. npm install // Installiert alle nötwendigen dateien
 2. npx vite // Um es Lokal auszuführen in einem Webbrowser
 ## Für eine App
 1. npm install
