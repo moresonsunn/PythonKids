@@ -15,5 +15,5 @@ app.on('ready', () => {
         },
     });
     win.maximize(); // Maximiere das Fenster
-    win.loadFile(join(__dirname, 'index.html')); // Lade die gebaute Vite-App
+    win.loadFile(join(__dirname, 'dist', 'index.html')); // Lade die gebaute Vite-App
 });
