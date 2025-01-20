@@ -10,12 +10,10 @@ let win;
 
 app.on('ready', () => {
     win = new BrowserWindow({
-        width: 1200,
-        height: 800,
         webPreferences: {
             nodeIntegration: true,
         },
     });
-
+    win.maximize(); // Maximiere das Fenster
     win.loadFile(join(__dirname, 'dist', 'index.html')); // Lade die gebaute Vite-App
 });
