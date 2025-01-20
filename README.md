@@ -44,7 +44,7 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 
 ## Projektstruktur
 
-python-learning-platform/
+```python-learning-platform/
 │
 ├── src/
 │   ├── components/
@@ -58,6 +58,7 @@ python-learning-platform/
 ├── public/
 ├── package.json
 └── README.md
+```
 
 
 ## Verwendung
