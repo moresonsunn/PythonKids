@@ -96,10 +96,10 @@ Jede Lektion enthält:
 - Beispiele zur Verwendung
 - Praktische Übungen mit verschiedenen Schwierigkeitsgraden
 
-## Befehle
+# Befehle
 1. npm install // Installiert alle nötwenigen dateien
 2. npx vite // Um es Lokal auszuführen in einem Webbrowser
-# Für eine App
+## Für eine App
 1. npm install
 2. npm run build // Erstellt eine datei names dist wo alle dateien gespeichert werdne
 3. npm start // Für kurze tests
