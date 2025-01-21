@@ -18,10 +18,10 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
   return (
     <div className="rounded-xl overflow-hidden shadow-lg border-4 border-purple-300">
       <div className="bg-gradient-to-r from-blue-400 to-purple-400 px-4 py-3 flex justify-between items-center">
-        <span className="text-xl font-bold text-white">🐍 Python Spielplatz</span>
+        <span className="text-xl font-bold text-white">🐍 Python Editor</span>
         <button
           onClick={handleRunClick}
-          className={`bg-white text-blue-500 font-bold py-2 px-4 rounded shadow ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`bg-white text-blue-500 font-bold py-2 px-4 rounded shadow whitespace-nowrap ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isRunning}
         >
           {isRunning ? 'Wird ausgeführt...' : 'Run'}
