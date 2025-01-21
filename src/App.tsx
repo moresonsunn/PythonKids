@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Play, GamepadIcon, Code } from 'lucide-react';
+import { BookOpen, GamepadIcon, Code } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
@@ -13,7 +13,7 @@ declare global {
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables');
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
-  const [learningStyle, setLearningStyle] = useState('text');
+  const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -121,21 +121,12 @@ const App: React.FC = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg shadow-lg p-6">
                   <div className="flex justify-between items-center mb-4">
-                    <button
-                      onClick={executeCode}
-                      disabled={isLoading}
-                      className={`bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 flex items-center ${
-                        isLoading ? 'opacity-50 cursor-not-allowed' : ''
-                      }`}
-                    >
-                      <Play className="h-4 w-4 mr-2" />
-                      {isLoading ? 'Wird ausgeführt...' : 'Ausführen'}
-                    </button>
                   </div>
                   <CodeEditor 
                     code={code}
                     setCode={setCode}
                     onRun={executeCode}
+                    
                   />
                 </div>
                 
