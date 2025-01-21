@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Editor from "@monaco-editor/react";
-import * as Sk from "skulpt";
 
 interface CodeEditorProps {
   code: string;
@@ -13,30 +12,9 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
 
   const handleRunClick = () => {
     setIsRunning(true);
-    runPythonCode(code).finally(() => setIsRunning(false));
-  };
+    onRun().finally(() => setIsRunning(false));
+  }
 
-  const runPythonCode = (code: string) => {
-    return new Promise<void>((resolve, reject) => {
-      Sk.configure({
-        output: (text: string) => console.log(text),
-        read: (x: string) => {
-          if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined) {
-            throw new Error("File not found: '" + x + "'");
-          }
-          return Sk.builtinFiles["files"][x];
-        },
-      });
-
-      Sk.TurtleGraphics.target = "turtle-canvas";
-      Sk.misceval.asyncToPromise(() => Sk.importMainWithBody("<stdin>", false, code, true))
-        .then(() => resolve())
-        .catch((err: any) => {
-          console.error(err.toString());
-          reject(err);
-        });
-    });
-  };
 
   return (
     <div className="rounded-xl overflow-hidden shadow-lg border-4 border-purple-300">
