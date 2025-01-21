@@ -18,9 +18,10 @@
     "axios": "^1.7.9",
     "codemirror": "^6.0.1",
     "lucide-react": "^0.344.0",
+    "p5": "^1.4.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "skulpt": "^1.2.0"
+    "skulpt": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
