@@ -1,6 +1,6 @@
 # Python-Lernplattform
 
-Eine interaktive Webanwendung zum Erlernen von Python-Grundlagen.
+Eine interaktive Webanwendung/WebApp zum Erlernen von Python-Grundlagen.
 
 ## Inhaltsverzeichnis
 
@@ -11,6 +11,7 @@ Eine interaktive Webanwendung zum Erlernen von Python-Grundlagen.
 - [Projektstruktur](#projektstruktur)
 - [Verwendung](#verwendung)
 - [Lektionen](#lektionen)
+- [Befehle](#befehle)
 
 ## Überblick
 
