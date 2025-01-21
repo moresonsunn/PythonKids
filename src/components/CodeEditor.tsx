@@ -23,7 +23,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
           className={`bg-white text-blue-500 font-bold py-2 px-4 rounded shadow whitespace-nowrap ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isRunning}
         >
-          {isRunning ? 'Wird ausgeführt...' : 'Run'}
+          {isRunning ? 'Wird ausgeführt...' : 'Ausführen'}
         </button>
       </div>
       <Editor
