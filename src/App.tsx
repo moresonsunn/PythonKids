@@ -3,7 +3,6 @@ import { BookOpen, GamepadIcon, Code } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
-import './App.css';
 
 declare global {
   interface Window {

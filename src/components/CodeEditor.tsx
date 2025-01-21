@@ -13,9 +13,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
   const handleRunClick = () => {
     setIsRunning(true);
     onRun().finally(() => setIsRunning(false));
-  }
-
-
+  };
   return (
     <div className="rounded-xl overflow-hidden shadow-lg border-4 border-purple-300">
       <div className="bg-gradient-to-r from-blue-400 to-purple-400 px-4 py-3 flex justify-between items-center">
