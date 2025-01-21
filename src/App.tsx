@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isRunning, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {

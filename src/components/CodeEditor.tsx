@@ -45,7 +45,6 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
         }}
         theme="vs"
       />
-      <div id="turtle-canvas" className="turtle-canvas"></div>
     </div>
   );
 }
