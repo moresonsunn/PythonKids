@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
-  const [isRunning, setIsLoading] = useState(false);
+  const [setIsRunning] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const App: React.FC = () => {
   }, []);
 
   const executeCode = async () => {
-    setIsLoading(true);
+    setIsRunning(true);
     try {
       const pyodide = await window.loadPyodide();
       pyodide.runPython(`
@@ -52,7 +52,7 @@ const App: React.FC = () => {
       setOutput(`Fehler: ${(error as Error).message}`);
       setIsError(true);
     }
-    setIsLoading(false);
+    setIsRunning(false);
   };
 
   return (
