@@ -100,7 +100,7 @@ Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
         difficulty: 'Leicht',
         content: 'Funktionen sind wiederverwendbare Code-Blöcke.',
         initialCode: 'def hallo_welt():\n    print("Hallo Welt!")',
-        task: 'Erstelle eine Funktion mit deinem Namen',
+        task: 'Erstelle eine Funktion mit deinem Namen und gebe die funktion in der Ausgabe aus',
         solution: 'def mein_name():\n    print("Dein Name")',
         hint: 'Nutze def um eine Funktion zu erstellen'
       },

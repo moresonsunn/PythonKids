@@ -99,4 +99,4 @@ Jede Lektion enthält:
 1. npm install
 2. npm run build // Erstellt eine datei names dist wo alle dateien gespeichert werden
 3. npm start // Für kurze tests
-4. npx electron-packager . PythonLernApp --platform=win32 --arch=x64 --out=release-build --overwrite // Um einen Ordner zuerstellen wo eine 
+4. npx electron-packager . PythonLernApp --platform=win32 --arch=x64 --out=release-build --overwrite // Um einen Ordner zuerstellen wo eine .exe datei ist zum ausführen der App
