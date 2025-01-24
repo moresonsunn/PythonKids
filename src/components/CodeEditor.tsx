@@ -36,7 +36,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
           fontFamily: "'Comic Code', 'Cascadia Code', monospace",
           minimap: { enabled: false },
           scrollBeyondLastLine: false,
-          lineNumbers: "off",
+          lineNumbers: "on",
           roundedSelection: true,
           padding: { top: 16 },
           theme: "vs",
