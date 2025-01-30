@@ -78,7 +78,7 @@ ist_wahr = True  # Speichert einen Wahrheitswert',
         difficulty: 'Schwer',
         content: 'Text und Zahlen zusammen verwenden.',
         initialCode: 'alter = 10\nname = "Max"',
-        task: 'Erstelle zwei Varibalen z.b. name und alter',
+        task: 'Erstelle zwei Varibalen z.b. name und alter und gebe sie aus',
         solution: 'print(f"{name} ist {alter} Jahre alt")',
         hint: 'Nutze f-Strings mit {}'
       }
@@ -101,7 +101,7 @@ Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
         content: 'Funktionen sind wiederverwendbare Code-Blöcke.',
         initialCode: 'def hallo_welt():\n    print("Hallo Welt!")',
         task: 'Erstelle eine Funktion mit deinem Namen und gebe die funktion in der Ausgabe aus',
-        solution: 'def mein_name():\n    print("Dein Name")',
+        solution: 'def mein_name():\n name = "Dein Name"\n print(name)',
         hint: 'Nutze def um eine Funktion zu erstellen'
       },
       {
@@ -544,7 +544,6 @@ interface LessonContentProps {
   topic: string;
   selectedSubLesson: string;
   learningStyle: 'text' | 'interactive';
-  output: string;  
   isError: boolean;
   onErrorCountChange: (count: number) => void; 
 }
@@ -553,7 +552,6 @@ export default function LessonContent({
   topic, 
   selectedSubLesson,
   learningStyle,
-  output,
   isError,
   onErrorCountChange 
 }: LessonContentProps) {
@@ -566,7 +564,7 @@ export default function LessonContent({
       setErrorCount(newErrorCount);
       onErrorCountChange(newErrorCount);
     }
-  }, [output, isError]);
+  }, [isError]);
 
   useEffect(() => {
     setShowHint(false);
@@ -621,7 +619,7 @@ export default function LessonContent({
             onClick={() => setShowHint(true)}
             className="flex items-center px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
           >
-            <Terminal className="h-4 w-4 mr-2" />
+            <Terminal className="flex h-4 w-4 mr-2" />
             Hilfe
           </button>
         )}

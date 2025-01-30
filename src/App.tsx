@@ -4,56 +4,47 @@ import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
 
-declare global {
-  interface Window {
-    loadPyodide: () => Promise<any>;
-  }
-}
+
 
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables');
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
-  const [output, setOutput] = useState('');
-  const [,setIsRunning] = useState(false);
+  const [output, setOutput] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    async function loadPyodide() {
-      if (!window.loadPyodide) {
-        console.error('Pyodide is not loaded');
-        return;
-      }
-      try {
-        await window.loadPyodide();
-        console.log('Pyodide loaded successfully');
-      } catch (error) {
-        console.error('Failed to load Pyodide:', error);
-      }
-    }
-    loadPyodide();
-  }, []);
+    setOutput(output || "");
+  }, [code]);
 
-  const executeCode = async () => {
-    setIsRunning(true);
-    try {
-      const pyodide = await window.loadPyodide();
-      pyodide.runPython(`
-        import sys
-        import io
-        sys.stdout = io.StringIO()
-      `);
-      await pyodide.runPythonAsync(code);
-      const output = pyodide.runPython("sys.stdout.getvalue()");
-      setOutput(output || "Keine Ausgabe");
+  useEffect(() => {
+    setOutput(output || "");
+    setIsError(false);
+  }, [selectedSubLesson]);
+
+  useEffect(() => {
+    if (learningStyle === 'interactive') {
+      setOutput(output || "");
       setIsError(false);
-    } catch (error) {
-      setOutput(`Fehler: ${(error as Error).message}`);
-      setIsError(true);
     }
-    setIsRunning(false);
-  };
+  }, [learningStyle]);
+
+  useEffect(() => {
+    if (learningStyle === 'interactive') {
+      console.log("Lade Brython neu...");
+      setTimeout(() => {
+        if (typeof window.brython === "function") {
+          window.brython();
+          console.log("Brython erfolgreich neu geladen.");
+        } else {
+          console.error("Fehler: Brython nicht gefunden.");
+        }
+      }, 100);
+    }
+  }, [learningStyle]);
+  
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
@@ -110,7 +101,6 @@ const App: React.FC = () => {
               topic={selectedTopic}
               learningStyle={learningStyle}
               selectedSubLesson={selectedSubLesson}
-              output={output}
               isError={isError}
               onErrorCountChange={(count) => {
                 console.log('Error count:', count);
@@ -125,8 +115,8 @@ const App: React.FC = () => {
                   <CodeEditor 
                     code={code}
                     setCode={setCode}
-                    onRun={executeCode}
-                    
+                    setOutput={setOutput}
+                    setIsError={setIsError}
                   />
                 </div>
                 

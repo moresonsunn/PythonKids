@@ -1,11 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import babel from 'vite-plugin-babel';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
   plugins: [
+    babel(),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -27,7 +29,11 @@ export default defineConfig({
     })
   ],
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    exclude: ['lucide-react', 'brython', 'brython/stdlib'],
+  },
+  build: {
+    rollupOptions: {
+      external: ['brython', 'brython/stdlib'],
+    },
   },
 });
-
