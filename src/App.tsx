@@ -1,4 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
+declare global {
+  interface Window {
+    brython: () => void;
+  }
+}
 import { BookOpen, GamepadIcon, Code } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
