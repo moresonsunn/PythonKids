@@ -3,9 +3,7 @@ import Editor from "@monaco-editor/react";
 
 declare global {
   interface Window {
-    __BRYTHON__?: {
-      run_script: (code: string) => void;
-    };
+    __BRYTHON__: any;
   }
 }
 
@@ -15,6 +13,7 @@ interface CodeEditorProps {
   setOutput: (output: string) => void;
   setIsError: (isError: boolean) => void;
 }
+
 export default function CodeEditor({ code, setCode, setOutput, setIsError }: CodeEditorProps) {
   const [isRunning, setIsRunning] = useState(false);
 
@@ -23,33 +22,40 @@ export default function CodeEditor({ code, setCode, setOutput, setIsError }: Cod
     setOutput("");
     setIsError(false);
 
+    // Deklariere originalPrint hier, damit sie im finally-Block verfügbar ist
+    const originalPrint = console.log;
+
     try {
-      if (!window.__BRYTHON__ || typeof window.__BRYTHON__.run_script !== "function") {
-        setOutput("Fehler: Brython ist nicht korrekt geladen.");
-        setIsError(true);
-        return;
+      if (!window.__BRYTHON__) {
+        throw new Error("Brython ist nicht initialisiert");
       }
 
-      // Ausgabe abfangen
-      let capturedOutput = "";
-      const originalPrint = console.log;
-      console.log = (message) => {
-        capturedOutput += message + "/";
+      // Ausgabe-Handler
+      let outputBuffer = "";
+      console.log = (...args: any[]) => {
+        outputBuffer += args
+          .map((arg) => (arg !== undefined && arg !== null ? arg.toString() : "undefined"))
+          .join(" ") + "\n";
       };
 
-      console.log("Starte Brython-Code-Ausführung...");
+      // Fehler-Handler
+      window.__BRYTHON__.exceptionHandler = (err: any) => {
+        setOutput(`Fehler: ${err.info || err.message}`);
+        setIsError(true);
+      };
 
-      // Python-Code sicher ausführen
-      window.__BRYTHON__.run_script(code);
+      // Code ausführen
+      await window.__BRYTHON__.run_script(code, "__main__");
+      setOutput(outputBuffer.trim() || "Programm erfolgreich ausgeführt!");
 
-      console.log = originalPrint; // Konsole zurücksetzen
-      setOutput(capturedOutput.trim());
-    } catch (error) {
-      setOutput(`Fehler: ${(error as Error).toString()}`);
+    } catch (error: any) {
+      setOutput(`Schwerer Fehler: ${error.message}`);
       setIsError(true);
+    } finally {
+      // Setze die Konsole zurück
+      console.log = originalPrint;
+      setIsRunning(false);
     }
-
-    setIsRunning(false);
   };
 
   return (

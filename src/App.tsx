@@ -1,55 +1,55 @@
 import React, { useState, useEffect } from 'react';
-
-declare global {
-  interface Window {
-    brython: () => void;
-  }
-}
 import { BookOpen, GamepadIcon, Code } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
 
-
+declare global {
+  interface Window {
+    brython: () => void;
+    __BRYTHON__: any;
+  }
+}
 
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables');
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
-  const [output, setOutput] = useState<string | null>(null);
+  const [output, setOutput] = useState<string>('');
   const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    setOutput(output || "");
-  }, [code]);
-
-  useEffect(() => {
-    setOutput(output || "");
-    setIsError(false);
-  }, [selectedSubLesson]);
-
+  // Brython-Initialisierung
   useEffect(() => {
     if (learningStyle === 'interactive') {
-      setOutput(output || "");
-      setIsError(false);
-    }
-  }, [learningStyle]);
-
-  useEffect(() => {
-    if (learningStyle === 'interactive') {
-      console.log("Lade Brython neu...");
-      setTimeout(() => {
-        if (typeof window.brython === "function") {
-          window.brython();
-          console.log("Brython erfolgreich neu geladen.");
-        } else {
-          console.error("Fehler: Brython nicht gefunden.");
+      const initBrython = () => {
+        if (!window.__BRYTHON__) {
+          console.error('Brython nicht geladen!');
+          return;
         }
-      }, 100);
+
+        // Turtle-Canvas konfigurieren
+        const canvas = document.getElementById('turtlecanvas') as HTMLCanvasElement;
+        if (canvas) {
+          window.__BRYTHON__.turtleCanvas = canvas;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+
+        // Brython neu starten
+        window.brython();
+      };
+
+      if (!document.querySelector('script[src*="brython_stdlib.js"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.0/brython_stdlib.js';
+        script.onload = initBrython;
+        document.head.appendChild(script);
+      } else {
+        initBrython();
+      }
     }
   }, [learningStyle]);
-  
 
 
   return (

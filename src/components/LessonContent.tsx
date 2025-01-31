@@ -613,7 +613,7 @@ export default function LessonContent({
       </div>
       <h3 className="text-lg font-semibold text-gray-700 mb-2">Deine Aufgabe:</h3>
       <div className="bg-gray-50 p-4 rounded-md">
-        <pre className="text-sm">{currentSubLesson.task}</pre>
+        <pre className="text-sm whitespace-pre-wrap">{currentSubLesson.task}</pre>
         {!showHint && (
           <button
             onClick={() => setShowHint(true)}
