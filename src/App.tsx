@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-declare global {
-  interface Window {
-    brython: () => void;
-  }
-}
 import { BookOpen, GamepadIcon, Code } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
@@ -17,40 +12,8 @@ const App: React.FC = () => {
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
-  const [output, setOutput] = useState<string | null>(null);
+  const [output, setOutput] = useState('');
   const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setOutput(output || "");
-  }, [code]);
-
-  useEffect(() => {
-    setOutput(output || "");
-    setIsError(false);
-  }, [selectedSubLesson]);
-
-  useEffect(() => {
-    if (learningStyle === 'interactive') {
-      setOutput(output || "");
-      setIsError(false);
-    }
-  }, [learningStyle]);
-
-  useEffect(() => {
-    if (learningStyle === 'interactive') {
-      console.log("Lade Brython neu...");
-      setTimeout(() => {
-        if (typeof window.brython === "function") {
-          window.brython();
-          console.log("Brython erfolgreich neu geladen.");
-        } else {
-          console.error("Fehler: Brython nicht gefunden.");
-        }
-      }, 100);
-    }
-  }, [learningStyle]);
-  
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">

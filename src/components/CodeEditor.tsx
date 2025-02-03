@@ -1,54 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
+import { loadPyodide } from "pyodide";
 
-declare global {
-  interface Window {
-    __BRYTHON__?: {
-      run_script: (code: string) => void;
-    };
-  }
-}
-
-interface CodeEditorProps {
-  code: string;
-  setCode: (code: string) => void;
-  setOutput: (output: string) => void;
-  setIsError: (isError: boolean) => void;
-}
-export default function CodeEditor({ code, setCode, setOutput, setIsError }: CodeEditorProps) {
+export default function CodeEditor({ code, setCode, setIsError }) {
   const [isRunning, setIsRunning] = useState(false);
+  const [pyodide, setPyodide] = useState<any>(null);
+  const [output, setOutput] = useState("");
+
+  useEffect(() => {
+    async function initPyodide() {
+      const py = await loadPyodide();
+      setPyodide(py);
+    }
+    initPyodide();
+  }, []);
 
   const handleRunClick = async () => {
+    if (!pyodide) return;
     setIsRunning(true);
     setOutput("");
     setIsError(false);
 
     try {
-      if (!window.__BRYTHON__ || typeof window.__BRYTHON__.run_script !== "function") {
-        setOutput("Fehler: Brython ist nicht korrekt geladen.");
-        setIsError(true);
-        return;
-      }
-
-      // Ausgabe abfangen
-      let capturedOutput = "";
-      const originalPrint = console.log;
-      console.log = (message) => {
-        capturedOutput += message + "/";
-      };
-
-      console.log("Starte Brython-Code-Ausführung...");
-
-      // Python-Code sicher ausführen
-      window.__BRYTHON__.run_script(code);
-
-      console.log = originalPrint; // Konsole zurücksetzen
-      setOutput(capturedOutput.trim());
+      const result = pyodide.runPython(code);
+      setOutput(result);
     } catch (error) {
-      setOutput(`Fehler: ${(error as Error).toString()}`);
+      setOutput(error.toString());
       setIsError(true);
     }
-
     setIsRunning(false);
   };
 
@@ -67,7 +46,7 @@ export default function CodeEditor({ code, setCode, setOutput, setIsError }: Cod
         </button>
       </div>
       <Editor
-        height="316px"
+        height="352px"
         defaultLanguage="python"
         value={code}
         onChange={(value) => setCode(value || "")}

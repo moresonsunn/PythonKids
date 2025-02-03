@@ -19,6 +19,7 @@
     "brython": "^3.13.1",
     "codemirror": "^6.0.1",
     "lucide-react": "^0.344.0",
+    "pyodide": "^0.27.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite-plugin-babel": "^1.3.0"
