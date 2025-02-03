@@ -28,10 +28,5 @@ export default defineConfig({
   ],
   optimizeDeps: {
     exclude: ['lucide-react', 'pyodide', 'monaco-editor'],
-  },
-  build: {
-    rollupOptions: {
-      external: ['brython', 'brython/stdlib'],
-    },
-  },
+  }
 });

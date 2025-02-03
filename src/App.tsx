@@ -5,8 +5,6 @@ import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
 
-
-
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables');
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');

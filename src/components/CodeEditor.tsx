@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { loadPyodide } from "pyodide";
 
-export default function CodeEditor({ code, setCode, setIsError }) {
+export default function CodeEditor({ code, setCode, setOutput, setIsError }) {
   const [isRunning, setIsRunning] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
-  const [output, setOutput] = useState("");
 
   useEffect(() => {
     async function initPyodide() {
@@ -46,7 +45,7 @@ export default function CodeEditor({ code, setCode, setIsError }) {
         </button>
       </div>
       <Editor
-        height="352px"
+        height="300px"
         defaultLanguage="python"
         value={code}
         onChange={(value) => setCode(value || "")}
