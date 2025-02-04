@@ -12,6 +12,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
 
   const handleRunClick = () => {
     setIsRunning(true);
+    onRun().finally(() => setIsRunning(false));
   };
 
   return (
