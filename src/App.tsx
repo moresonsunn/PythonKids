@@ -113,6 +113,7 @@ const App: React.FC = () => {
                   <CodeEditor 
                     code={code}
                     setCode={setCode}
+                    onRun={executeCode}
                   />
                 </div>
                 
