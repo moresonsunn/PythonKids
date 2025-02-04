@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { loadPyodide } from "pyodide";
 import { BookOpen, GamepadIcon, Code } from 'lucide-react';
+
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
 import LessonContent, { lessons } from './components/LessonContent';
@@ -12,6 +13,36 @@ const App: React.FC = () => {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [isError, setIsError] = useState(false);
+  const [pyodide, setPyodide] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    async function initPyodide() {
+      const py = await loadPyodide();
+      setPyodide(py);
+    }
+    initPyodide();
+  }, []);
+
+  const executeCode = async () => {
+    setIsLoading(true);
+    try {
+      const pyodide = await loadPyodide();
+      pyodide.runPython(`
+        import sys
+        import io
+        sys.stdout = io.StringIO()
+      `);
+      await pyodide.runPythonAsync(code);
+      const output = pyodide.runPython("sys.stdout.getvalue()");
+      setOutput(output || "Keine Ausgabe");
+      setIsError(false);
+    } catch (error) {
+      setOutput(`Fehler: ${(error as Error).message}`);
+      setIsError(true);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
@@ -82,8 +113,6 @@ const App: React.FC = () => {
                   <CodeEditor 
                     code={code}
                     setCode={setCode}
-                    setOutput={setOutput}
-                    setIsError={setIsError}
                   />
                 </div>
                 
@@ -103,3 +132,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

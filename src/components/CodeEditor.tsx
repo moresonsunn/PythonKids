@@ -1,33 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Editor from "@monaco-editor/react";
-import { loadPyodide } from "pyodide";
 
-export default function CodeEditor({ code, setCode, setOutput, setIsError }) {
+interface CodeEditorProps {
+  code: string;
+  setCode: (code:string) => void;
+  onRun: () => Promise<void>;
+}
+
+export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
   const [isRunning, setIsRunning] = useState(false);
-  const [pyodide, setPyodide] = useState<any>(null);
 
-  useEffect(() => {
-    async function initPyodide() {
-      const py = await loadPyodide();
-      setPyodide(py);
-    }
-    initPyodide();
-  }, []);
-
-  const handleRunClick = async () => {
-    if (!pyodide) return;
+  const handleRunClick = () => {
     setIsRunning(true);
-    setOutput("");
-    setIsError(false);
-
-    try {
-      const result = pyodide.runPython(code);
-      setOutput(result);
-    } catch (error) {
-      setOutput(error.toString());
-      setIsError(true);
-    }
-    setIsRunning(false);
   };
 
   return (
@@ -36,9 +20,7 @@ export default function CodeEditor({ code, setCode, setOutput, setIsError }) {
         <span className="text-xl font-bold text-white">🐍 Python Editor</span>
         <button
           onClick={handleRunClick}
-          className={`bg-white text-blue-500 font-bold py-2 px-4 rounded shadow ${
-            isRunning ? "opacity-50 cursor-not-allowed" : ""
-          }`}
+          className={`bg-white text-blue-500 font-bold py-2 px-4 rounded shadow whitespace-nowrap ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isRunning}
         >
           {isRunning ? "Wird ausgeführt..." : "Ausführen"}

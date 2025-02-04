@@ -49,7 +49,7 @@ und sie können verschiedene Arten von Daten speichern,wie Zahlen, Texte oder so
 Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
     Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl" \n\
 text = "Hallo, Welt!"  # Speichert den Text in der Variable "text" \n\
-ist_wahr = True  # Speichert einen Wahrheitswert',
+ist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
     subLessons: [
       // Jedes Objekt repräsentiert eine Unterlektion
       {
@@ -58,7 +58,7 @@ ist_wahr = True  # Speichert einen Wahrheitswert',
         difficulty: 'Leicht',
         content: 'Lerne wie man Variablen erstellt und verwendet.',
         initialCode: 'name = "Max"\nprint(name)',
-        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus',
+        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, so das dein Name ausgegeben wird.',
         solution: 'name = "Dein Name"\nprint(name)',
         hint: 'Denk an die Anführungszeichen bei Text!'
       },
