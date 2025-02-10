@@ -42,23 +42,18 @@ export const lessons: Lesson[] = [
     id: 'variables',
     title: 'Variablen',
     icon: CircleDot,
-    definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, \n\
-um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, \n\
-und sie können verschiedene Arten von Daten speichern,wie Zahlen, Texte oder sogar Listen.',
-    functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). \
-Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
-    Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl" \n\
-text = "Hallo, Welt!"  # Speichert den Text in der Variable "text" \n\
-ist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
+    definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen, Texte oder sogar Listen.',
+    functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
+    Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"\ntext = "Hallo, Welt!"  # Speichert den Text in der Variable "text"\nist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
     subLessons: [
       // Jedes Objekt repräsentiert eine Unterlektion
       {
         id: 'variables-1',
         title: 'Erste Schritte mit Variablen',
         difficulty: 'Leicht',
-        content: 'Lerne wie man Variablen erstellt und verwendet.',
+        content: 'Lerne, wie man Variablen erstellt und verwendet.',
         initialCode: 'name = "Max"\nprint(name)',
-        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, so das dein Name ausgegeben wird.',
+        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, sodass dein Name ausgegeben wird.',
         solution: 'name = "Dein Name"\nprint(name)',
         hint: 'Denk an die Anführungszeichen bei Text!'
       },
@@ -68,9 +63,9 @@ ist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
         difficulty: 'Mittel',
         content: 'Mathematische Operationen mit Variablen.',
         initialCode: 'zahl1 = 5\nzahl2 = 3\nprint(zahl1 + zahl2)',
-        task: 'Addiere die beiden Zahlen 10 und 20 gebe sie aus',
-        solution: 'ergebnis = zahl1 + zahl2\nprint(ergebnis)',
-        hint: 'Nutze den Plus-Operator'
+        task: 'Addiere die beiden Zahlen 10 und 20 und gebe das Ergebnis aus.',
+        solution: 'zahl1 = 10\nzahl2 = 20\nergebnis = zahl1 + zahl2\nprint(ergebnis)',
+        hint: 'Nutze den Plus-Operator.'
       },
       {
         id: 'variables-3',
@@ -78,9 +73,9 @@ ist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
         difficulty: 'Schwer',
         content: 'Text und Zahlen zusammen verwenden.',
         initialCode: 'alter = 10\nname = "Max"',
-        task: 'Erstelle zwei Varibalen z.b. name und alter und gebe sie aus',
-        solution: 'print(f"{name} ist {alter} Jahre alt")',
-        hint: 'Nutze f-Strings mit {}'
+        task: 'Erstelle zwei Variablen, z.B. name und alter, und gebe sie aus.',
+        solution: 'name = "Max"\nalter = 10\nprint(f"{name} ist {alter} Jahre alt")',
+        hint: 'Nutze f-Strings mit {}.'
       }
     ],
   },
@@ -88,11 +83,9 @@ ist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
     id: 'functions',
     title: 'Funktionen',
     icon: Code2,
-    definition: 'Funktionen sind kleine Programme innerhalb deines Programms. \
-Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
+    definition: 'Funktionen sind kleine Programme innerhalb deines Programms. Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
     functions: 'Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:',
-    Example: 'def begruessung():  # Funktion mit dem Namen "hallo_welt"\n\
-   print("Hallo!")  # Code-Block der Funktion',
+    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   print("Hallo!")  # Code-Block der Funktion',
     subLessons: [
       {
         id: 'functions-1',
@@ -100,9 +93,9 @@ Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
         difficulty: 'Leicht',
         content: 'Funktionen sind wiederverwendbare Code-Blöcke.',
         initialCode: 'def hallo_welt():\n    print("Hallo Welt!")',
-        task: 'Erstelle eine Funktion mit deinem Namen und gebe die funktion in der Ausgabe aus',
-        solution: 'def mein_name():\n name = "Dein Name"\n print(name)',
-        hint: 'Nutze def um eine Funktion zu erstellen'
+        task: 'Erstelle eine Funktion mit deinem Namen und gebe die Funktion in der Ausgabe aus.',
+        solution: 'def mein_name():\n    name = "Dein Name"\n    print(name)',
+        hint: 'Nutze def, um eine Funktion zu erstellen.'
       },
       {
         id: 'functions-2',
@@ -110,9 +103,9 @@ Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
         difficulty: 'Mittel',
         content: 'Funktionen können Werte übergeben bekommen.',
         initialCode: 'def hallo(name):\n    print(f"Hallo {name}")',
-        task: 'Erstelle eine Funktion die zwei Zahlen addiert',
+        task: 'Erstelle eine Funktion, die zwei Zahlen addiert.',
         solution: 'def addiere(zahl1, zahl2):\n    print(zahl1 + zahl2)',
-        hint: 'Nutze die Parameter in der Funktion'
+        hint: 'Nutze die Parameter in der Funktion.'
       },
       {
         id: 'functions-3',
@@ -120,38 +113,29 @@ Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
         difficulty: 'Schwer',
         content: 'Funktionen können Werte zurückgeben.',
         initialCode: 'def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2',
-        task: 'Erstelle eine Funktion die zwei Zahlen multipliziert',
+        task: 'Erstelle eine Funktion, die zwei Zahlen multipliziert.',
         solution: 'def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2',
-        hint: 'Nutze return um einen Wert zurückzugeben'
+        hint: 'Nutze return, um einen Wert zurückzugeben.'
       }
     ],
   },
   {
-    id: 'Lists',
+    id: 'lists',
     title: 'Listen',
     icon: ListOrdered,
-    definition: 'Listen sind wie eine Sammlung von Dingen, die du in \
-einer bestimmten Reihenfolge speichern kannst. Sie können \
-Zahlen, Texte oder sogar andere Listen enthalten. \
-Der Index einer Liste beginnt bei 0, d. h. \
-das erste Element hat den Index 0, das zweite den Index 1 usw. \
-\n\
-\n\
-Du kannst Elemente ändern, hinzufügen oder löschen.',
+    definition: 'Listen sind wie eine Sammlung von Dingen, die du in einer bestimmten Reihenfolge speichern kannst. Sie können Zahlen, Texte oder sogar andere Listen enthalten. Der Index einer Liste beginnt bei 0, d. h. das erste Element hat den Index 0, das zweite den Index 1 usw. Du kannst Elemente ändern, hinzufügen oder löschen.',
     functions: 'Eine Liste mit eckigen Klammern [] erstellen, z. B.:',
-    Example: 'lieblingsessen = ["Pizza", "Burger", "Pasta"] \n\
-print(lieblingsessen[0])  # Ausgabe: Pizza \n\
-lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
+    Example: 'lieblingsessen = ["Pizza", "Burger", "Pasta"]\nprint(lieblingsessen[0])  # Ausgabe: Pizza\nlieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     subLessons: [
       {
         id: 'lists-1',
         title: 'Listen erstellen',
         difficulty: 'Leicht',
-        content: 'Lerne wie man Listen erstellt und verwendet.',
+        content: 'Lerne, wie man Listen erstellt und verwendet.',
         initialCode: 'namen = ["Max", "Moritz", "Erika"]\nprint(namen)',
-        task: 'Erstelle eine Liste mit deinen Lieblingsfarben',
+        task: 'Erstelle eine Liste mit deinen Lieblingsfarben.',
         solution: 'farben = ["Rot", "Grün", "Blau"]\nprint(farben)',
-        hint: 'Nutze eckige Klammern [] und vergess nicht die Anführungszeichen'
+        hint: 'Nutze eckige Klammern [] und vergiss nicht die Anführungszeichen.'
       },
       {
         id: 'lists-2',
@@ -159,9 +143,9 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
         difficulty: 'Mittel',
         content: 'Einzelne Elemente aus Listen auswählen.',
         initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Wähle das erste Element aus der Liste aus',
+        task: 'Wähle das erste Element aus der Liste aus.',
         solution: 'print(farben[0])',
-        hint: 'Nutze denn Index des Elements in eckigen Klammern beim print'
+        hint: 'Nutze den Index des Elements in eckigen Klammern beim print.'
       },
       {
         id: 'lists-3',
@@ -169,9 +153,9 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
         difficulty: 'Schwer',
         content: 'Elemente hinzufügen, entfernen und verändern.',
         initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Füge der Liste eine weitere Farbe hinzu',
+        task: 'Füge der Liste eine weitere Farbe hinzu.',
         solution: 'farben.append("Gelb")\nprint(farben)',
-        hint: 'Nutze dafür die Methode append()'
+        hint: 'Nutze dafür die Methode append().'
       },
     ],
   },
@@ -179,19 +163,9 @@ lieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
     id: 'operators',
     title: 'Operatoren',
     icon: Terminal,
-    definition: 'Operatoren sind Symbole, die Aktionen auf Werten ausführen.\
-Es gibt verschiedene Arten: \n\
-Rechenoperatoren: \n\
-+ (Addition), - (Subtraktion), * (Multiplikation), / (Division). \n\
-Vergleichsoperatoren: \n\
-== (gleich), != (ungleich), <, >, <=, >=. \n\
-Logische Operatoren: \n\
-and (und), or (oder), not (nicht).',
+    definition: 'Operatoren sind Symbole, die Aktionen auf Werten ausführen. Es gibt verschiedene Arten: Rechenoperatoren: + (Addition), - (Subtraktion), * (Multiplikation), / (Division). Vergleichsoperatoren: == (gleich), != (ungleich), <, >, <=, >=. Logische Operatoren: and (und), or (oder), not (nicht).',
     functions: 'Operatoren werden in der Regel zwischen zwei Werten verwendet, z. B.:',
-    Example: 'zahl1 = 10 \n\
-zahl2 = 5\n\
-print(zahl1 + zahl2)  # Ausgabe: 15\n\
-print(zahl1 > zahl2)  # Ausgabe: True',
+    Example: 'zahl1 = 10\nzahl2 = 5\nprint(zahl1 + zahl2)  # Ausgabe: 15\nprint(zahl1 > zahl2)  # Ausgabe: True',
     subLessons: [
       {
         id: 'operators-1',
@@ -199,9 +173,9 @@ print(zahl1 > zahl2)  # Ausgabe: True',
         difficulty: 'Leicht',
         content: 'Die Grundrechenarten in Python.',
         initialCode: 'zahl1 = 5\nzahl2 = 3',
-        task: 'Multipliziere die beiden Zahlen',
+        task: 'Multipliziere die beiden Zahlen.',
         solution: 'ergebnis = zahl1 * zahl2\nprint(ergebnis)',
-        hint: 'Nutze den Stern-Operator'
+        hint: 'Nutze den Stern-Operator.'
       },
       {
         id: 'operators-2',
@@ -209,9 +183,9 @@ print(zahl1 > zahl2)  # Ausgabe: True',
         difficulty: 'Mittel',
         content: 'Vergleiche Werte miteinander.',
         initialCode: 'zahl1 = 5\nzahl2 = 3',
-        task: 'Vergleiche ob die Zahlen gleich sind',
+        task: 'Vergleiche, ob die Zahlen gleich sind.',
         solution: 'print(zahl1 == zahl2)',
-        hint: 'Nutze den doppelten Gleichheitszeichen'
+        hint: 'Nutze den doppelten Gleichheitszeichen.'
       },
       {
         id: 'operators-3',
@@ -219,9 +193,9 @@ print(zahl1 > zahl2)  # Ausgabe: True',
         difficulty: 'Schwer',
         content: 'Verknüpfe Bedingungen miteinander.',
         initialCode: 'zahl1 = 5\nzahl2 = 3',
-        task: 'Überprüfe ob beide Zahlen größer als 0 sind',
+        task: 'Überprüfe, ob beide Zahlen größer als 0 sind.',
         solution: 'print(zahl1 > 0 and zahl2 > 0)',
-        hint: 'Nutze das Schlüsselwort and'
+        hint: 'Nutze das Schlüsselwort and.'
       }
     ],
   },
@@ -229,21 +203,9 @@ print(zahl1 > zahl2)  # Ausgabe: True',
     id: 'errors',
     title: 'Fehlerausgaben',
     icon: AlertCircle,
-    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir,\n\
-diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. \
-\n\
-Arten von Fehlern:\n\
-\n\
-Syntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen.\n\
-print("Hallo  # Fehler: fehlendes Anführungszeichen\n\
-Logikfehler: Das Programm läuft, aber es tut nicht das, was du willst.\n\
-Runtime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
-    functions: 'Python hilft dir:\n\
-\n\
-Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:',
-    Example: 'print("Hallo \n\
-      ^ \n\
-SyntaxError: unterminated string literal (detected at line 1)',
+    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. Arten von Fehlern: Syntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen. Logikfehler: Das Programm läuft, aber es tut nicht das, was du willst. Runtime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
+    functions: 'Python hilft dir: Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:',
+    Example: 'print("Hallo\n      ^\nSyntaxError: unterminated string literal (detected at line 1)',
     subLessons: [
       {
         id: 'errors-1',
@@ -251,9 +213,9 @@ SyntaxError: unterminated string literal (detected at line 1)',
         difficulty: 'Leicht',
         content: 'Fehlermeldungen in Python verstehen.',
         initialCode: 'print("Hallo Welt")',
-        task: 'Korrigiere denn Syntaxfehler',
-        solution: 'print("Hallo Welt"',
-        hint: 'Vergiss nicht die schließende Klammer'
+        task: 'Korrigiere den Syntaxfehler.',
+        solution: 'print("Hallo Welt")',
+        hint: 'Vergiss nicht die schließende Klammer.'
       },
       {
         id: 'errors-2',
@@ -261,9 +223,9 @@ SyntaxError: unterminated string literal (detected at line 1)',
         difficulty: 'Mittel',
         content: 'Fehler während der Ausführung des Programms.',
         initialCode: 'zahl = 5\nprint(zahl / 0)',
-        task: 'Füge einen Laufzeitfehler hinzu',
+        task: 'Füge einen Laufzeitfehler hinzu.',
         solution: 'zahl = 5\nprint(zahl / 0)',
-        hint: 'Teile durch 0'
+        hint: 'Teile durch 0.'
       },
       {
         id: 'errors-3',
@@ -271,9 +233,9 @@ SyntaxError: unterminated string literal (detected at line 1)',
         difficulty: 'Schwer',
         content: 'Fehler in der Logik des Programms.',
         initialCode: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")',
-        task: 'Füge einen Logikfehler hinzu',
+        task: 'Füge einen Logikfehler hinzu.',
         solution: 'zahl = 5\nif zahl < 10:\n    print("Zahl ist größer als 10")',
-        hint: 'Ändere das Vergleichszeichen'
+        hint: 'Ändere das Vergleichszeichen.'
       }
     ],
   },
@@ -281,13 +243,9 @@ SyntaxError: unterminated string literal (detected at line 1)',
     id: 'input',
     title: 'Input Befehle',
     icon: KeyRound,
-    definition: 'Der input()-Befehl erlaubt es, Benutzereingaben in das Programm aufzunehmen.\n\
-\n\
-Warum? \n\
-Damit dein Programm interaktiv wird, kannst du den Benutzer um Eingaben bitten.',
+    definition: 'Der input()-Befehl erlaubt es, Benutzereingaben in das Programm aufzunehmen. Warum? Damit dein Programm interaktiv wird, kannst du den Benutzer um Eingaben bitten.',
     functions: 'Der input()-Befehl gibt den eingegebenen Wert als Zeichenkette zurück.',
-    Example:'name = input("Wie heißt du? ")\n\
-print(f"Hallo, {name}!")',
+    Example: 'name = input("Wie heißt du? ")\nprint(f"Hallo, {name}!")',
     subLessons: [
       {
         id: 'input-1',
@@ -295,9 +253,9 @@ print(f"Hallo, {name}!")',
         difficulty: 'Leicht',
         content: 'Eingaben vom Benutzer entgegennehmen.',
         initialCode: 'name = input("Wie heißt du?")\nprint(name)',
-        task: 'Frage den Benutzer nach seinem Alter',
+        task: 'Frage den Benutzer nach seinem Alter.',
         solution: 'alter = input("Wie alt bist du?")\nprint(alter)',
-        hint: 'Nutze die Funktion input()'
+        hint: 'Nutze die Funktion input().'
       },
       {
         id: 'input-2',
@@ -305,9 +263,9 @@ print(f"Hallo, {name}!")',
         difficulty: 'Mittel',
         content: 'Zahlenwerte vom Benutzer entgegennehmen.',
         initialCode: 'zahl = input("Gib eine Zahl ein")\nprint(zahl)',
-        task: 'Lass den Benutzer zwei Zahlen addieren',
+        task: 'Lass den Benutzer zwei Zahlen addieren.',
         solution: 'zahl1 = int(input("Gib die erste Zahl ein"))\nzahl2 = int(input("Gib die zweite Zahl ein"))\nprint(zahl1 + zahl2)',
-        hint: 'Nutze die Funktion int()'
+        hint: 'Nutze die Funktion int().'
       },
       {
         id: 'input-3',
@@ -315,9 +273,9 @@ print(f"Hallo, {name}!")',
         difficulty: 'Schwer',
         content: 'Textwerte vom Benutzer entgegennehmen.',
         initialCode: 'text = input("Gib einen Text ein")\nprint(text)',
-        task: 'Lass den Benutzer einen Satz eingeben',
+        task: 'Lass den Benutzer einen Satz eingeben.',
         solution: 'satz = input("Gib einen Satz ein")\nprint(satz)',
-        hint: 'Nutze die Funktion input()'
+        hint: 'Nutze die Funktion input().'
       }
     ],
   },
@@ -325,13 +283,9 @@ print(f"Hallo, {name}!")',
     id: 'dictionaries',
     title: 'Dictionaries',
     icon: RotateCw,
-    definition:'Dictionaries sind wie Listen, aber statt einer Position haben sie Schlüssel, um Werte zu speichern. \n\
-\n\
-Warum? \n\
-Sie sind ideal, wenn du Daten strukturieren möchtest, z. B. eine Telefonnummer für jede Person.',
+    definition: 'Dictionaries sind wie Listen, aber statt einer Position haben sie Schlüssel, um Werte zu speichern. Warum? Sie sind ideal, wenn du Daten strukturieren möchtest, z. B. eine Telefonnummer für jede Person.',
     functions: 'Ein Dictionary mit geschweiften Klammern {} erstellen, z. B.:',
-    Example: 'telefonbuch = {"Anna": "12345", "Ben": "67890"} \n\
-print(telefonbuch["Anna"])  # Ausgabe: 12345',
+    Example: 'telefonbuch = {"Anna": "12345", "Ben": "67890"}\nprint(telefonbuch["Anna"])  # Ausgabe: 12345',
     subLessons: [
       {
         id: 'dictionaries-1',
@@ -339,9 +293,9 @@ print(telefonbuch["Anna"])  # Ausgabe: 12345',
         difficulty: 'Leicht',
         content: 'Schlüssel-Wert-Paare in Python.',
         initialCode: 'person = {"name": "Max", "alter": 30}\nprint(person)',
-        task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben',
+        task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben.',
         solution: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}\nprint(farben)',
-        hint: ' Nutze geschweifte Klammern {}'
+        hint: 'Nutze geschweifte Klammern {}.'
       },
       {
         id: 'dictionaries-2',
@@ -349,9 +303,9 @@ print(telefonbuch["Anna"])  # Ausgabe: 12345',
         difficulty: 'Mittel',
         content: 'Einzelne Elemente aus Dictionaries auswählen.',
         initialCode: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}',
-        task: 'Wähle die Farbe Grün aus dem Dictionary aus',
+        task: 'Wähle die Farbe Grün aus dem Dictionary aus.',
         solution: 'print(farben["grün"])',
-        hint: ' Nutze den Schlüssel des Elements'
+        hint: 'Nutze den Schlüssel des Elements.'
       },
       {
         id: 'dictionaries-3',
@@ -359,9 +313,9 @@ print(telefonbuch["Anna"])  # Ausgabe: 12345',
         difficulty: 'Schwer',
         content: 'Elemente hinzufügen, entfernen und verändern.',
         initialCode: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}',
-        task: 'Füge dem Dictionary eine weitere Farbe hinzu',
+        task: 'Füge dem Dictionary eine weitere Farbe hinzu.',
         solution: 'farben["gelb"] = "#ffff00"\nprint(farben)',
-        hint: 'Nutzte den Schlüssel zum Hinzufügen'
+        hint: 'Nutze den Schlüssel zum Hinzufügen.'
       },
     ],
   },
