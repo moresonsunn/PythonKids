@@ -7,8 +7,7 @@ import {
   KeyRound,
   GitFork,
   Repeat,
-  RotateCw,
-  Brush
+  RotateCw  
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
@@ -53,9 +52,9 @@ export const lessons: Lesson[] = [
         difficulty: 'Leicht',
         content: 'Lerne, wie man Variablen erstellt und verwendet.',
         initialCode: 'name = "Max"\nprint(name)',
-        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, sodass dein Name ausgegeben wird.',
+        task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, so dass dein Name ausgegeben wird.',
         solution: 'name = "Dein Name"\nprint(name)',
-        hint: 'Denk an die Anführungszeichen bei Text!'
+        hint: 'Denk an die Anführungszeichen beim Text!'
       },
       {
         id: 'variables-2',
@@ -430,70 +429,7 @@ while count < 5:\n\
       },
     ],
   },
-  {
-    id: 'turtle',
-    title: 'Turtle Grafik',
-    icon: Brush,
-    definition: 'Turtle Grafik ist wie ein Zeichenstift, den du mit Befehlen steuern kannst. \
-Die Schildkröte bewegt sich auf dem Bildschirm und zeichnet dabei Linien.',
-    functions: 'Wichtige Befehle:\n\
-    - forward(x): Bewege x Schritte vorwärts\n\
-    - right(x): Drehe x Grad nach rechts\n\
-    - left(x): Drehe x Grad nach links\n\
-    - penup(): Hebe den Stift ab\n\
-    - pendown(): Setze den Stift auf',
-    Example: 'import turtle\n\
-\n\
-# Fenster einrichten\n\
-screen = turtle.Screen()\n\
-screen.bgcolor("lightblue")\n\
-\n\
-# Turtle erstellen\n\
-stift = turtle.Turtle()\n\
-stift.pensize(2)\n\
-stift.speed(5)\n\
-\n\
-# Quadrat zeichnen\n\
-for _ in range(4):\n\
-    stift.forward(100)\n\
-    stift.left(90)\n\
-\n\
-turtle.done()',
-    subLessons: [
-      {
-        id: 'turtle-1',
-        title: 'Einfache Formen',
-        difficulty: 'Leicht',
-        content: 'Zeichne ein einfaches Quadrat mit der Turtle.',
-        initialCode: 'import turtle\n\nt = turtle.Turtle()\n\n# Zeichne hier dein Quadrat',
-        task: 'Zeichne ein Quadrat mit der Seitenlänge 100.',
-        solution: 'import turtle\n\nt = turtle.Turtle()\n\nfor i in range(4):\n    t.forward(100)\n    t.right(90)',
-        hint: 'Ein Quadrat hat 4 gleich lange Seiten und 90-Grad Winkel.'
-      },
-      {
-        id: 'turtle-2',
-        title: 'Turtle Rennen',
-        difficulty: 'Mittel',
-        content: 'Erstelle ein Rennen zwischen zwei Turtles mit Zufallsbewegungen.',
-        initialCode: 'import turtle\nimport random\n\nt1 = turtle.Turtle()\nt2 = turtle.Turtle()',
-        task: 'Lass zwei Turtles gegeneinander Rennen, nutze random.randint(1,10) für zufällige Bewegungen.',
-        solution: 'import turtle\nimport random\n\nt1 = turtle.Turtle()\nt2 = turtle.Turtle()\n\nt1.penup()\nt1.goto(-100, 20)\nt1.pendown()\nt2.penup()\nt2.goto(-100, -20)\nt2.pendown()\n\nfor _ in range(100):\n    t1.forward(random.randint(1, 5))\n    t2.forward(random.randint(1, 5))',
-        hint: 'Nutze eine while-Schleife und prüfe die x-Position der Turtles.'
-      },
-      {
-        id: 'turtle-3',
-        title: 'Turtle Fangen',
-        difficulty: 'Schwer',
-        content: 'Programmiere ein Spiel, bei dem eine Turtle die andere fangen muss.',
-        initialCode: 'import turtle\n\nplayer = turtle.Turtle()\ntarget = turtle.Turtle()',
-        task: 'Erstelle ein Spiel, bei dem der Spieler mit den Pfeiltasten eine Turtle steuert.',
-        solution: 'import turtle\n\nplayer = turtle.Turtle()\ntarget = turtle.Turtle()\n\ntarget.penup()\ntarget.goto(100, 100)\n\ndef go_up():\n    player.setheading(90)\n    player.forward(20)\n\ndef go_down():\n    player.setheading(270)\n    player.forward(20)\n\ndef go_left():\n    player.setheading(180)\n    player.forward(20)\n\ndef go_right():\n    player.setheading(0)\n    player.forward(20)\n\nturtle.listen()\nturtle.onkey(go_up, "Up")\nturtle.onkey(go_down, "Down")\nturtle.onkey(go_left, "Left")\nturtle.onkey(go_right, "Right")\n\nturtle.done()',
-        hint: 'Verwende turtle.onkey() für die Tastatursteuerung.'
-      }
-    ]
-  }
 ];
-
 interface LessonContentProps {
   topic: string;
   selectedSubLesson: string;
