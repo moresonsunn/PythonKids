@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-// Definiert die Struktur einer Unterlektion
 export interface SubLesson {
   id: string;
   title: string;
@@ -23,7 +22,6 @@ export interface SubLesson {
   hint: string;
 }
 
-// Definiert die Struktur einer Hauptlektion
 export interface Lesson {
   id: string;
   title: string;
@@ -34,18 +32,15 @@ export interface Lesson {
   subLessons: SubLesson[];
 }
 
-// Array aller Lektionen
 export const lessons: Lesson[] = [
-  // Jedes Objekt repräsentiert eine Hauptlektion
   {
     id: 'variables',
     title: 'Variablen',
     icon: CircleDot,
     definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen, Texte oder sogar Listen.',
     functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
-    Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"\ntext = "Hallo, Welt!"  # Speichert den Text in der Variable "text"\nist_wahr = True  # Speichert einen Wahrheitswert\nprint(text)',
+    Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"\ntext = "Hallo, Welt!"  # Speichert den Text in der Variable "text"\nist_wahr = True  # Speichert einen Wahrheitswert\nprint(text) # Ausgabe: Hallo, Welt!\nprint(f"Die Zahl ist {zahl}") # Ausgabe: Die Zahl ist 10',
     subLessons: [
-      // Jedes Objekt repräsentiert eine Unterlektion
       {
         id: 'variables-1',
         title: 'Erste Schritte mit Variablen',

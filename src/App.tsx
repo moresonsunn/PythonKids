@@ -44,6 +44,11 @@ const App: React.FC = () => {
     setIsLoading(false);
   };
 
+  const handleSubLessonChange = (subLesson: string) => {
+    setSelectedSubLesson(subLesson);
+    setLearningStyle('text');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
       <nav className="bg-white shadow-lg">
@@ -88,7 +93,7 @@ const App: React.FC = () => {
               selectedTopic={selectedTopic} 
               setSelectedTopic={setSelectedTopic}
               selectedSubLesson={selectedSubLesson}
-              setSelectedSubLesson={setSelectedSubLesson}
+              setSelectedSubLesson={handleSubLessonChange}
               lessons={lessons}
             />
           </div>
