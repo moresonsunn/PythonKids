@@ -79,7 +79,7 @@ export const lessons: Lesson[] = [
     icon: Code2,
     definition: 'Funktionen sind kleine Programme innerhalb deines Programms. Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
     functions: 'Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:',
-    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   print("Hallo!")  # Code-Block der Funktion',
+    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   print("Hallo!")  # Code-Block der Funktion\n   return("Hallo!") # Rückgabewert der Funktion',
     subLessons: [
       {
         id: 'functions-1',
@@ -508,7 +508,7 @@ export default function LessonContent({
             Hilfe
           </button>
         )}
-        {(showHint || errorCount >= 2) && (
+        {(showHint || errorCount >= 3) && (
           <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md animate-fade-in">
             <p className="text-sm text-gray-600">{currentSubLesson.hint}</p>
           </div>
