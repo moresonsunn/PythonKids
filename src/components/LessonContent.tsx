@@ -1,37 +1,30 @@
-import { 
-  CircleDot,
-  Code2,
-  ListOrdered,
-  Terminal, 
-  AlertCircle,
-  KeyRound,
-  GitFork,
-  Repeat,
-  RotateCw  
-} from 'lucide-react';
+import { CircleDot,Code2,ListOrdered,Terminal,AlertCircle,KeyRound,GitFork,Repeat,RotateCw } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Definiert die Struktur der Lektionen für die Aufgaben
 export interface SubLesson {
-  id: string;
-  title: string;
-  difficulty: 'Leicht' | 'Mittel' | 'Schwer';
-  content: string;
-  initialCode: string;
-  task: string;
-  solution: string;
-  hint: string;
+  id: string; // Eindeutige ID der Unterlektion (z.B. 'variables-1')
+  title: string; // Titel der Unterlektion (z.B. 'Erste Schritte mit Variablen')
+  difficulty: 'Leicht' | 'Mittel' | 'Schwer'; // Schwierigkeitsgrad der Unterlektion
+  content: string; // Beschreibender Inhalt der Unterlektion
+  initialCode: string; // Initialer Code, der im Editor angezeigt wird
+  task: string; // Aufgabenstellung für den Benutzer
+  solution: string; // Lösung der Aufgabe
+  hint: string; // Hinweis zur Lösung der Aufgabe
 }
 
+//Definiert die Struktur der Lektionen für die Inhalte
 export interface Lesson {
-  id: string;
-  title: string;
-  icon: any;
-  definition?: string;
-  functions?: string;
-  Example?: string;
-  subLessons: SubLesson[];
+  id: string; // Eindeutige ID der Lektion (z.B. 'variables')
+  title: string; // Titel der Lektion (z.B. 'Variablen')
+  icon: any; // Ein Icon für die Lektion (wahrscheinlich eine React-Komponente von lucide-react)
+  definition?: string; // Definition des Themas der Lektion
+  functions?: string; // Erklärung der zugehörigen Funktionen/Konzepte
+  Example?: string; // Beispielcode zur Veranschaulichung
+  subLessons: SubLesson[]; // Array von Unterlektionen, die zu dieser Lektion gehören
 }
 
+// Hier beginnt der Inhalt der Lektionen und die Struktur
 export const lessons: Lesson[] = [
   {
     id: 'variables',
@@ -425,6 +418,8 @@ while count < 5:\n\
     ],
   },
 ];
+
+// Ist das Interface für die Sitebar mit dem Titel
 interface LessonContentProps {
   topic: string;
   selectedSubLesson: string;
@@ -432,7 +427,7 @@ interface LessonContentProps {
   isError: boolean;
   onErrorCountChange: (count: number) => void; 
 }
-
+// Hier wird der Inhalt auf der App dargestellt
 export default function LessonContent({ 
   topic, 
   selectedSubLesson,
@@ -443,6 +438,7 @@ export default function LessonContent({
   const [showHint, setShowHint] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
 
+  // Hier wird der Fehler gezählt und die Hilfe angezeigt
   useEffect(() => {
     if (isError) {
       const newErrorCount = errorCount + 1;
@@ -450,13 +446,14 @@ export default function LessonContent({
       onErrorCountChange(newErrorCount);
     }
   }, [isError]);
-
+  // Hier wird die Hilfe zurückgesetzt
   useEffect(() => {
     setShowHint(false);
     setErrorCount(0);
     onErrorCountChange(0);
   }, [topic, selectedSubLesson]);
 
+  // Einfach suche von den Lektionen
   const currentLesson = lessons.find(lesson => lesson.id === topic);
   const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
 
@@ -464,6 +461,7 @@ export default function LessonContent({
     return <div>Lektion nicht gefunden</div>;
   }
 
+  // Wenn der Lernstil auf Text ist dann wird die Lernbasierte Ansicht angezeigt
   if (learningStyle === 'text') {
     return (
       <div className="space-y-6">
