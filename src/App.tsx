@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { loadPyodide } from "pyodide";
+import { loadPyodide } from "../public/pyodide/pyodide";
 import { Code, BookOpen, GamepadIcon } from 'lucide-react';
 import Navigation from './components/Navigation';
 import CodeEditor from './components/CodeEditor';
@@ -19,7 +19,7 @@ const App: React.FC = () => {
   // Initialisierung von Pyodide beim ersten Rendern
   useEffect(() => {
     async function initPyodide() {
-      const py = await loadPyodide();
+      const py = await loadPyodide({ indexURL: "pyodide/" });
       setPyodide(py);
     }
     initPyodide();
@@ -29,7 +29,7 @@ const App: React.FC = () => {
   const executeCode = async () => {
     setIsLoading(true);
     try {
-      const pyodide = await loadPyodide();
+      const pyodide = await loadPyodide({ indexURL: "pyodide/" });
       // Umleiten der Standardausgabe
       pyodide.runPython(`
         import sys
