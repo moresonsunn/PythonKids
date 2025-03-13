@@ -4,7 +4,8 @@ import { loadPyodide } from "../public/pyodide/pyodide"; // Importieren der Pyod
 import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
 import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
 import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-Komponente
-import LessonContent, { lessons } from './components/LessonContent'; // Importieren der LessonContent-Komponente und der Lektionen
+import LessonContent from './components/LessonContent'; // Importieren der LessonContent-Komponente
+import { lessons } from './lessons/index'; // Importieren der Lektionen
 
 // Hauptkomponente der Anwendung
 const App: React.FC = () => {
