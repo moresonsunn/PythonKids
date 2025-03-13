@@ -5,8 +5,8 @@ export const variables: Lesson = {
   id: 'variables',
   title: 'Variablen',
   icon: CircleDot,
-  definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen, Texte oder sogar Listen.',
-  functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte). Den Wert der Variable mit einem Gleichheitszeichen = zuweisen.',
+  definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen (Int), Texte (Str) oder sogar Listen.',
+  functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte).\nDann einen Wert der Variable mit einem Gleichheitszeichen "=" zuweisen.',
   Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"\ntext = "Hallo, Welt!"  # Speichert den Text in der Variable "text"\nist_wahr = True  # Speichert einen Wahrheitswert\nprint(text) # Ausgabe: Hallo, Welt!\nprint(f"Die Zahl ist {zahl}") # Ausgabe: Die Zahl ist 10',
   subLessons: [
     {
