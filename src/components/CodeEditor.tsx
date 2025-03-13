@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "@fontsource/comic-mono";
 import Editor from "@monaco-editor/react";
 
 // Definiert die Eigenschaften (Props), die an die CodeEditor-Komponente übergeben werden

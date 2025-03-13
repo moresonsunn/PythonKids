@@ -497,7 +497,7 @@ export default function LessonContent({
       <h3 className="text-lg font-semibold text-gray-700 mb-2">Deine Aufgabe:</h3>
       <div className="bg-gray-50 p-4 rounded-md">
         <pre className="text-sm">{currentSubLesson.task}</pre>
-        {!showHint && (
+        {/* {!showHint && (
           <button
             onClick={() => setShowHint(true)}
             className="flex items-center px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
@@ -510,7 +510,7 @@ export default function LessonContent({
           <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-md animate-fade-in">
             <p className="text-sm text-gray-600">{currentSubLesson.hint}</p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

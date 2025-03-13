@@ -1,63 +1,88 @@
+// Importieren der notwendigen Module und Komponenten
 import React, { useState, useEffect } from 'react';
-import { loadPyodide } from "../public/pyodide/pyodide";
-import { Code, BookOpen, GamepadIcon } from 'lucide-react';
-import Navigation from './components/Navigation';
-import CodeEditor from './components/CodeEditor';
-import LessonContent, { lessons } from './components/LessonContent';
+import { loadPyodide } from "../public/pyodide/pyodide"; // Importieren der Pyodide-Bibliothek
+import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
+import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
+import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-Komponente
+import LessonContent, { lessons } from './components/LessonContent'; // Importieren der LessonContent-Komponente und der Lektionen
 
+// Hauptkomponente der Anwendung
 const App: React.FC = () => {
-  // State-Variablen für verschiedene Aspekte der Anwendung
+  // Zustand für das ausgewählte Thema, die ausgewählte Unterlektion, den Lernstil, den Code, die Ausgabe und den Fehlerstatus
   const [selectedTopic, setSelectedTopic] = useState('variables');
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
   const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [isError, setIsError] = useState(false);
-  const [,setPyodide] = useState<any>(null);
-  const [,setIsLoading] = useState(false);
+  const [, setPyodide] = useState<any>(null);
+  const [, setIsLoading] = useState(false);
 
-  // Initialisierung von Pyodide beim ersten Rendern
+  // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
     async function initPyodide() {
+      // Laden und Initialisieren von Pyodide
       const py = await loadPyodide({ indexURL: "pyodide/" });
-      setPyodide(py);
+      setPyodide(py); // Speichern der Pyodide-Instanz im Zustand
     }
-    initPyodide();
+    initPyodide(); // Aufrufen der Initialisierungsfunktion
   }, []);
 
-  // Funktion zum Ausführen des Python-Codes
+  // Fehlermeldungen und Erklärungen
+  const errorHelp: Record<string, string> = {
+    "SyntaxError": "Syntaxfehler: Prüfe, ob alle Klammern, Doppelpunkte oder Anführungszeichen korrekt gesetzt sind.",
+    "NameError": "Unbekannter Name: Überprüfe, ob du alle Variablen oder Funktionen korrekt benannt hast.",
+    "IndentationError": "Einrückungsfehler: Achte auf die korrekte Einrückung mit Leerzeichen oder Tabs.",
+    "TypeError": "Typfehler: Prüfe, ob du passende Datentypen (z. B. Zahl vs. Text) verwendest.",
+    "ZeroDivisionError": "Division durch Null: Eine Zahl darf nicht durch Null geteilt werden.",
+    "IndexError": "Indexfehler: Prüfe, ob du innerhalb der Grenzen einer Liste oder eines anderen Index-basierten Objekts bleibst.",
+    "KeyError": "Schlüsselfehler: Prüfe, ob du den richtigen Schlüssel in Dictionaries verwendest.",
+    "AttributeError": "Attributfehler: Prüfe, ob du auf existierende Attribute oder Methoden zugreifst.",
+    "ValueError": "Wertfehler: Prüfe, ob der eingegebene Wert den erwarteten Typ oder das erwartete Format hat.",
+    "ModuleNotFoundError": "Modul nicht gefunden: Prüfe, ob du das Modul korrekt importiert und installiert hast.",
+    "RecursionError": "Rekursionsfehler: Deine Funktion ruft sich zu oft selbst auf - prüfe deine Abbruchbedingung.",
+    "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
+  };
+
+  // Funktion zum Ausführen des Codes
   const executeCode = async () => {
-    setIsLoading(true);
+    setIsLoading(true); // Setzen des Ladezustands auf true
     try {
-      const pyodide = await loadPyodide({ indexURL: "pyodide/" });
-      // Umleiten der Standardausgabe
+      const pyodide = await loadPyodide({ indexURL: "pyodide/" }); // Laden von Pyodide
       pyodide.runPython(`
         import sys
         import io
         sys.stdout = io.StringIO()
-      `);
-      await pyodide.runPythonAsync(code);
-      const output = pyodide.runPython("sys.stdout.getvalue()");
-      setOutput(output || "Keine Ausgabe");
-      setIsError(false);
+      `); // Umleiten der Standardausgabe
+      await pyodide.runPythonAsync(code); // Ausführen des Codes
+      const output = pyodide.runPython("sys.stdout.getvalue()"); // Abrufen der Ausgabe
+      setOutput(output || "Keine Ausgabe"); // Setzen der Ausgabe im Zustand
+      setIsError(false); // Setzen des Fehlerzustands auf false
     } catch (error) {
-      setOutput(`Fehler: ${(error as Error).message}`);
-      setIsError(true);
+      const errorMessage = (error as Error).message; // Abrufen der Fehlermeldung
+      setIsError(true); // Setzen des Fehlerzustands auf true
+
+      // Hilfestellung anzeigen
+      const helpMessage = Object.keys(errorHelp).find(key => errorMessage.includes(key));
+      if (helpMessage) {
+        setOutput(prev => `${prev}\n💡 Tipp: ${errorHelp[helpMessage]}`); // Hinzufügen der Hilfestellung zur Ausgabe
+      }
     }
-    setIsLoading(false);
+    setIsLoading(false); // Setzen des Ladezustands auf false
   };
 
-  // Handler für Änderungen der Unterlektion
+  // Funktion zum Ändern der Unterlektion
   const handleSubLessonChange = (subLesson: string) => {
-    setSelectedSubLesson(subLesson);
-    setLearningStyle('text');
+    setSelectedSubLesson(subLesson); // Setzen der ausgewählten Unterlektion
+    setLearningStyle('text'); // Setzen des Lernstils auf 'text'
+    setCode(''); // Zurücksetzen des Codes
+    setOutput(''); // Zurücksetzen der Ausgabe
+    setIsError(false); // Zurücksetzen des Fehlerzustands
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
-      {/* Navigation-Bar */}
       <nav className="bg-white shadow-lg">
-        {/* ... (Navigation-Bar-Inhalt) ... */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
@@ -67,22 +92,14 @@ const App: React.FC = () => {
             <div className="flex space-x-4">
               <button
                 onClick={() => setLearningStyle('text')}
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  learningStyle === 'text'
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${learningStyle === 'text' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
               >
                 <BookOpen className="h-5 w-5 inline-block mr-1" />
                 Erklärung
               </button>
               <button
                 onClick={() => setLearningStyle('interactive')}
-                className={`px-3 py-2 rounded-md text-sm font-medium ${
-                  learningStyle === 'interactive'
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-100'
-                }`}
+                className={`px-3 py-2 rounded-md text-sm font-medium ${learningStyle === 'interactive' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
               >
                 <GamepadIcon className="h-5 w-5 inline-block mr-1" />
                 Interaktiv
@@ -91,54 +108,45 @@ const App: React.FC = () => {
           </div>
         </div>
       </nav>
-      {/* Hauptinhalt */}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-12 gap-6">
-          {/* Seitenleiste mit Navigation */}
           <div className="col-span-3">
-            <Navigation 
-              selectedTopic={selectedTopic} 
+            <Navigation
+              selectedTopic={selectedTopic}
               setSelectedTopic={setSelectedTopic}
               selectedSubLesson={selectedSubLesson}
               setSelectedSubLesson={handleSubLessonChange}
               lessons={lessons}
             />
           </div>
-          
-          {/* Hauptbereich mit Lektionsinhalt und Code-Editor */}
+
           <div className="col-span-9">
-            {/* Lektionsinhalt */}
             <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-              <LessonContent 
+              <LessonContent
                 topic={selectedTopic}
-                learningStyle={learningStyle}
                 selectedSubLesson={selectedSubLesson}
+                learningStyle={learningStyle}
                 isError={isError}
                 onErrorCountChange={(count) => {
                   console.log('Error count:', count);
                 }}
               />
             </div>
-            {/* Code-Editor und Ausgabe (nur im interaktiven Modus) */}
-            {learningStyle == 'interactive' && (
+
+            {learningStyle === 'interactive' && (
               <div className="grid grid-cols-2 gap-6">
-                {/* Code-Editor */}
                 <div className="bg-white rounded-lg shadow-lg p-6">
-                <div className="flex justify-between items-center mb-4">
-                  </div>
                   <CodeEditor
                     code={code}
                     setCode={setCode}
                     onRun={executeCode}
                   />
                 </div>
-                
-                {/* Ausgabebereich */}
-                <div className="bg-white rounded-lg shadow-lg p-6">
+
+                <div className={`bg-white rounded-lg shadow-lg p-6 ${isError ? 'bg-red-100' : 'bg-yellow-100'}`}>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4">Ausgabe</h3>
-                  <div className="output-container bg-yellow-100 p-4 rounded-lg">
-                    <pre className="whitespace-pre-wrap break-words">{output}</pre>
-                  </div>
+                  <pre className="whitespace-pre-wrap break-words">{output}</pre>
                 </div>
               </div>
             )}
