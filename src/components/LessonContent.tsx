@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { lessons } from '../lessons';
-
 
 // Definiert die Struktur der Lektionen für die Aufgaben
 export interface SubLesson {
@@ -32,15 +31,17 @@ interface LessonContentProps {
   learningStyle: 'text' | 'interactive';
   isError: boolean;
   onErrorCountChange: (count: number) => void; 
+  initialCode: string; // Neue Prop für den initialen Code
 }
 // Hier wird der Inhalt auf der App dargestellt
-export default function LessonContent({ 
+const LessonContent: React.FC<LessonContentProps> = ({
   topic, 
   selectedSubLesson,
   learningStyle,
   isError,
-  onErrorCountChange 
-}: LessonContentProps) {
+  onErrorCountChange,
+  initialCode, // Neue Prop für den initialen Code
+}) => {
   const [showHint, setShowHint] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
 
@@ -120,4 +121,6 @@ export default function LessonContent({
       </div>
     </div>
   );
-}
+};
+
+export default LessonContent;

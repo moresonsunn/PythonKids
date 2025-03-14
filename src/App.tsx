@@ -29,6 +29,14 @@ const App: React.FC = () => {
     initPyodide(); // Aufrufen der Initialisierungsfunktion
   }, []);
 
+  useEffect(() => {
+    const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
+    const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
+    if (currentSubLesson) {
+      setCode(currentSubLesson.initialCode); // Setzen des initialen Codes
+    }
+  }, [selectedTopic, selectedSubLesson]);
+
   // Fehlermeldungen und Erklärungen
   const errorHelp: Record<string, string> = {
     "SyntaxError": "Syntaxfehler: Prüfe, ob alle Klammern, Doppelpunkte oder Anführungszeichen korrekt gesetzt sind.",
@@ -132,6 +140,7 @@ const App: React.FC = () => {
                 onErrorCountChange={(count) => {
                   console.log('Error count:', count);
                 }}
+                initialCode={code} // Übergeben des initialen Codes
               />
             </div>
 
