@@ -85,7 +85,6 @@ Die Plattform bietet folgende Lektionen:
 7. Dictionaries
 8. Verzweigungen
 9. Schleifen
-10. Turtle-Grafik
 
 Jede Lektion enthält:
 - Eine Definition des Konzepts
