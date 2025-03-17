@@ -31,7 +31,7 @@ interface LessonContentProps {
   learningStyle: 'text' | 'interactive';
   isError: boolean;
   onErrorCountChange: (count: number) => void; 
-  initialCode: string; // Neue Prop für den initialen Code
+  initialCode: string; 
 }
 // Hier wird der Inhalt auf der App dargestellt
 const LessonContent: React.FC<LessonContentProps> = ({
@@ -40,7 +40,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
   learningStyle,
   isError,
   onErrorCountChange,
-  initialCode, // Neue Prop für den initialen Code
+  initialCode, 
 }) => {
   const [showHint, setShowHint] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
