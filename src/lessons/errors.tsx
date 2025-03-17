@@ -14,7 +14,7 @@ export const errors: Lesson = {
         title: 'Syntaxfehler',
         difficulty: 'Leicht',
         content: 'Fehlermeldungen in Python verstehen.',
-        initialCode: 'print("Hallo Welt")',
+        initialCode: 'print("Hallo Welt',
         task: 'Korrigiere den Syntaxfehler.',
         solution: 'print("Hallo Welt")',
         hint: 'Vergiss nicht die schließende Klammer.'

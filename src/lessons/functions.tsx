@@ -16,7 +16,7 @@ export const functions: Lesson = {
         content: 'Funktionen sind wiederverwendbare Code-Blöcke.',
         initialCode: 'def mein_name():\n    name = ',
         task: 'Erstelle eine Funktion die deinen Namen ausgibt und gebe die Funktion in der Ausgabe aus.',
-        solution: 'def mein_name():\n    name = "Dein Name"\n    print(name)',
+        solution: 'def mein_name():\n    name = "Dein Name"\nprint(name())',
         hint: 'Nutze def, um eine Funktion zu erstellen.'
       },
       {
@@ -24,9 +24,9 @@ export const functions: Lesson = {
         title: 'Funktionen mit Parametern',
         difficulty: 'Mittel',
         content: 'Funktionen können Werte übergeben bekommen.',
-        initialCode: 'def hallo(name):\n    print(f"Hallo {name}")',
+        initialCode: 'def addiere(zahl1,zahl2):\n    print(zahl1 + zahl2)',
         task: 'Erstelle eine Funktion, die zwei Zahlen addiert.',
-        solution: 'def addiere(zahl1, zahl2):\n    print(zahl1 + zahl2)',
+        solution: 'def addiere(zahl1, zahl2):\n    print(zahl1 + zahl2)\nprint(addiere(2, 3))',
         hint: 'Nutze die Parameter in der Funktion.'
       },
       {
@@ -34,9 +34,9 @@ export const functions: Lesson = {
         title: 'Funktionen mit Rückgabewert',
         difficulty: 'Schwer',
         content: 'Funktionen können Werte zurückgeben.',
-        initialCode: 'def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2',
+        initialCode: 'def multipliziere(zahl1, zahl2):\n    print(zahl1 * zahl2)',
         task: 'Erstelle eine Funktion, die zwei Zahlen multipliziert.',
-        solution: 'def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2',
+        solution: 'def multipliziere(zahl1, zahl2):\n    print(zahl1 * zahl2)\nprint(multipliziere(2, 3))',
         hint: 'Nutze return, um einen Wert zurückzugeben.'
       },
     ],

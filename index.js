@@ -10,6 +10,7 @@ let win;
 
 app.on('ready', () => {
     win = new BrowserWindow({
+        developerTools: false,
         webPreferences: {
             nodeIntegration: true,
         },

@@ -14,7 +14,7 @@ export const lists: Lesson = {
         title: 'Listen erstellen',
         difficulty: 'Leicht',
         content: 'Lerne, wie man Listen erstellt und verwendet.',
-        initialCode: 'namen = ["Max", "Moritz", "Erika"]\nprint(namen)',
+        initialCode: 'farben = ["Rot", "Grün", "Blau"]\n',
         task: 'Erstelle eine Liste mit deinen Lieblingsfarben.',
         solution: 'farben = ["Rot", "Grün", "Blau"]\nprint(farben)',
         hint: 'Nutze eckige Klammern [] und vergiss nicht die Anführungszeichen.'

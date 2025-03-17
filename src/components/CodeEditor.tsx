@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "@fontsource/comic-mono";
 import Editor from "@monaco-editor/react";
 
 // Definiert die Eigenschaften (Props), die an die CodeEditor-Komponente übergeben werden
@@ -41,7 +40,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
         value={code} // Der aktuelle Code
         onChange={(value) => setCode(value || "")} // Aktualisiert den Code bei Änderungen
         options={{
-          fontSize: 16, // Schriftgröße
+          fontSize: 14, // Schriftgröße
           fontFamily: "'Comic Code', 'Cascadia Code', monospace", // Schriftart
           minimap: { enabled: false }, // Deaktiviert die Minimap
           scrollBeyondLastLine: false, // Verhindert das Scrollen über die letzte Zeile hinaus
