@@ -90,15 +90,19 @@ const App: React.FC = () => {
   };
 
   return (
+    // Hauptcontainer der Anwendung mit einem Hintergrundgradienten
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
+      {/* Navigationsleiste */}
       <nav className="bg-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
+              {/* Icon und Titel der Anwendung */}
               <Code className="h-8 w-8 text-indigo-600" />
               <span className="ml-2 text-xl font-bold text-gray-800">PythonKids</span>
             </div>
             <div className="flex space-x-4">
+              {/* Button zum Umschalten auf den Text-Lernstil */}
               <button
                 onClick={() => setLearningStyle('text')}
                 className={`px-3 py-2 rounded-md text-sm font-medium ${learningStyle === 'text' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
@@ -106,6 +110,7 @@ const App: React.FC = () => {
                 <BookOpen className="h-5 w-5 inline-block mr-1" />
                 Erklärung
               </button>
+              {/* Button zum Umschalten auf den interaktiven Lernstil */}
               <button
                 onClick={() => setLearningStyle('interactive')}
                 className={`px-3 py-2 rounded-md text-sm font-medium ${learningStyle === 'interactive' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-600 hover:bg-gray-100'}`}
@@ -118,8 +123,10 @@ const App: React.FC = () => {
         </div>
       </nav>
 
+      {/* Hauptinhalt der Anwendung */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-12 gap-6">
+          {/* Navigation für die Lektionen */}
           <div className="col-span-3">
             <Navigation
               selectedTopic={selectedTopic}
@@ -130,6 +137,7 @@ const App: React.FC = () => {
             />
           </div>
 
+          {/* Inhalt der ausgewählten Lektion */}
           <div className="col-span-9">
             <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
               <LessonContent
@@ -144,6 +152,7 @@ const App: React.FC = () => {
               />
             </div>
 
+            {/* Interaktiver Bereich mit Code-Editor und Ausgabe */}
             {learningStyle === 'interactive' && (
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg shadow-lg p-6">
