@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal } from 'lucide-react';
+// import { Terminal } from 'lucide-react';
 import { lessons } from '../lessons';
 
 // Definiert die Struktur der Lektionen für die Aufgaben
