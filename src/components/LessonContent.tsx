@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Terminal } from 'lucide-react';
 import { lessons } from '../lessons';
 
 // Definiert die Struktur der Lektionen für die Aufgaben
@@ -40,7 +41,6 @@ const LessonContent: React.FC<LessonContentProps> = ({
   learningStyle,
   isError,
   onErrorCountChange,
-  initialCode, 
 }) => {
   const [showHint, setShowHint] = useState(false);
   const [errorCount, setErrorCount] = useState(0);
