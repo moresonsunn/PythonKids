@@ -7,15 +7,15 @@ export const functions: Lesson = {
     icon: Code2,
     definition: 'Funktionen sind kleine Programme innerhalb deines Programms. Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
     functions: 'Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:',
-    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   print("Hallo!")  # Code-Block der Funktion\n   return("Hallo!") # Rückgabewert der Funktion',
+    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   sag = "Hallo!"  # Code-Block der Funktion\n   return sag # Rückgabewert der Funktion\nprint(begruessung())  # Aufruf der Funktion',
     subLessons: [
       {
         id: 'functions-1',
         title: 'Funktionen erstellen',
         difficulty: 'Leicht',
         content: 'Funktionen sind wiederverwendbare Code-Blöcke.',
-        initialCode: 'def hallo_welt():\n    print("Hallo Welt!")',
-        task: 'Erstelle eine Funktion mit deinem Namen und gebe die Funktion in der Ausgabe aus.',
+        initialCode: 'def mein_name():\n    name = ',
+        task: 'Erstelle eine Funktion die deinen Namen ausgibt und gebe die Funktion in der Ausgabe aus.',
         solution: 'def mein_name():\n    name = "Dein Name"\n    print(name)',
         hint: 'Nutze def, um eine Funktion zu erstellen.'
       },

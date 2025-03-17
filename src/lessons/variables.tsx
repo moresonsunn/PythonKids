@@ -14,7 +14,7 @@ export const variables: Lesson = {
       title: 'Erste Schritte mit Variablen',
       difficulty: 'Leicht',
       content: 'Lerne, wie man Variablen erstellt und verwendet.',
-      initialCode: 'name = "Max"\nprint(name)',
+      initialCode: 'name = ',
       task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, so dass dein Name ausgegeben wird.',
       solution: 'name = "Dein Name"\nprint(name)',
       hint: 'Denk an die Anführungszeichen beim Text!'
@@ -24,7 +24,7 @@ export const variables: Lesson = {
       title: 'Rechnen mit Variablen',
       difficulty: 'Mittel',
       content: 'Mathematische Operationen mit Variablen.',
-      initialCode: 'zahl1 = 5\nzahl2 = 3\nprint(zahl1 + zahl2)',
+      initialCode: 'zahl1 = 10\nzahl2 = 20\n',
       task: 'Addiere die beiden Zahlen 10 und 20 und gebe das Ergebnis aus.',
       solution: 'zahl1 = 10\nzahl2 = 20\nergebnis = zahl1 + zahl2\nprint(ergebnis)',
       hint: 'Nutze den Plus-Operator.'
@@ -34,8 +34,8 @@ export const variables: Lesson = {
       title: 'Variablen kombinieren',
       difficulty: 'Schwer',
       content: 'Text und Zahlen zusammen verwenden.',
-      initialCode: 'alter = 10\nname = "Max"',
-      task: 'Erstelle zwei Variablen, z.B. name und alter, und gebe sie aus.',
+      initialCode: 'alter = \nname = ',
+      task: 'Erstelle zwei Variablen, z.B. name und alter, und gebe sie zusammen aus, z.B. "Max ist 10 Jahre alt".',
       solution: 'name = "Max"\nalter = 10\nprint(f"{name} ist {alter} Jahre alt")',
       hint: 'Nutze f-Strings mit {}.'
     }
