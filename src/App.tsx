@@ -70,6 +70,7 @@ const App: React.FC = () => {
     } catch (error) {
       const errorMessage = (error as Error).message; // Abrufen der Fehlermeldung
       setIsError(true); // Setzen des Fehlerzustands auf true
+      setOutput(errorMessage); // Setzen der Fehlermeldung als Ausgabe
 
       // Hilfestellung anzeigen
       const helpMessage = Object.keys(errorHelp).find(key => errorMessage.includes(key));

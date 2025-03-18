@@ -15,7 +15,7 @@ export const errors: Lesson = {
         difficulty: 'Leicht',
         content: 'Fehlermeldungen in Python verstehen.',
         initialCode: 'print("Hallo Welt',
-        task: 'Korrigiere den Syntaxfehler.',
+        task: 'Guck dir die Fehlermeldung an und korrigiere den Code.',
         solution: 'print("Hallo Welt")',
         hint: 'Vergiss nicht die schließende Klammer.'
       },
@@ -25,7 +25,7 @@ export const errors: Lesson = {
         difficulty: 'Mittel',
         content: 'Fehler während der Ausführung des Programms.',
         initialCode: 'zahl = 5\nprint(zahl / 0)',
-        task: 'Füge einen Laufzeitfehler hinzu.',
+        task: 'Guck dir die Fehlermeldung an und korrigiere den Code.',
         solution: 'zahl = 5\nprint(zahl / 0)',
         hint: 'Teile durch 0.'
       },
@@ -35,8 +35,8 @@ export const errors: Lesson = {
         difficulty: 'Schwer',
         content: 'Fehler in der Logik des Programms.',
         initialCode: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")',
-        task: 'Füge einen Logikfehler hinzu.',
-        solution: 'zahl = 5\nif zahl < 10:\n    print("Zahl ist größer als 10")',
+        task: 'Finde denn Fehler und ändere ihn. Überprüfe, ob die Ausgabe richtig ist.',
+        solution: 'zahl = 50\nif zahl > 10:\n    print("Zahl ist größer als 10")',
         hint: 'Ändere das Vergleichszeichen.'
       }
     ],
