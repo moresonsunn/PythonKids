@@ -8,6 +8,7 @@ import { dictionaries } from "./dictionaries";
 import { conditions } from "./conditions";
 import { loops } from "./loops";
 import { Lesson } from "../components/LessonContent";
+import { textadventure } from "./textadventure";
 
 export const lessons: Lesson[] = [
   variables,
@@ -19,4 +20,5 @@ export const lessons: Lesson[] = [
   dictionaries,
   conditions,
   loops,
+  textadventure,
 ];

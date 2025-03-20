@@ -35,6 +35,22 @@ const App: React.FC = () => {
     }
   }, [selectedTopic, selectedSubLesson]);
 
+  // Fehlermeldungen und Erklärungen
+  const errorHelp: Record<string, string> = {
+    "SyntaxError": "Syntaxfehler: Prüfe, ob alle Klammern, Doppelpunkte oder Anführungszeichen korrekt gesetzt sind.",
+    "NameError": "Unbekannter Name: Überprüfe, ob du alle Variablen oder Funktionen korrekt benannt hast.",
+    "IndentationError": "Einrückungsfehler: Achte auf die korrekte Einrückung mit Leerzeichen oder Tabs.",
+    "TypeError": "Typfehler: Prüfe, ob du passende Datentypen (z. B. Zahl vs. Text) verwendest.",
+    "ZeroDivisionError": "Division durch Null: Eine Zahl darf nicht durch Null geteilt werden.",
+    "IndexError": "Indexfehler: Prüfe, ob du innerhalb der Grenzen einer Liste oder eines anderen Index-basierten Objekts bleibst.",
+    "KeyError": "Schlüsselfehler: Prüfe, ob du den richtigen Schlüssel in Dictionaries verwendest.",
+    "AttributeError": "Attributfehler: Prüfe, ob du auf existierende Attribute oder Methoden zugreifst.",
+    "ValueError": "Wertfehler: Prüfe, ob der eingegebene Wert den erwarteten Typ oder das erwartete Format hat.",
+    "ModuleNotFoundError": "Modul nicht gefunden: Prüfe, ob du das Modul korrekt importiert und installiert hast.",
+    "RecursionError": "Rekursionsfehler: Deine Funktion ruft sich zu oft selbst auf - prüfe deine Abbruchbedingung.",
+    "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
+  };
+
   const executeCode = async (userInput: string = '') => {
     setIsLoading(true); // Ladezustand aktivieren
     try {
@@ -46,9 +62,9 @@ sys.stdout = io.StringIO()  # Umleiten der Ausgabe
 sys.stderr = sys.stdout
 
 # Benutzerdefinierte input-Funktion
-def custom_input(prompt):
-    print(prompt, end="")  # Prompt wird im UI angezeigt
-    return "${userInput}";  # Rückgabe der Benutzereingabe
+def custom_input(prompt=""):
+  print(prompt, end="")  # Prompt wird im UI angezeigt
+  return "${userInput}";  # Rückgabe der Benutzereingabe
 
 input = custom_input  # 'input' auf unsere benutzerdefinierte Funktion setzen
 
@@ -57,26 +73,33 @@ exec("""
 ${code.replace(/"/g, '\\"')}
 """)
 `;
-  
+
       // Führen Sie den Python-Code aus
       await pyodide.runPythonAsync(pythonCode);
-  
+
       // Ausgabe abrufen
       const output = pyodide.runPython("sys.stdout.getvalue()");
       setOutput(output || "Keine Ausgabe");
       setIsError(false);
-      setIsInputRequired(true);
-    } catch (error) {
-      const errorMessage = (error as Error).message;
-      setIsError(true);
-      setOutput(errorMessage);
-  
+      setIsInputRequired(false);
       // Überprüfen, ob eine Eingabe erforderlich ist
-      if (errorMessage.includes("EOFError")) {
+      if (code.includes('input')) {
         setIsInputRequired(true); // Setzen des Eingabezustands auf true
       }
+    } catch (error) {
+      const errorMessage = (error as Error).message; // Abrufen der Fehlermeldung
+      setIsError(true); // Setzen des Fehlerzustands auf true
+      setOutput(errorMessage); // Setzen der Fehlermeldung als Ausgabe
+      console.log("Error:", errorMessage);
+      setIsInputRequired(false); // Setzen des Eingabezustands auf false
+
+      // Hilfestellung anzeigen
+      const helpMessage = Object.keys(errorHelp).find(key => errorMessage.includes(key));
+      if (helpMessage) {
+        setOutput(prev => `${prev}\n💡 Tipp: ${errorHelp[helpMessage]}`); // Hinzufügen der Hilfestellung zur Ausgabe
+      }
     }
-    setIsLoading(false);
+    setIsLoading(false); // Ladezustand deaktivieren
   };
 
   const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {

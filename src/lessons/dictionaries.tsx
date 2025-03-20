@@ -14,7 +14,7 @@ export const dictionaries: Lesson = {
         title: 'Dictionaries erstellen',
         difficulty: 'Leicht',
         content: 'Schlüssel-Wert-Paare in Python.',
-        initialCode: 'person = {"name": "Max", "alter": 30}\nprint(person)',
+        initialCode: 'farben = {}',
         task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben.',
         solution: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}\nprint(farben)',
         hint: 'Nutze geschweifte Klammern {}.'
