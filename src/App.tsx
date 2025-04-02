@@ -58,20 +58,31 @@ const App: React.FC = () => {
       const pythonCode = `
 import sys
 import io
+import json
 sys.stdout = io.StringIO()  # Umleiten der Ausgabe
 sys.stderr = sys.stdout
 
 # Benutzerdefinierte input-Funktion
 def custom_input(prompt=""):
-  print(prompt, end="")  # Prompt wird im UI angezeigt
-  return "${userInput}";  # Rückgabe der Benutzereingabe
+    print(prompt, end="")  # Prompt wird im UI angezeigt
+    return "${userInput}";  # Rückgabe der Benutzereingabe
 
 input = custom_input  # 'input' auf unsere benutzerdefinierte Funktion setzen
 
+# Fehlerhilfe aus JavaScript übergeben
+error_help = json.loads('${JSON.stringify(errorHelp)}')
+
 # Ausführung des Benutzercodes
-exec("""
+try:
+    exec("""
 ${code.replace(/"/g, '\\"')}
-""")
+    """)
+except Exception as e:
+    error_type = type(e).__name__  # Typ des Fehlers abrufen
+    if error_type in error_help:
+        print(f"{error_help[error_type]}", file=sys.stdout)  # Fehlerhilfe ausgeben
+    else:
+        print(f"Fehler: {str(e)}", file=sys.stdout)  # Originale Fehlermeldung ausgeben
 `;
 
       // Führen Sie den Python-Code aus
@@ -82,24 +93,14 @@ ${code.replace(/"/g, '\\"')}
       setOutput(output || "Keine Ausgabe");
       setIsError(false);
       setIsInputRequired(false);
+
       // Überprüfen, ob eine Eingabe erforderlich ist
       if (code.includes('input')) {
         setIsInputRequired(true); // Setzen des Eingabezustands auf true
       }
-    } catch (error) {
-      const errorMessage = (error as Error).message; // Abrufen der Fehlermeldung
-      setIsError(true); // Setzen des Fehlerzustands auf true
-      setOutput(errorMessage); // Setzen der Fehlermeldung als Ausgabe
-      console.log("Error:", errorMessage);
-      setIsInputRequired(false); // Setzen des Eingabezustands auf false
-
-      // Hilfestellung anzeigen
-      const helpMessage = Object.keys(errorHelp).find(key => errorMessage.includes(key));
-      if (helpMessage) {
-        setOutput(prev => `${prev}\n💡 Tipp: ${errorHelp[helpMessage]}`); // Hinzufügen der Hilfestellung zur Ausgabe
-      }
-    }
+    } finally {
     setIsLoading(false); // Ladezustand deaktivieren
+    }
   };
 
   const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -136,7 +137,6 @@ ${code.replace(/"/g, '\\"')}
           </div>
         </div>
       </nav>
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-3">
@@ -154,7 +154,7 @@ ${code.replace(/"/g, '\\"')}
               <LessonContent
                 topic={selectedTopic}
                 selectedSubLesson={selectedSubLesson}
-                learningStyle={learningStyle}
+                learningStyle={learningStyle == 'text' ? 'text' : 'interactive'}
                 isError={isError}
                 onErrorCountChange={(count) => {
                   console.log('Error count:', count);
