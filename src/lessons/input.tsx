@@ -7,7 +7,7 @@ export const input: Lesson = {
     icon: KeyRound,
     definition: 'Der input()-Befehl erlaubt es, Benutzereingaben in das Programm aufzunehmen. Warum? Damit dein Programm interaktiv wird, kannst du den Benutzer um Eingaben bitten.',
     functions: 'Der input()-Befehl gibt den eingegebenen Wert als Zeichenkette zurück.',
-    Example: 'name = input("Wie heißt du? ")\nprint(f"Hallo, {name}!")',
+    Example: 'name = input("Wie heißt du? ")\nalter = int(input("Wie alt bist du?"))\nprint(f"Hallo, {name} du bist {alter}!")',
     subLessons: [
       {
         id: 'input-1',
@@ -24,7 +24,7 @@ export const input: Lesson = {
         title: 'Zahlen einlesen',
         difficulty: 'Mittel',
         content: 'Zahlenwerte vom Benutzer entgegennehmen.',
-        initialCode: 'zahl = input("Gib eine Zahl ein")\nprint(zahl)',
+        initialCode: 'zahl =',
         task: 'Erstelle ein Programm, wo du zwei Zahlen eingibst und sie addierst.',
         solution: 'zahl1 = int(input("Gib die erste Zahl ein"))\nzahl2 = int(input("Gib die zweite Zahl ein"))\nprint(zahl1 + zahl2)',
         hint: 'Nutze die Funktion int().'
@@ -34,7 +34,7 @@ export const input: Lesson = {
         title: 'Text einlesen',
         difficulty: 'Schwer',
         content: 'Textwerte vom Benutzer entgegennehmen.',
-        initialCode: 'text = input("Gib einen Text ein")\nprint(text)',
+        initialCode: 'text =',
         task: 'Lass den Benutzer einen Satz eingeben.',
         solution: 'satz = input("Gib einen Satz ein")\nprint(satz)',
         hint: 'Nutze die Funktion input().'

@@ -63,9 +63,11 @@ sys.stdout = io.StringIO()  # Umleiten der Ausgabe
 sys.stderr = sys.stdout
 
 # Benutzerdefinierte input-Funktion
+input_queue = iter(json.loads('${JSON.stringify(userInput.split("\\n"))}'))
+
 def custom_input(prompt=""):
     print(prompt, end="")  # Prompt wird im UI angezeigt
-    return "${userInput}";  # Rückgabe der Benutzereingabe
+    return next(input_queue, "")  # Rückgabe der nächsten Benutzereingabe
 
 input = custom_input  # 'input' auf unsere benutzerdefinierte Funktion setzen
 
@@ -99,7 +101,7 @@ except Exception as e:
         setIsInputRequired(true); // Setzen des Eingabezustands auf true
       }
     } finally {
-    setIsLoading(false); // Ladezustand deaktivieren
+      setIsLoading(false); // Ladezustand deaktivieren
     }
   };
 

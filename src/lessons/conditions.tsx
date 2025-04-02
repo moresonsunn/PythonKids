@@ -31,7 +31,7 @@ else:\n\
         content: 'Einfache Bedingungen in Python.',
         initialCode: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")',
         task: 'Füge eine weitere Bedingung hinzu',
-        solution: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
+        solution: 'zahl = 10\nif zahl > 5:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
         hint: 'Nutze das Schlüsselwort if'
       },
       {
