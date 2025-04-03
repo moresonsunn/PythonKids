@@ -14,7 +14,8 @@ const App: React.FC = () => {
   const [output, setOutput] = useState('');
   const [isError, setIsError] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(''); // Eingabewert für den Benutzer
+  const [inputQueue, setInputQueue] = useState<any[]>([]);  // Warteschlange für Benutzereingaben
   const [isInputRequired, setIsInputRequired] = useState(false);
   const [, setIsLoading] = useState(false);
 
@@ -51,7 +52,7 @@ const App: React.FC = () => {
     "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
   };
 
-  const executeCode = async (userInput: string = '') => {
+  const executeCode = async (userInput: any = '') => {
     setIsLoading(true); // Ladezustand aktivieren
     try {
       // Benutzerdefinierter Python-Code, der den Input-Befehl korrekt abfängt
@@ -63,7 +64,7 @@ sys.stdout = io.StringIO()  # Umleiten der Ausgabe
 sys.stderr = sys.stdout
 
 # Benutzerdefinierte input-Funktion
-input_queue = iter(json.loads('${JSON.stringify(userInput.split("\\n"))}'))
+input_queue = iter(json.loads('${JSON.stringify(inputQueue)}'))
 
 def custom_input(prompt=""):
     print(prompt, end="")  # Prompt wird im UI angezeigt
@@ -107,8 +108,15 @@ except Exception as e:
 
   const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    executeCode(input); // Ausführen des Codes mit der Benutzereingabe
-    setInput(''); // Zurücksetzen der Eingabe
+
+    // Eingabe zur Warteschlange hinzufügen
+    setInputQueue((prevQueue) => [...prevQueue, input]);
+
+    // Eingabewert zurücksetzen
+    setInput('');
+
+    // Ausführen des Codes mit der Benutzereingabe
+    executeCode(inputQueue.join("\n"));
   };
 
   return (
