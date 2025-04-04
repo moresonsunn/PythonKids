@@ -53,7 +53,10 @@ PythonKids/
 │   │   ├── CodeEditor.tsx
 │   │   ├── LessonContent.tsx
 │   │   └── ...
-│   │
+│   ├── lessons/
+│   │   ├── index.tsx
+│   │   ├── loops.tsx
+│   │   └── ...
 │   ├── App.tsx
 │   └── index.tsx
 │
