@@ -15,14 +15,14 @@ Wird genutzt, wenn du weißt, wie oft du etwas wiederholen möchtest.',
     While-Schleife:\n\
     Anzahl an Wiederholungen',
     Example:'for i in range(5):  # Wiederhole 5 Mal\n\
-    print("Hallo!")\n\
+| | print("Hallo!")\n\
 While-Schleife:\n\
 Wird genutzt, wenn du eine Bedingung hast, die während der Ausführung überprüft wird.\n\
 \n\
 count = 0\n\
 while count < 5:\n\
-    print("Zahl:", count)\n\
-    count += 1',
+| | print("Zahl:", count)\n\
+| | count += 1',
     subLessons: [
       {
         id: 'loops-1',
@@ -41,7 +41,7 @@ while count < 5:\n\
         content: 'Schleifen mit einer Bedingung.',
         initialCode: 'zahl = 1\nwhile zahl <= 5:\n    print(zahl)\n    zahl += 1',
         task: 'Gebe die Zahlen von 5 bis 1 aus',
-        solution: 'zahl = 5\nwhile zahl >= 1:\n    print(zahl)\n    zahl -= 1',
+        solution: 'zahl = 5\nwhile zahl >= 1:\n    print(zahl)\n    zahl += 1',
         hint: 'Vergiss nicht die Abbruchbedingung'
       },
       {
@@ -49,7 +49,7 @@ while count < 5:\n\
         title: 'Schleifen abbrechen',
         difficulty: 'Schwer',
         content: 'Schleifen vorzeitig beenden.',
-        initialCode: 'for zahl in range(10):\n    if zahl == 5:\n        break\n    print(zahl)',
+        initialCode: 'for zahl in range(10):',
         task: 'Beende die Schleife wenn die Zahl 3 erreicht ist',
         solution: 'for zahl in range(10):\n    if zahl == 3:\n        break\n    print(zahl)',
         hint: 'Nutzte das Schlüsselwort break'

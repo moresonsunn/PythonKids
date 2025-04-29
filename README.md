@@ -53,7 +53,10 @@ PythonKids/
 │   │   ├── CodeEditor.tsx
 │   │   ├── LessonContent.tsx
 │   │   └── ...
-│   │
+│   ├── lessons/
+│   │   ├── index.tsx
+│   │   ├── loops.tsx
+│   │   └── ...
 │   ├── App.tsx
 │   └── index.tsx
 │
@@ -99,3 +102,5 @@ Jede Lektion enthält:
 2. npm run build // Erstellt eine datei names dist wo alle dateien gespeichert werden
 3. npm start // Für kurze tests
 4. npx electron-packager . PythonLernApp --platform=win32 --arch=x64 --out=release-build --overwrite // Um einen Ordner zuerstellen wo eine .exe datei ist zum ausführen der App
+5. npx electron-packager . PythonLernApp --platform=darwin --arch=x64 --out=release-build --overwrite // für Intel-Mac
+6. npx electron-packager . PythonLernApp --platform=darwin --arch=arm64 --out=release-build --overwrite // für Apple-Silicon-Mac

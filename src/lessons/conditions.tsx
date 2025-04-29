@@ -18,11 +18,11 @@ elif: Führt den Codeblock aus, wenn die vorherige Bedingung falsch ist.\n\
 else: Führt den Codeblock aus, wenn keine der Bedingungen wahr ist.',
     Example:'zahl = 10 \n\
 if zahl > 5: \n\
-    print("Die Zahl ist groß.") \n\
+| | print("Die Zahl ist groß.") \n\
 elif zahl == 5:\n\
-    print("Die Zahl ist mittel.")\n\
+| | print("Die Zahl ist mittel.")\n\
 else:\n\
-    print("Die Zahl ist klein.")',
+| | print("Die Zahl ist klein.")',
     subLessons: [
       {
         id: 'conditions-1',
@@ -31,7 +31,7 @@ else:\n\
         content: 'Einfache Bedingungen in Python.',
         initialCode: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")',
         task: 'Füge eine weitere Bedingung hinzu',
-        solution: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
+        solution: 'zahl = 10\nif zahl > 5:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
         hint: 'Nutze das Schlüsselwort if'
       },
       {

@@ -1,10 +1,10 @@
-import { Terminal } from "lucide-react";
+import { Swords } from "lucide-react";
 import { Lesson } from "../components/LessonContent";
 
 export const textadventure: Lesson = {
     id: 'textadventure',
     title: 'Text-Adventure',
-    icon: Terminal,
+    icon: Swords,
     definition: 'Ein Text-Adventure ist ein Spiel, bei dem der Spieler durch Texteingaben mit der Spielwelt interagiert. Der Spieler erhält eine Beschreibung der Umgebung und kann durch Eingabe von Befehlen Aktionen ausführen.',
     functions: 'In einem Text-Adventure können verschiedene Funktionen implementiert werden, z. B.:\nSpielerbewegungen (nach Norden, Süden, Osten, Westen), Interaktionen mit Objekten (nehmen, benutzen, untersuchen), Dialoge mit NPCs (nicht-spielbaren Charakteren).',
     Example: 'Ein einfaches Text-Adventure könnte so aussehen:\n"Du befindest dich in einem dunklen Raum. Es gibt eine Tür im Norden und eine Tür im Osten. Was möchtest du tun?"\n> Norden\n"Du gehst durch die Tür und betrittst einen hellen Raum. Es gibt ein Schwert auf dem Boden. Was möchtest du tun?"\n> Nehmen\n"Du nimmst das Schwert."',

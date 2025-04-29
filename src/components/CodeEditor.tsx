@@ -40,7 +40,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
         value={code} // Der aktuelle Code
         onChange={(value) => setCode(value || "")} // Aktualisiert den Code bei Änderungen
         options={{
-          fontSize: 14, // Schriftgröße
+          fontSize: 13, // Schriftgröße
           fontFamily: "'Comic Code', 'Cascadia Code', monospace", // Schriftart
           minimap: { enabled: false }, // Deaktiviert die Minimap
           scrollBeyondLastLine: false, // Verhindert das Scrollen über die letzte Zeile hinaus
@@ -49,7 +49,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
           padding: { top: 16 }, // Abstand oben
           theme: "vs", // Standard-Theme des Editors
           wordWrap: "on", // Zeilenumbruch aktivieren
-          tabSize: 3, // Tab-Größe
+          tabSize: 2, // Tab-Größe
         }}
         theme="vs" // Setzt das Theme des Editors
       />

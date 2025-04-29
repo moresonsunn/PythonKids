@@ -57,7 +57,7 @@ function Navigation({ selectedTopic, setSelectedTopic, selectedSubLesson, setSel
                     >
                       {subLesson.title}
                       {/* Anzeige der Schwierigkeitsstufe mit entsprechender Farbe */}
-                      <span className={`ml-2 text-xs px-2 py-1 rounded inline-block ${
+                      <span className={`ml-2 text-xs px-2 py-1 rounded inline-block left ${
                         subLesson.difficulty === 'Leicht' ? 'bg-green-100 text-green-700' :
                         subLesson.difficulty === 'Mittel' ? 'bg-yellow-100 text-yellow-700' :
                         subLesson.difficulty === 'Schwer' ? 'bg-red-100 text-red-700' :

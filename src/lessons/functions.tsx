@@ -7,7 +7,7 @@ export const functions: Lesson = {
     icon: Code2,
     definition: 'Funktionen sind kleine Programme innerhalb deines Programms. Sie helfen dir, Code zu organisieren und wiederzuverwenden.',
     functions: 'Mit dem Schlüsselwort def gefolgt von einem Namen und einer Klammer, z. B.:',
-    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n   sag = "Hallo!"  # Code-Block der Funktion\n   return sag # Rückgabewert der Funktion\nprint(begruessung())  # Aufruf der Funktion',
+    Example: 'def begruessung():  # Funktion mit dem Namen "begruessung"\n| | sag = "Hallo!"  # Code-Block der Funktion\n| | return sag # Rückgabewert der Funktion\nprint(begruessung())  # Aufruf der Funktion',
     subLessons: [
       {
         id: 'functions-1',
