@@ -18,11 +18,11 @@ elif: Führt den Codeblock aus, wenn die vorherige Bedingung falsch ist.\n\
 else: Führt den Codeblock aus, wenn keine der Bedingungen wahr ist.',
     Example:'zahl = 10 \n\
 if zahl > 5: \n\
-    print("Die Zahl ist groß.") \n\
+| | print("Die Zahl ist groß.") \n\
 elif zahl == 5:\n\
-    print("Die Zahl ist mittel.")\n\
+| | print("Die Zahl ist mittel.")\n\
 else:\n\
-    print("Die Zahl ist klein.")',
+| | print("Die Zahl ist klein.")',
     subLessons: [
       {
         id: 'conditions-1',

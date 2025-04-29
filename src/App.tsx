@@ -7,17 +7,17 @@ import LessonContent from './components/LessonContent'; // Importieren der Lesso
 import { lessons } from './lessons/index'; // Importieren der Lektionen
 
 const App: React.FC = () => {
-  const [selectedTopic, setSelectedTopic] = useState('variables');
-  const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1');
-  const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text');
-  const [code, setCode] = useState('');
-  const [output, setOutput] = useState('');
-  const [isError, setIsError] = useState(false);
-  const [pyodide, setPyodide] = useState<any>(null);
+  const [selectedTopic, setSelectedTopic] = useState('variables'); // Standardmäßig die erste Lektion auswählen
+  const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1'); // Standardmäßig die erste Unterlektion auswählen
+  const [learningStyle, setLearningStyle] = useState<'text' | 'interactive'>('text'); // Standardmäßig den Lernstil auf 'text' setzen
+  const [code, setCode] = useState(''); // Code, der im Editor angezeigt wird
+  const [output, setOutput] = useState(''); // Ausgabe des Codes
+  const [isError, setIsError] = useState(false); // Fehlerstatus
+  const [pyodide, setPyodide] = useState<any>(null); // Pyodide-Instanz
   const [input, setInput] = useState(''); // Eingabewert für den Benutzer
   const [inputQueue, setInputQueue] = useState<any[]>([]);  // Warteschlange für Benutzereingaben
-  const [isInputRequired, setIsInputRequired] = useState(false);
-  const [, setIsLoading] = useState(false);
+  const [isInputRequired, setIsInputRequired] = useState(false); // Eingabe erforderlich-Status
+  const [, setIsLoading] = useState(false); // Ladezustand
 
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
@@ -55,8 +55,8 @@ const App: React.FC = () => {
   const executeCode = async (userInput: any = '') => {
     setIsLoading(true); // Ladezustand aktivieren
     try {
-      // Benutzerdefinierter Python-Code, der den Input-Befehl korrekt abfängt
-      const pythonCode = `
+        // Python-Code ausführen
+        const pythonCode = `
 import sys
 import io
 import json
@@ -88,18 +88,18 @@ except Exception as e:
         print(f"Fehler: {str(e)}", file=sys.stdout)  # Originale Fehlermeldung ausgeben
 `;
 
-      // Führen Sie den Python-Code aus
-      await pyodide.runPythonAsync(pythonCode);
+        // Führen Sie den Python-Code aus
+        await pyodide.runPythonAsync(pythonCode);
 
-      // Ausgabe abrufen
-      const output = pyodide.runPython("sys.stdout.getvalue()");
-      setOutput(output || "Keine Ausgabe");
-      setIsError(false);
-      setIsInputRequired(false);
+        // Ausgabe abrufen
+        const output = pyodide.runPython("sys.stdout.getvalue()");
+        setOutput(output || "Keine Ausgabe");
+        setIsError(false);
+        setIsInputRequired(false);
 
-      // Überprüfen, ob eine Eingabe erforderlich ist
-      if (code.includes('input')) {
-        setIsInputRequired(true); // Setzen des Eingabezustands auf true
+        // Überprüfen, ob eine Eingabe erforderlich ist
+        if (code.includes('input')) {
+          setIsInputRequired(true); // Setzen des Eingabezustands auf true
       }
     } finally {
       setIsLoading(false); // Ladezustand deaktivieren
