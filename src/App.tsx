@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { loadPyodide } from "../public/pyodide/pyodide"; // Importieren der Pyodide-Bibliothek
 import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
 import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
@@ -53,6 +53,7 @@ const App: React.FC = () => {
   };
 
   const executeCode = async (newInput: string = '') => {
+    resetExecution(); // Reset der Ausführung
     setIsLoading(true);
     try {
       // Aktualisierte Warteschlange mit dem neuen Input (wenn vorhanden)
@@ -112,6 +113,7 @@ except Exception as e:
         setIsInputRequired(true);
       } else {
         setIsInputRequired(false);
+        resetExecution(); // Reset ausführen, wenn keine Eingabe mehr erforderlich ist
       }
 
       setIsError(false);
@@ -136,7 +138,6 @@ except Exception as e:
   const resetExecution = () => {
     setInputQueue([]); // Eingabe-Warteschlange zurücksetzen
     setIsInputRequired(false); // Eingabe erforderlich-Status zurücksetzen
-    setOutput(''); // Ausgabe zurücksetzen
     setIsError(false); // Fehlerstatus zurücksetzen
   };
   
@@ -228,7 +229,7 @@ except Exception as e:
           </div>
         </div>
         <footer className="text-center mt-8 text-gray-600">
-          Entwickelt von Philip Terber
+          Entwickelt von Philip
         </footer>
       </div>
     </div>

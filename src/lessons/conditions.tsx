@@ -32,7 +32,7 @@ else:\n\
         initialCode: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")',
         task: 'Füge eine weitere Bedingung hinzu',
         solution: 'zahl = 10\nif zahl > 5:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
-        hint: 'Nutze das Schlüsselwort if'
+        hint: 'Nutze das Schlüsselwort if'  
       },
       {
         id: 'conditions-2',
@@ -49,7 +49,7 @@ else:\n\
         title: 'Bedingungen kombinieren',
         difficulty: 'Schwer',
         content: 'Mehrere Bedingungen miteinander verknüpfen.',
-        initialCode: 'zahl = 5\nif zahl > 0:\n")',
+        initialCode: 'zahl = 5\nif zahl > 0:\n',
         task: 'Füge eine weitere Bedingung hinzu die "and" oder "or" verwendet',
         solution: 'zahl = 5\nif zahl > 0 and zahl < 10:\n    print("Zahl ist zwischen 0 und 10")\nif zahl % 2 == 0:\n    print("Zahl ist gerade")',
         hint: 'Nutze das Prozentzeichen für den Modulo-Operator'
