@@ -164,6 +164,13 @@ except Exception as e:
                 <GamepadIcon className="h-5 w-5 inline-block mr-1" />
                 Interaktiv
               </button>
+              {/*<div className="flex items-center"> 
+                <img
+                  src="src/pictures/banner.png"
+                  alt="Banner"
+                  className="h-8 rounded-full max-w-[30%] max-h-[30%]"
+                />
+              </div>*/}
             </div>
           </div>
         </div>
@@ -220,6 +227,9 @@ except Exception as e:
             )}
           </div>
         </div>
+        <footer className="text-center mt-8 text-gray-600">
+          Entwickelt von Philip Terber
+        </footer>
       </div>
     </div>
   );
