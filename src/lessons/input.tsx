@@ -14,9 +14,9 @@ export const input: Lesson = {
         title: 'Benutzereingaben',
         difficulty: 'Leicht',
         content: 'Eingaben vom Benutzer entgegennehmen.',
-        initialCode: 'name = ',
+        initialCode: 'alter = ',
         task: 'Erstelle ein Programm, das dich nach deinem Alter fragt und es ausgibt.',
-        solution: 'alter = input("Wie alt bist du?")\nprint(alter)',
+        solution: 'alter = int(input("Wie alt bist du?"))\nprint(alter)',
         hint: 'Nutze die Funktion input().'
       },
       {
@@ -24,7 +24,7 @@ export const input: Lesson = {
         title: 'Zahlen einlesen',
         difficulty: 'Mittel',
         content: 'Zahlenwerte vom Benutzer entgegennehmen.',
-        initialCode: 'zahl =',
+        initialCode: 'zahl1 =\nzahl2 =',
         task: 'Erstelle ein Programm, wo du zwei Zahlen eingibst und sie addierst.',
         solution: 'zahl1 = int(input("Gib die erste Zahl ein"))\nzahl2 = int(input("Gib die zweite Zahl ein"))\nprint(zahl1 + zahl2)',
         hint: 'Nutze die Funktion int().'
@@ -34,9 +34,9 @@ export const input: Lesson = {
         title: 'Text einlesen',
         difficulty: 'Schwer',
         content: 'Textwerte vom Benutzer entgegennehmen.',
-        initialCode: 'text =',
-        task: 'Lass den Benutzer einen Satz eingeben.',
-        solution: 'satz = input("Gib einen Satz ein")\nprint(satz)',
+        initialCode: 'name = \nalter = ',
+        task: 'Frage denn Benutzer nach seinem Namen und alter und gib beides aus.',
+        solution: 'name = input("Wie heißt du?")\nalter = int(input("Wie alt bist du?"))\nprint(f"Hallo, {name} du bist {alter}!")',
         hint: 'Nutze die Funktion input().'
       }
     ],

@@ -16,7 +16,7 @@ export const dictionaries: Lesson = {
         content: 'Schlüssel-Wert-Paare in Python.',
         initialCode: 'farben = {}',
         task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben.',
-        solution: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}\nprint(farben)',
+        solution: 'farben = {"rot", "grün", "blau""}\nprint(farben)',
         hint: 'Nutze geschweifte Klammern {}.'
       },
       {
@@ -35,8 +35,8 @@ export const dictionaries: Lesson = {
         difficulty: 'Schwer',
         content: 'Elemente hinzufügen, entfernen und verändern.',
         initialCode: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}',
-        task: 'Füge dem Dictionary eine weitere Farbe hinzu.',
-        solution: 'farben["gelb"] = "#ffff00"\nprint(farben)',
+        task: 'Füge dem Dictionary eine weitere Farbe hinzu. Falls Internet verfügbar ist google denn Hex-Code für deine Farbe. Falls du keine Farbe hast, nutze Gelb: #ffff00',
+        solution: 'farben.update({"gelb": "#ffff00"})\nprint(farben)',
         hint: 'Nutze den Schlüssel zum Hinzufügen.'
       },
     ],

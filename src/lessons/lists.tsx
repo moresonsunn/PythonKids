@@ -20,24 +20,24 @@ export const lists: Lesson = {
         hint: 'Nutze eckige Klammern [] und vergiss nicht die Anführungszeichen.'
       },
       {
-        id: 'lists-2',
-        title: 'Elemente aus Listen auswählen',
-        difficulty: 'Mittel',
-        content: 'Einzelne Elemente aus Listen auswählen.',
-        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Wähle das erste Element aus der Liste aus.',
-        solution: 'print(farben[0])',
-        hint: 'Nutze den Index des Elements in eckigen Klammern beim print.'
-      },
-      {
         id: 'lists-3',
         title: 'Listen verändern',
-        difficulty: 'Schwer',
+        difficulty: 'Mittel',
         content: 'Elemente hinzufügen, entfernen und verändern.',
         initialCode: 'farben = ["Rot", "Grün", "Blau"]',
         task: 'Füge der Liste eine weitere Farbe hinzu.',
         solution: 'farben.append("Gelb")\nprint(farben)',
         hint: 'Nutze dafür die Methode append().'
+      },
+      {
+        id: 'lists-2',
+        title: 'Elemente aus Listen auswählen',
+        difficulty: 'Schwer',
+        content: 'Einzelne Elemente aus Listen auswählen.',
+        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
+        task: 'Wähle das erste Element aus der Liste aus.',
+        solution: 'print(farben[0])',
+        hint: 'Nutze den Index des Elements in eckigen Klammern beim print.'
       },
     ],
   };

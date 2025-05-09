@@ -49,8 +49,8 @@ else:\n\
         title: 'Bedingungen kombinieren',
         difficulty: 'Schwer',
         content: 'Mehrere Bedingungen miteinander verknüpfen.',
-        initialCode: 'zahl = 5\nif zahl > 0 and zahl < 10:\n    print("Zahl ist zwischen 0 und 10")',
-        task: 'Füge eine weitere Bedingung hinzu',
+        initialCode: 'zahl = 5\nif zahl > 0:\n")',
+        task: 'Füge eine weitere Bedingung hinzu die "and" oder "or" verwendet',
         solution: 'zahl = 5\nif zahl > 0 and zahl < 10:\n    print("Zahl ist zwischen 0 und 10")\nif zahl % 2 == 0:\n    print("Zahl ist gerade")',
         hint: 'Nutze das Prozentzeichen für den Modulo-Operator'
       },

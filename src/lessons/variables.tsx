@@ -24,9 +24,9 @@ export const variables: Lesson = {
       title: 'Rechnen mit Variablen',
       difficulty: 'Mittel',
       content: 'Mathematische Operationen mit Variablen.',
-      initialCode: 'zahl1 = 10\nzahl2 = 20\n',
-      task: 'Addiere die beiden Zahlen 10 und 20 und gebe das Ergebnis aus.',
-      solution: 'zahl1 = 10\nzahl2 = 20\nergebnis = zahl1 + zahl2\nprint(ergebnis)',
+      initialCode: 'alter = ',
+      task: 'Erstelle eine Variable mit deinem Alter und gebe sie aus.',
+      solution: 'alter = 10\nprint(alter)',
       hint: 'Nutze den Plus-Operator.'
     },
     {

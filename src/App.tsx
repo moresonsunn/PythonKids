@@ -52,73 +52,94 @@ const App: React.FC = () => {
     "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
   };
 
-  const executeCode = async (userInput: any = '') => {
-    setIsLoading(true); // Ladezustand aktivieren
+  const executeCode = async (newInput: string = '') => {
+    setIsLoading(true);
     try {
-        // Python-Code ausführen
-        const pythonCode = `
-import sys
-import io
-import json
-sys.stdout = io.StringIO()  # Umleiten der Ausgabe
-sys.stderr = sys.stdout
+      // Aktualisierte Warteschlange mit dem neuen Input (wenn vorhanden)
+      const updatedQueue = newInput ? [...inputQueue, newInput] : inputQueue;
+      setInputQueue(updatedQueue);
 
-# Benutzerdefinierte input-Funktion
-input_queue = iter(json.loads('${JSON.stringify(inputQueue)}'))
+      // Python-Eingabequeue als JSON-String vorbereiten
+      const queueJson = JSON.stringify(updatedQueue);
+      const errorHelpJson = JSON.stringify(errorHelp);
+      const escapedCode = code.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
+      // Reset der Pyodide-Umgebung (frisches exec)
+      await pyodide.runPythonAsync(`
+import sys, io, builtins, json
+
+# Umgebung zurücksetzen
+sys.stdout = io.StringIO()
+sys.stderr = sys.stdout
+input_queue = iter(json.loads('${queueJson}'))
 
 def custom_input(prompt=""):
-    print(prompt, end="")  # Prompt wird im UI angezeigt
-    return next(input_queue, "")  # Rückgabe der nächsten Benutzereingabe
+    print(prompt, end="")
+    try:
+        return next(input_queue)
+    except StopIteration:
+        print("Eingabe erforderlich")
+        raise Exception("Eingabe erforderlich")
 
-input = custom_input  # 'input' auf unsere benutzerdefinierte Funktion setzen
+builtins.input = custom_input
+error_help = json.loads('${errorHelpJson}')
+      `);
 
-# Fehlerhilfe aus JavaScript übergeben
-error_help = json.loads('${JSON.stringify(errorHelp)}')
-
-# Ausführung des Benutzercodes
+      // Python-Code ausführen
+      try {
+        await pyodide.runPythonAsync(`
 try:
-    exec("""
-${code.replace(/"/g, '\\"')}
-    """)
+    exec("""${escapedCode}""")
 except Exception as e:
-    error_type = type(e).__name__  # Typ des Fehlers abrufen
-    if error_type in error_help:
-        print(f"{error_help[error_type]}", file=sys.stdout)  # Fehlerhilfe ausgeben
+    error_type = type(e).__name__
+    if error_type == "Eingabe erforderlich":
+          print("Eingabe erforderlich")
+    elif error_type in error_help:
+        print(error_help[error_type])
     else:
-        print(f"Fehler: {str(e)}", file=sys.stdout)  # Originale Fehlermeldung ausgeben
-`;
-
-        // Führen Sie den Python-Code aus
-        await pyodide.runPythonAsync(pythonCode);
-
-        // Ausgabe abrufen
-        const output = pyodide.runPython("sys.stdout.getvalue()");
-        setOutput(output || "Keine Ausgabe");
-        setIsError(false);
-        setIsInputRequired(false);
-
-        // Überprüfen, ob eine Eingabe erforderlich ist
-        if (code.includes('input')) {
-          setIsInputRequired(true); // Setzen des Eingabezustands auf true
+        print(f"Fehler: {str(e)}")
+        `);
+      } catch (runErr) {
+        console.error("Pyodide execution error:", runErr);
       }
+
+      // Ausgabe lesen
+      const output = pyodide.runPython("sys.stdout.getvalue()");
+      setOutput(output || "Keine Ausgabe");
+
+      // Prüfen, ob weitere Eingabe benötigt wird
+      if (output.includes("Eingabe erforderlich")) {
+        setIsInputRequired(true);
+      } else {
+        setIsInputRequired(false);
+      }
+
+      setIsError(false);
+    } catch (err) {
+      console.error("Execution error:", err);
+      setIsError(true);
     } finally {
-      setIsLoading(false); // Ladezustand deaktivieren
+      setIsLoading(false);
     }
   };
 
-  const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleInputSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const trimmed = input.trim();
+    setInput(''); // Eingabefeld zurücksetzen
 
-    // Eingabe zur Warteschlange hinzufügen
-    setInputQueue((prevQueue) => [...prevQueue, input]);
-
-    // Eingabewert zurücksetzen
-    setInput('');
-
-    // Ausführen des Codes mit der Benutzereingabe
-    executeCode(inputQueue.join("\n"));
+    // Direkt mit neuer Eingabe ausführen
+    await executeCode(trimmed);
   };
 
+  // Reset-Funktion, um den Zustand zurückzusetzen
+  const resetExecution = () => {
+    setInputQueue([]); // Eingabe-Warteschlange zurücksetzen
+    setIsInputRequired(false); // Eingabe erforderlich-Status zurücksetzen
+    setOutput(''); // Ausgabe zurücksetzen
+    setIsError(false); // Fehlerstatus zurücksetzen
+  };
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
       <nav className="bg-white shadow-lg">
@@ -176,7 +197,7 @@ except Exception as e:
             {learningStyle === 'interactive' && (
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-lg shadow-lg p-6">
-                  <CodeEditor code={code} setCode={setCode} onRun={() => executeCode()} />
+                  <CodeEditor code={code} setCode={setCode} onRun={() => executeCode()}/>
                 </div>
 
                 <div className={`bg-white rounded-lg shadow-lg p-6 ${isError ? 'bg-red-100' : 'bg-yellow-100'}`}>

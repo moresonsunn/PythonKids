@@ -24,7 +24,7 @@ export const functions: Lesson = {
         title: 'Funktionen mit Parametern',
         difficulty: 'Mittel',
         content: 'Funktionen können Werte übergeben bekommen.',
-        initialCode: 'def addiere(zahl1,zahl2):\n    print(zahl1 + zahl2)',
+        initialCode: 'def addiere(zahl1,zahl2):\n',
         task: 'Erstelle eine Funktion, die zwei Zahlen addiert.',
         solution: 'def addiere(zahl1, zahl2):\n    print(zahl1 + zahl2)\nprint(addiere(2, 3))',
         hint: 'Nutze die Parameter in der Funktion.'
@@ -34,7 +34,7 @@ export const functions: Lesson = {
         title: 'Funktionen mit Rückgabewert',
         difficulty: 'Schwer',
         content: 'Funktionen können Werte zurückgeben.',
-        initialCode: 'def multipliziere(zahl1, zahl2):\n    print(zahl1 * zahl2)',
+        initialCode: 'def multipliziere(zahl1, zahl2):\n',
         task: 'Erstelle eine Funktion, die zwei Zahlen multipliziert.',
         solution: 'def multipliziere(zahl1, zahl2):\n    print(zahl1 * zahl2)\nprint(multipliziere(2, 3))',
         hint: 'Nutze return, um einen Wert zurückzugeben.'

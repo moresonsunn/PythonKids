@@ -14,7 +14,7 @@ export const operators: Lesson = {
         title: 'Rechenoperatoren',
         difficulty: 'Leicht',
         content: 'Die Grundrechenarten in Python.',
-        initialCode: 'zahl1 = 5\nzahl2 = 3',
+        initialCode: 'zahl1 = 7\nzahl2 = 3',
         task: 'Multipliziere die beiden Zahlen.',
         solution: 'ergebnis = zahl1 * zahl2\nprint(ergebnis)',
         hint: 'Nutze den Stern-Operator.'
