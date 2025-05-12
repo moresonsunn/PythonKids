@@ -41,7 +41,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
         onChange={(value) => setCode(value || "")} // Aktualisiert den Code bei Änderungen
         options={{
           fontSize: 13, // Schriftgröße
-          fontFamily: "'Comic Code', 'Cascadia Code', monospace", // Schriftart
+          fontFamily: "'Consolas', 'Lucida Console', 'Courier New', monospace", // Schriftart
           minimap: { enabled: false }, // Deaktiviert die Minimap
           scrollBeyondLastLine: false, // Verhindert das Scrollen über die letzte Zeile hinaus
           lineNumbers: "on", // Zeilennummern aktivieren
