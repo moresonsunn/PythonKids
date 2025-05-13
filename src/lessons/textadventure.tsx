@@ -15,7 +15,7 @@ export const textadventure: Lesson = {
         difficulty: 'Leicht',
         content: 'Erstelle ein einfaches Text-Adventure mit begrenzten Funktionen.',
         initialCode: '',
-        task: 'Erstelle eine Umgebung mit mindestens zwei Räumen und einer Verbindung zwischen ihnen.',
+        task: 'Erstelle eine Umgebung mit mindestens zwei Räumen und einer Verbindung zwischen ihnen. Der Code der schon im Editor ist, müsst ihr löschen.',
         solution: '',
         hint: 'Definiere die Räume und Verbindungen als Variablen.'
       },

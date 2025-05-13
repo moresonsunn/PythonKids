@@ -59,7 +59,7 @@
       "buildResources": "assets"
     },
     "win": {
-      "target": "nsis", 
+      "target": "nsis",
       "icon": "src/pictures/icon.png"
     }
   }

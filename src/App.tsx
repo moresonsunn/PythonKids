@@ -228,9 +228,9 @@ except Exception as e:
             )}
           </div>
         </div>
-        <footer className="text-center mt-8 text-gray-600">
+        {/* <footer className="text-center mt-8 text-gray-600">
           Entwickelt von Philip
-        </footer>
+        </footer> */}
       </div>
     </div>
   );
