@@ -4,7 +4,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 import { copy } from 'vite-plugin-copy';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   base: './',
   plugins: [
@@ -32,8 +31,13 @@ export default defineConfig({
     }),
     copy({
       targets: [
-        { src: 'public/pyodide/*', dest: 'dist/pyodide' },
+        { src: 'public/pyodide', dest: 'dist/pyodide' },
+        {
+          src: 'node_modules/monaco-editor/min/vs',
+          dest: 'dist/monaco-editor/min/vs',
+        },
       ],
+      hook: 'writeBundle', // Oder 'buildEnd'
     }),
   ],
   build: {
@@ -42,8 +46,9 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
       },
     },
+    outDir: 'dist', // Explizit den outDir setzen
   },
   optimizeDeps: {
-    exclude: ['lucide-react', 'pyodide', 'monaco-editor'],
+    exclude: ['lucide-react'], // pyodide und monaco-editor entfernen
   },
 });

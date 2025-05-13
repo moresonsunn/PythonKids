@@ -1,4 +1,6 @@
+// index.js
 import { app, BrowserWindow } from 'electron';
+import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -10,11 +12,14 @@ let win;
 
 app.on('ready', () => {
     win = new BrowserWindow({
-        developerTools: false,
         webPreferences: {
             nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js'), // Optional: preload-Skript
         },
     });
     win.maximize(); // Maximiere das Fenster
-    win.loadFile(join(__dirname, 'dist', 'index.html')); // Lade die gebaute Vite-App
+    win.loadFile(path.join(__dirname, 'dist', 'index.html'));
+
+    // Optional: DevTools öffnen
+    // win.webContents.openDevTools();
 });
