@@ -31,10 +31,12 @@ const App: React.FC = () => {
   useEffect(() => {
     const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
     const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
-    if (currentSubLesson) {
+
+    // Nur den Code zurücksetzen, wenn die aktuelle Lektion nicht das Text-Adventure ist
+    if (currentLesson?.id !== 'textadventure' && currentSubLesson) {
       setCode(currentSubLesson.initialCode);
     }
-  }, [selectedTopic, selectedSubLesson]);
+}, [selectedTopic, selectedSubLesson]);
 
   // Fehlermeldungen und Erklärungen
   const errorHelp: Record<string, string> = {

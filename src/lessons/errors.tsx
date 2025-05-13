@@ -5,7 +5,7 @@ export const errors: Lesson = {
     id: 'errors',
     title: 'Fehlerausgaben',
     icon: AlertCircle,
-    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. Arten von Fehlern: Syntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen. Logikfehler: Das Programm läuft, aber es tut nicht das, was du willst. Runtime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
+    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. Arten von Fehlern:\nSyntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen.\nLogikfehler: Das Programm läuft, aber es tut nicht das, was du willst.\nRuntime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
     functions: 'Python hilft dir: Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:',
     Example: 'print("Hallo\n      ^\nSyntaxError: unterminated string literal (detected at line 1)',
     subLessons: [

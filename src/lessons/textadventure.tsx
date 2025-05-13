@@ -35,7 +35,7 @@ export const textadventure: Lesson = {
         difficulty: 'Schwer',
         content: 'Implementiere ein komplexes Text-Adventure mit vielen Funktionen.',
         initialCode: '',
-        task: 'Füge mindestens eine NPC-Interaktion hinzu.',
+        task: 'Füge mindestens eine NPC-Interaktion hinzu. Und lasse deinen gedanken freien lauf.',
         solution: '',
         hint: 'Definiere den NPC als Variable und implementiere eine Funktion, um mit ihm zu interagieren.'
       }

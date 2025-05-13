@@ -15,7 +15,7 @@ export const dictionaries: Lesson = {
         difficulty: 'Leicht',
         content: 'Schlüssel-Wert-Paare in Python.',
         initialCode: 'farben = {}',
-        task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben.',
+        task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben. Hex-Codes können im Internet gesucht werden. Ansonsten nutze die Farben Rot, Grün, Blau und Lila : #ff0000, #00ff00, #0000ff, #800080',
         solution: 'farben = {"rot", "grün", "blau""}\nprint(farben)',
         hint: 'Nutze geschweifte Klammern {}.'
       },
