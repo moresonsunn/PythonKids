@@ -127,6 +127,7 @@ Jede Lektion enthält:
 3.  `npm run build` - Erstellt eine `dist`-Datei, in der alle Dateien gespeichert werden
 4.  `npm start` - Für kurze Tests
 5.  `npx electron-packager . PythonLernApp --platform=win32 --arch=x64 --out=release-build --overwrite` - Um eine ausführbare Datei zu erstellen
+6.  npm run dist - Für eine ausführbare .exe datei zuerstellen (Installations.exe datei ausführen und alles wird automatisch installiert)
 
 ## Komponenten
 
