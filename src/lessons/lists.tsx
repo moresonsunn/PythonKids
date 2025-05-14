@@ -14,30 +14,30 @@ export const lists: Lesson = {
         title: 'Listen erstellen',
         difficulty: 'Leicht',
         content: 'Lerne, wie man Listen erstellt und verwendet.',
-        initialCode: 'farben = ["Rot", "Grün", "Blau"]\n',
-        task: 'Erstelle eine Liste mit deinen Lieblingsfarben.',
+        initialCode: 'farben = []\n',
+        task: 'Erstelle eine Liste mit deinen Lieblingsfarben und gebe deine lieblingsfarben aus.',
         solution: 'farben = ["Rot", "Grün", "Blau"]\nprint(farben)',
         hint: 'Nutze eckige Klammern [] und vergiss nicht die Anführungszeichen.'
       },
       {
-        id: 'lists-3',
-        title: 'Listen verändern',
-        difficulty: 'Mittel',
-        content: 'Elemente hinzufügen, entfernen und verändern.',
-        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Füge der Liste eine weitere Farbe hinzu.',
-        solution: 'farben.append("Gelb")\nprint(farben)',
-        hint: 'Nutze dafür die Methode append().'
-      },
-      {
         id: 'lists-2',
         title: 'Elemente aus Listen auswählen',
-        difficulty: 'Schwer',
+        difficulty: 'Mittel',
         content: 'Einzelne Elemente aus Listen auswählen.',
         initialCode: 'farben = ["Rot", "Grün", "Blau"]',
         task: 'Wähle das erste Element aus der Liste aus.',
         solution: 'print(farben[0])',
         hint: 'Nutze den Index des Elements in eckigen Klammern beim print.'
+      },
+      {
+        id: 'lists-3',
+        title: 'Listen verändern',
+        difficulty: 'Schwer',
+        content: 'Elemente hinzufügen, entfernen und verändern.',
+        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
+        task: 'Füge der Liste eine weitere Farbe hinzu, das mithilfe von code, und gebe die Liste aus.',
+        solution: 'farben.append("Gelb")\nprint(farben)',
+        hint: 'Nutze dafür die Methode append().'
       },
     ],
   };

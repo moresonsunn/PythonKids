@@ -35,7 +35,7 @@ export const input: Lesson = {
         difficulty: 'Schwer',
         content: 'Textwerte vom Benutzer entgegennehmen.',
         initialCode: 'name = \nalter = ',
-        task: 'Frage denn Benutzer nach seinem Namen und alter und gib beides aus.',
+        task: 'Frage denn Benutzer nach seinem Namen und alter, gib beides aus als einen String.',
         solution: 'name = input("Wie heißt du?")\nalter = int(input("Wie alt bist du?"))\nprint(f"Hallo, {name} du bist {alter}!")',
         hint: 'Nutze die Funktion input().'
       }

@@ -99,6 +99,7 @@ except Exception as e:
           print("Eingabe erforderlich")
     elif error_type in error_help:
         print(error_help[error_type])
+        print(f"Fehler: {error_type}: {str(e)}")
     else:
         print(f"Fehler: {str(e)}")
         `);

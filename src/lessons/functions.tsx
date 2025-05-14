@@ -35,7 +35,7 @@ export const functions: Lesson = {
         difficulty: 'Schwer',
         content: 'Funktionen können Werte zurückgeben.',
         initialCode: 'def multipliziere(zahl1, zahl2):\n',
-        task: 'Erstelle eine Funktion, die zwei Zahlen multipliziert.',
+        task: 'Erstelle eine Funktion, die deinen namen und dein alter ausgibt.',
         solution: 'def multipliziere(zahl1, zahl2):\n    print(zahl1 * zahl2)\nprint(multipliziere(2, 3))',
         hint: 'Nutze return, um einen Wert zurückzugeben.'
       },

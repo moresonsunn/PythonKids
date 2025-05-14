@@ -22,7 +22,8 @@ Wird genutzt, wenn du eine Bedingung hast, die während der Ausführung überpr�
 count = 0\n\
 while count < 5:\n\
 | | print("Zahl:", count)\n\
-| | count += 1',
+| | count += 1\n\
+| | break  # Beende die Schleife, wenn count 5 erreicht',
     subLessons: [
       {
         id: 'loops-1',
