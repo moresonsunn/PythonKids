@@ -17,6 +17,7 @@
     "@codemirror/view": "^6.36.2",
     "@fontsource/comic-mono": "^5.2.5",
     "@monaco-editor/react": "^4.6.0",
+    "@tensorflow/tfjs": "^4.22.0",
     "axios": "^1.7.9",
     "brython": "^3.13.1",
     "codemirror": "^6.0.1",

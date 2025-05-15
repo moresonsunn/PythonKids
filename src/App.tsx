@@ -5,6 +5,28 @@ import Navigation from './components/Navigation'; // Importieren der Navigation-
 import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-Komponente
 import LessonContent from './components/LessonContent'; // Importieren der LessonContent-Komponente
 import { lessons } from './lessons/index'; // Importieren der Lektionen
+import * as tf from '@tensorflow/tfjs';
+
+let model: tf.LayersModel | null = null;
+
+const loadModel = async () => {
+  model = await tf.loadLayersModel('/ext_classification_model.keras'); // Pfad zum Modell
+};
+
+const checkOutputWithModel = async (output: string): Promise<boolean> => {
+  if (!model) {
+    console.error("Modell ist nicht geladen.");
+    return false;
+  }
+
+  // Konvertiere die Ausgabe in ein Tensor-Format
+  const inputTensor = tf.tensor([output.length]); // Beispiel: Länge der Ausgabe als Eingabe
+  const prediction = model.predict(inputTensor) as tf.Tensor;
+
+  // Interpretiere die Vorhersage (z. B. 1 = korrekt, 0 = falsch)
+  const result = (await prediction.data())[0];
+  return result > 0.5; // Schwellenwert für korrekt
+};
 
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables'); // Standardmäßig die erste Lektion auswählen
@@ -18,6 +40,7 @@ const App: React.FC = () => {
   const [inputQueue, setInputQueue] = useState<any[]>([]);  // Warteschlange für Benutzereingaben
   const [isInputRequired, setIsInputRequired] = useState(false); // Eingabe erforderlich-Status
   const [, setIsLoading] = useState(false); // Ladezustand
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]); // Abgeschlossene Lektionen
 
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
@@ -36,7 +59,13 @@ const App: React.FC = () => {
     if (currentLesson?.id !== 'textadventure' && currentSubLesson) {
       setCode(currentSubLesson.initialCode);
     }
-}, [selectedTopic, selectedSubLesson]);
+  }, [selectedTopic, selectedSubLesson]);
+
+  const calculateProgress = () => {
+    const totalLessons = lessons.length;
+    const completedCount = completedLessons.length;
+    return (completedCount / totalLessons) * 100;
+  };
 
   // Fehlermeldungen und Erklärungen
   const errorHelp: Record<string, string> = {
@@ -55,23 +84,18 @@ const App: React.FC = () => {
   };
 
   const executeCode = async (newInput: string = '') => {
-    resetExecution(); // Reset der Ausführung
+    resetExecution();
     setIsLoading(true);
     try {
-      // Aktualisierte Warteschlange mit dem neuen Input (wenn vorhanden)
       const updatedQueue = newInput ? [...inputQueue, newInput] : inputQueue;
       setInputQueue(updatedQueue);
 
-      // Python-Eingabequeue als JSON-String vorbereiten
       const queueJson = JSON.stringify(updatedQueue);
       const errorHelpJson = JSON.stringify(errorHelp);
       const escapedCode = code.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 
-      // Reset der Pyodide-Umgebung (frisches exec)
       await pyodide.runPythonAsync(`
 import sys, io, builtins, json
-
-# Umgebung zurücksetzen
 sys.stdout = io.StringIO()
 sys.stderr = sys.stdout
 input_queue = iter(json.loads('${queueJson}'))
@@ -88,7 +112,6 @@ builtins.input = custom_input
 error_help = json.loads('${errorHelpJson}')
       `);
 
-      // Python-Code ausführen
       try {
         await pyodide.runPythonAsync(`
 try:
@@ -107,16 +130,17 @@ except Exception as e:
         console.error("Pyodide execution error:", runErr);
       }
 
-      // Ausgabe lesen
       const output = pyodide.runPython("sys.stdout.getvalue()");
       setOutput(output || "Keine Ausgabe");
 
-      // Prüfen, ob weitere Eingabe benötigt wird
-      if (output.includes("Eingabe erforderlich")) {
-        setIsInputRequired(true);
+      // Prüfen, ob die Ausgabe korrekt ist
+      const isCorrect = await checkOutputWithModel(output.trim());
+      if (isCorrect) {
+        if (!completedLessons.includes(selectedTopic)) {
+          setCompletedLessons([...completedLessons, selectedTopic]); // Lektion als abgeschlossen markieren
+        }
       } else {
-        setIsInputRequired(false);
-        resetExecution(); // Reset ausführen, wenn keine Eingabe mehr erforderlich ist
+        console.log("Falsches Ergebnis. Versuche es erneut.");
       }
 
       setIsError(false);
@@ -180,6 +204,15 @@ except Exception as e:
         </div>
       </nav>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
+          <div
+            className="bg-indigo-600 h-4 rounded-full"
+            style={{ width: `${calculateProgress()}%` }}
+          ></div>
+        </div>
+        <p className="text-sm text-gray-600">
+          Fortschritt: {Math.round(calculateProgress())}%
+        </p>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-3">
             <Navigation
