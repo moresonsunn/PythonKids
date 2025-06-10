@@ -33,9 +33,10 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 
 -   Frontend: React
 -   Code-Editor: Monaco Editor
--   Styling: CSS (möglicherweise mit einem Framework wie Tailwind)
+-   Styling: CSS
 -   Bundler: Vite
 -   Python-Ausführung im Browser: Pyodide
+-   ML: Tensorflow
 
 ## Installation
 
