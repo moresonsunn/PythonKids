@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect, useRef, useMemo } from 'react'; 
 //import { loadPyodide } from /* @vite-ignore */ "../public/pyodide"; // Importieren der Pyodide-Bibliothek
 import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
 import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
@@ -12,8 +12,6 @@ type TokenizerJson = {
   word_index: { [word: string]: number };
   oov_token?: string;
 };
-
-const { loadPyodide } = await import(/* @vite-ignore */ '../public/pyodide/pyodide.d.ts');
 
 // Extract word_index and oov_token from the Keras tokenizer JSON structure
 const tokenizerJson: TokenizerJson = {
@@ -39,34 +37,6 @@ function preprocessCode(code: string): string {
   return code;
 }
 
-const checkOutputWithModel = async (output: string): Promise<boolean> => {
-  if (!model) {
-    console.error("Modell ist nicht geladen.");
-    await loadModel();
-    return false;
-  }
-
-  const preprocessed = preprocessCode(output);
-  let seq = textsToSequences([preprocessed], tokenizerJson);
-  while (seq[0].length < 50) seq[0].push(0);
-  if (seq[0].length > 50) seq[0] = seq[0].slice(0, 50);
-
-  const inputTensor = tf.tensor2d(seq, [1, 50]);
-  const prediction = model.predict(inputTensor) as tf.Tensor;
-  const result = (await prediction.data())[0];
-  return result > 0.5;
-};
-
-let model: tf.LayersModel | null = null;
-const loadModel = async () => {
-  try {
-    model = await tf.loadLayersModel('../model_web/model.json');
-    console.log("Modell erfolgreich geladen.");
-  } catch (error) {
-    console.error("Fehler beim Laden des Modells:", error);
-  }
-};
-
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables'); // Standardmäßig die erste Lektion auswählen
   const [selectedSubLesson, setSelectedSubLesson] = useState('variables-1'); // Standardmäßig die erste Unterlektion auswählen
@@ -81,15 +51,30 @@ const App: React.FC = () => {
   const [, setIsLoading] = useState(false); // Ladezustand
   const [completedLessons, setCompletedLessons] = useState<string[]>([]); // Abgeschlossene Lektionen
 
-  loadModel(); // Modell beim Start laden
+  // Modell-Referenz für KI
+  const modelRef = useRef<tf.LayersModel | null>(null);
 
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
     async function initPyodide() {
-      const py = await loadPyodide({ indexURL: "pyodide/" });
+      // @ts-ignore
+      const py = await window.loadPyodide({ indexURL: "pyodide/" });
       setPyodide(py);
     }
     initPyodide();
+  }, []);
+
+  // Modell nur einmal laden, im useEffect!
+  useEffect(() => {
+    const loadModel = async () => {
+      try {
+        modelRef.current = await tf.loadLayersModel('/model_web/model.json');
+        console.log("Modell erfolgreich geladen.");
+      } catch (error) {
+        console.error("Fehler beim Laden des Modells:", error);
+      }
+    };
+    loadModel();
   }, []);
 
   useEffect(() => {
@@ -102,10 +87,35 @@ const App: React.FC = () => {
     }
   }, [selectedTopic, selectedSubLesson]);
 
+  // Punkte pro SubLesson (z.B. gleichmäßig verteilt)
+  const subLessonPoints = useMemo(() => {
+    const points: Record<string, number> = {};
+    const totalPoints = 100;
+    let totalSubLessons = 0;
+    lessons.forEach(lesson => {
+      lesson.subLessons.forEach(sub => {
+        totalSubLessons += 1;
+        points[sub.id] = 0; // Platzhalter, wird gleich gesetzt
+      });
+    });
+    const pointsPerSubLesson = Math.floor(totalPoints / totalSubLessons);
+    Object.keys(points).forEach(id => {
+      points[id] = pointsPerSubLesson;
+    });
+    // Restpunkte auf die ersten Lektionen verteilen
+    let rest = totalPoints - pointsPerSubLesson * totalSubLessons;
+    Object.keys(points).slice(0, rest).forEach(id => {
+      points[id] += 1;
+    });
+    return points;
+  }, [lessons]);
+
   const calculateProgress = () => {
-    const totalLessons = lessons.length;
-    const completedCount = completedLessons.length;
-    return (completedCount / totalLessons) * 100;
+    let points = 0;
+    completedLessons.forEach(id => {
+      points += subLessonPoints[id] || 0;
+    });
+    return points;
   };
 
   // Fehlermeldungen und Erklärungen
@@ -124,6 +134,23 @@ const App: React.FC = () => {
     "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
   };
 
+  const checkOutputWithModel = async (output: string): Promise<boolean> => {
+    if (!modelRef.current) {
+      console.error("Modell ist nicht geladen.");
+      return false;
+    }
+    const preprocessed = preprocessCode(output);
+    let seq = textsToSequences([preprocessed], tokenizerJson);
+    while (seq[0].length < 50) seq[0].push(0);
+    if (seq[0].length > 50) seq[0] = seq[0].slice(0, 50);
+
+    const inputTensor = tf.tensor2d(seq, [1, 50]);
+    const prediction = modelRef.current.predict(inputTensor) as tf.Tensor;
+    const result = (await prediction.data())[0];
+    return result > 0.5;
+  };
+
+  // Punkte nur vergeben, wenn KI-Auswertung korrekt ist UND keine Fehlermeldung im Output steht
   const executeCode = async (newInput: string = '') => {
     resetExecution();
     setIsLoading(true);
@@ -160,7 +187,7 @@ try:
 except Exception as e:
     error_type = type(e).__name__
     if error_type == "Eingabe erforderlich":
-          print("Eingabe erforderlich")
+        print("Eingabe erforderlich")
     elif error_type in error_help:
         print(error_help[error_type])
         print(f"Fehler: {error_type}: {str(e)}")
@@ -181,23 +208,33 @@ except Exception as e:
         return; // Keine Modellprüfung, sondern auf Eingabe warten!
       }
 
-      // Prüfen, ob die Ausgabe und der Code korrekt sind und zur richtigen Lektion passen
-      const isCorrect = await checkOutputWithModel(output.trim());
+      // Prüfen auf Fehlermeldungen im Output
+      const hasError =
+        /Fehler:|Syntaxfehler|SyntaxError|Exception|Traceback|Einrückungsfehler|TypeError|NameError|IndentationError|ZeroDivisionError|IndexError|KeyError|AttributeError|ValueError|ModuleNotFoundError|RecursionError|UnboundLocalError/.test(
+          output
+        );
+
+      // KI prüft die Ausgabe und den Code (über Output)
+      const isCorrect = !hasError && (await checkOutputWithModel(output.trim()));
       const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
       const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
 
       if (isCorrect && currentSubLesson) {
+        // Punkte nur vergeben, wenn KI-Auswertung korrekt ist und keine Fehlermeldung im Output steht
         if (!completedLessons.includes(selectedSubLesson)) {
           setCompletedLessons([...completedLessons, selectedSubLesson]);
         }
+        setIsError(false);
       } else {
         setIsError(true);
-        setOutput("Das Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code.");
+        setOutput(
+          "Das Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code.\n\n" +
+          "Fehlerausgabe:\n" +
+          (output || "Keine Ausgabe")
+        );
         console.error("Falsches Ergebnis oder falsche Lektion:", output);
         return;
       }
-
-      setIsError(false);
     } catch (err) {
       console.error("Execution error:", err);
       setIsError(true);
@@ -265,7 +302,7 @@ except Exception as e:
           ></div>
         </div>
         <p className="text-sm text-gray-600">
-          Fortschritt: {Math.round(calculateProgress())}%
+          Fortschritt: {calculateProgress()} / 100 Punkte
         </p>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-3">
@@ -319,7 +356,7 @@ except Exception as e:
           </div>
         </div>
         {/* <footer className="text-center mt-8 text-gray-600">
-          Entwickelt von Philip
+          Entwickelt von Philip Terber
         </footer> */}
       </div>
     </div>

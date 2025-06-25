@@ -14,6 +14,7 @@ Eine interaktive Webanwendung/WebApp zum Erlernen von Python-Grundlagen.
 -   [Befehle](#befehle)
 -   [Komponenten](#komponenten)
 -   [Lektionsdetails](#lektionsdetails)
+-   [Lizenz](#lizenz)
 
 ## Überblick
 
@@ -36,7 +37,7 @@ Diese Anwendung bietet eine benutzerfreundliche Plattform für Anfänger, um Pyt
 -   Styling: CSS
 -   Bundler: Vite
 -   Python-Ausführung im Browser: Pyodide
--   ML: Tensorflow
+-   ML: Tensorflow.js (unter [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0))
 
 ## Installation
 
@@ -243,4 +244,16 @@ Die Lektionen sind in einzelne Dateien unter `src/lessons/` organisiert. Jede Le
     print(f"Hallo, {name} du bist {alter}!")
     ```
 
-usw.
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz (siehe [LICENSE](./LICENSE)).  
+Für die KI-Funktionalität wird [TensorFlow.js](https://www.tensorflow.org/js) verwendet, das unter der [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) steht.  
+Die Nutzung von TensorFlow.js verpflichtet zur Einhaltung der Apache 2.0 Lizenzbedingungen, insbesondere zur Nennung der Lizenz und des Urhebers:
+
+> Copyright 2019 The TensorFlow Authors.  
+> Licensed under the Apache License, Version 2.0 (the "License");  
+> you may not use this file except in compliance with the License.  
+> You may obtain a copy of the License at  
+> http://www.apache.org/licenses/LICENSE-2.0
+
+Eine Kopie der Apache 2.0 Lizenz ist im Repository enthalten.
