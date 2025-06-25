@@ -8,9 +8,9 @@ import numpy as np
 # Daten aus den Lektionen
 texts = [
     # Variablen
-    "name = 'Max'\nprint(name)",  # variables-1
-    "alter = 10\nprint(alter)",  # variables-2
-    "name = 'Max'\nalter = 10\nprint(f'{name} ist {alter} Jahre alt')",  # variables-3
+    "name = '<NAME>'\nprint(name)",  # variables-1
+    "alter = <ZAHL>\nprint(alter)",  # variables-2
+    "name = '<NAME>'\nalter = <ZAHL>\nprint(f'{name} ist {alter} Jahre alt')",  # variables-3
 
     # Input
     "alter = int(input('Wie alt bist du?'))\nprint(alter)",  # input-1
@@ -24,13 +24,13 @@ texts = [
 
     # Schleifen
     "for zahl in range(1, 6):\n    print(zahl)",  # loops-1
-    "zahl = 5\nwhile zahl >= 1:\n    print(zahl)\n    zahl -= 1",  # loops-2
+    "zahl = <ZAHL>\nwhile zahl >= 1:\n    print(zahl)\n    zahl -= 1",  # loops-2
     "for zahl in range(10):\n    if zahl == 3:\n        break\n    print(zahl)",  # loops-3
 
     # Bedingungen
-    "zahl = 10\nif zahl > 5:\n    print('Zahl ist größer als 5')",  # conditions-1
-    "zahl = 5\nif zahl > 10:\n    print('Zahl ist größer als 10')\nelif zahl < 10:\n    print('Zahl ist kleiner als 10')",  # conditions-2
-    "zahl = 5\nif zahl > 0 and zahl < 10:\n    print('Zahl ist zwischen 0 und 10')",  # conditions-3
+    "zahl = <ZAHL>\nif zahl > 5:\n    print('Zahl ist größer als 5')",  # conditions-1
+    "zahl = <ZAHL>\nif zahl > 10:\n    print('Zahl ist größer als 10')\nelif zahl < 10:\n    print('Zahl ist kleiner als 10')",  # conditions-2
+    "zahl = <ZAHL>\nif zahl > 0 and zahl < 10:\n    print('Zahl ist zwischen 0 und 10')",  # conditions-3
 
     # Dictionaries
     "farben = {'rot': '#ff0000', 'grün': '#00ff00', 'blau': '#0000ff'}\nprint(farben)",  # dictionaries-1
@@ -38,9 +38,9 @@ texts = [
     "farben = {'rot': '#ff0000', 'grün': '#00ff00', 'blau': '#0000ff'}\nfarben.update({'gelb': '#ffff00'})\nprint(farben)",  # dictionaries-3
 
     # Funktionen
-    "def mein_name():\n    return 'Max'\nprint(mein_name())",  # functions-1
-    "def addiere(zahl1, zahl2):\n    return zahl1 + zahl2\nprint(addiere(2, 3))",  # functions-2
-    "def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2\nprint(multipliziere(2, 3))",  # functions-3
+    "def mein_name():\n    return '<NAME>'\nprint(mein_name())",  # functions-1
+    "def addiere(zahl1, zahl2):\n    return zahl1 + zahl2\nprint(addiere(<ZAHL>, <ZAHL>))",  # functions-2
+    "def multipliziere(zahl1, zahl2):\n    return zahl1 * zahl2\nprint(multipliziere(<ZAHL>, <ZAHL>))",  # functions-3
 ]
 
 # Labels: 1 = korrekt, 0 = falsch
@@ -50,7 +50,7 @@ labels = [1] * len(texts)  # Alle Beispiele sind korrekt
 tokenizer = Tokenizer(num_words=1000, oov_token="<OOV>")
 tokenizer.fit_on_texts(texts)
 sequences = tokenizer.texts_to_sequences(texts)
-padded_sequences = pad_sequences(sequences, maxlen=500, padding='post')
+padded_sequences = pad_sequences(sequences, maxlen=50, padding='post')
 
 # Modell erstellen
 model = Sequential([
@@ -67,4 +67,10 @@ model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy']
 model.fit(np.array(padded_sequences), np.array(labels), epochs=500)
 
 # Modell speichern
-model.save("text_classification_model.keras")
+model.save("text_classification_model.h5")
+
+# Tokenizer speichern
+import json
+tokenizer_json = tokenizer.to_json()
+with open("tokenizer.json", "w") as f:
+    f.write(tokenizer_json)

@@ -12,13 +12,13 @@ import { textadventure } from "./textadventure";
 
 export const lessons: Lesson[] = [
   variables,
-  functions,
-  lists,
   operators,
-  errors,
   input,
-  dictionaries,
+  errors,
   conditions,
   loops,
+  functions,
+  lists,
+  dictionaries,
   textadventure,
 ];

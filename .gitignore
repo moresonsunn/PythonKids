@@ -25,3 +25,4 @@ dist-ssr
 /release-build
 /vite-react-typescript-starter-win32-x64
 src/lessons_java
+/venv/

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
-import * as monaco from 'monaco-editor';
 
 interface CodeEditorProps {
     code: string;
@@ -18,9 +17,9 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
             (window as any).MonacoEnvironment = {
                 getWorkerUrl: function (moduleId: string, label: string) {
                     if (label === 'python') {
-                        return '/monaco-editor/min/vs/language/python/python.worker.js';
+                        return '/dist/min/vs/language/python/python.worker.js';
                     }
-                    return '/monaco-editor/min/vs/editor/editor.worker.js';
+                    return '/dist/min/vs/editor/editor.worker.js';
                 }
             };
         }

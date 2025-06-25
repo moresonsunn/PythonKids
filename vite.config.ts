@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     VitePWA({
       workbox: {
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 3024,
       },
       registerType: 'autoUpdate',
       manifest: {
@@ -44,6 +44,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        pyodide: resolve(__dirname, 'public/pyodide/pyodide.js'),
       },
     },
     outDir: 'dist', // Explizit den outDir setzen

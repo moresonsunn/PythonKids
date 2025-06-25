@@ -1,31 +1,70 @@
 import React, { useState, useEffect } from 'react'; 
-import { loadPyodide } from "../public/pyodide/pyodide"; // Importieren der Pyodide-Bibliothek
+//import { loadPyodide } from /* @vite-ignore */ "../public/pyodide"; // Importieren der Pyodide-Bibliothek
 import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
 import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
 import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-Komponente
 import LessonContent from './components/LessonContent'; // Importieren der LessonContent-Komponente
 import { lessons } from './lessons/index'; // Importieren der Lektionen
 import * as tf from '@tensorflow/tfjs';
+import rawTokenizerJson from '../model_web/tokenizer.json';
 
-let model: tf.LayersModel | null = null;
-
-const loadModel = async () => {
-  model = await tf.loadLayersModel('/ext_classification_model.keras'); // Pfad zum Modell
+type TokenizerJson = {
+  word_index: { [word: string]: number };
+  oov_token?: string;
 };
+
+const { loadPyodide } = await import(/* @vite-ignore */ '../public/pyodide/pyodide.d.ts');
+
+// Extract word_index and oov_token from the Keras tokenizer JSON structure
+const tokenizerJson: TokenizerJson = {
+  word_index: (rawTokenizerJson as any).config.word_index,
+  oov_token: (rawTokenizerJson as any).config.oov_token,
+};
+
+function textsToSequences(texts: string[], tokenizerJson: TokenizerJson): number[][] {
+  const wordIndex = tokenizerJson.word_index;
+  const oovTokenIndex = tokenizerJson.oov_token ? wordIndex[tokenizerJson.oov_token] : 1;
+  return texts.map(text =>
+    text
+      .toLowerCase()
+      .replace(/[^\wäöüß]+/gi, " ")
+      .split(/\s+/)
+      .map(word => wordIndex[word] || oovTokenIndex)
+  );
+}
+
+function preprocessCode(code: string): string {
+  code = code.replace(/'[^']*'/g, "'<NAME>'");
+  code = code.replace(/\b\d+\b/g, "<ZAHL>");
+  return code;
+}
 
 const checkOutputWithModel = async (output: string): Promise<boolean> => {
   if (!model) {
     console.error("Modell ist nicht geladen.");
+    await loadModel();
     return false;
   }
 
-  // Konvertiere die Ausgabe in ein Tensor-Format
-  const inputTensor = tf.tensor([output.length]); // Beispiel: Länge der Ausgabe als Eingabe
-  const prediction = model.predict(inputTensor) as tf.Tensor;
+  const preprocessed = preprocessCode(output);
+  let seq = textsToSequences([preprocessed], tokenizerJson);
+  while (seq[0].length < 50) seq[0].push(0);
+  if (seq[0].length > 50) seq[0] = seq[0].slice(0, 50);
 
-  // Interpretiere die Vorhersage (z. B. 1 = korrekt, 0 = falsch)
+  const inputTensor = tf.tensor2d(seq, [1, 50]);
+  const prediction = model.predict(inputTensor) as tf.Tensor;
   const result = (await prediction.data())[0];
-  return result > 0.5; // Schwellenwert für korrekt
+  return result > 0.5;
+};
+
+let model: tf.LayersModel | null = null;
+const loadModel = async () => {
+  try {
+    model = await tf.loadLayersModel('../model_web/model.json');
+    console.log("Modell erfolgreich geladen.");
+  } catch (error) {
+    console.error("Fehler beim Laden des Modells:", error);
+  }
 };
 
 const App: React.FC = () => {
@@ -41,6 +80,8 @@ const App: React.FC = () => {
   const [isInputRequired, setIsInputRequired] = useState(false); // Eingabe erforderlich-Status
   const [, setIsLoading] = useState(false); // Ladezustand
   const [completedLessons, setCompletedLessons] = useState<string[]>([]); // Abgeschlossene Lektionen
+
+  loadModel(); // Modell beim Start laden
 
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
@@ -130,17 +171,30 @@ except Exception as e:
         console.error("Pyodide execution error:", runErr);
       }
 
-      const output = pyodide.runPython("sys.stdout.getvalue()");
+      let output = pyodide.runPython("sys.stdout.getvalue()");
       setOutput(output || "Keine Ausgabe");
 
-      // Prüfen, ob die Ausgabe korrekt ist
+      // Prüfen, ob eine Eingabe erforderlich ist
+      if (output && output.includes("Eingabe erforderlich")) {
+        setIsInputRequired(true);
+        setIsLoading(false);
+        return; // Keine Modellprüfung, sondern auf Eingabe warten!
+      }
+
+      // Prüfen, ob die Ausgabe und der Code korrekt sind und zur richtigen Lektion passen
       const isCorrect = await checkOutputWithModel(output.trim());
-      if (isCorrect) {
-        if (!completedLessons.includes(selectedTopic)) {
-          setCompletedLessons([...completedLessons, selectedTopic]); // Lektion als abgeschlossen markieren
+      const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
+      const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
+
+      if (isCorrect && currentSubLesson) {
+        if (!completedLessons.includes(selectedSubLesson)) {
+          setCompletedLessons([...completedLessons, selectedSubLesson]);
         }
       } else {
-        console.log("Falsches Ergebnis. Versuche es erneut.");
+        setIsError(true);
+        setOutput("Das Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code.");
+        console.error("Falsches Ergebnis oder falsche Lektion:", output);
+        return;
       }
 
       setIsError(false);
