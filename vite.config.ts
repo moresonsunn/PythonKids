@@ -3,11 +3,13 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 import { copy } from 'vite-plugin-copy';
+import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
 export default defineConfig({
   base: './',
   plugins: [
     react(),
+    monacoEditorPlugin(),
     VitePWA({
       workbox: {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 3024,

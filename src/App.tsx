@@ -199,7 +199,6 @@ except Exception as e:
       }
 
       let output = pyodide.runPython("sys.stdout.getvalue()");
-      setOutput(output || "Keine Ausgabe");
 
       // Prüfen, ob eine Eingabe erforderlich ist
       if (output && output.includes("Eingabe erforderlich")) {
@@ -210,7 +209,7 @@ except Exception as e:
 
       // Prüfen auf Fehlermeldungen im Output
       const hasError =
-        /Fehler:|Syntaxfehler|SyntaxError|Exception|Traceback|Einrückungsfehler|TypeError|NameError|IndentationError|ZeroDivisionError|IndexError|KeyError|AttributeError|ValueError|ModuleNotFoundError|RecursionError|UnboundLocalError/.test(
+        /Fehler:|Syntaxfehler|SyntaxError|Exception|Traceback|Einrückungsfehler|TypeError|NameError|IndentationError|ZeroDivisionError|Keine Ausgabe|IndexError|KeyError|AttributeError|ValueError|ModuleNotFoundError|RecursionError|UnboundLocalError/.test(
           output
         );
 
@@ -230,7 +229,7 @@ except Exception as e:
         setOutput(
           "Das Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code.\n\n" +
           "Fehlerausgabe:\n" +
-          (output || "Keine Ausgabe")
+          (output && output.trim() !== "" ? output : "Keine Ausgabe")
         );
         console.error("Falsches Ergebnis oder falsche Lektion:", output);
         return;
@@ -254,11 +253,16 @@ except Exception as e:
 
   // Reset-Funktion, um den Zustand zurückzusetzen
   const resetExecution = () => {
-    setInputQueue([]); // Eingabe-Warteschlange zurücksetzen
+    // setInputQueue([]); // Entfernt! Nicht mehr bei jedem Ausführen leeren!
     setIsInputRequired(false); // Eingabe erforderlich-Status zurücksetzen
     setIsError(false); // Fehlerstatus zurücksetzen
   };
   
+  // inputQueue nur beim Wechsel der Lektion/Unterlektion zurücksetzen!
+  useEffect(() => {
+    setInputQueue([]);
+  }, [selectedTopic, selectedSubLesson]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
       <nav className="bg-white shadow-lg">

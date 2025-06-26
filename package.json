@@ -48,6 +48,7 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.3.1",
     "vite": "^6.2.1",
+    "vite-plugin-monaco-editor": "^1.1.0",
     "vite-plugin-pwa": "^0.21.1"
   },
   "build": {
