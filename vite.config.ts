@@ -32,10 +32,9 @@ export default defineConfig({
     copy({
       targets: [
         { src: 'public/pyodide', dest: 'dist/pyodide' },
-        {
-          src: 'node_modules/monaco-editor/min/vs',
-          dest: 'dist/monaco-editor/min/vs',
-        },
+        { src: 'node_modules/monaco-editor/min/vs', dest: 'dist/monaco-editor/min/vs' },
+        { src: 'node_modules/monaco-editor/min/vs/editor/editor.main.css', dest: 'dist/monaco-editor/min/vs/editor' },
+        { src: 'model_web', dest: 'dist/model_web' },
       ],
       hook: 'writeBundle',
     }),
