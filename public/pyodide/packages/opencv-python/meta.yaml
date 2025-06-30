@@ -1,0 +1,16 @@
+package:
+  name: opencv-python
+  version: 4.10.0.84
+  top-level:
+    - cv2
+about:
+  home: https://github.com/opencv/opencv-python
+  PyPI: https://pypi.org/project/opencv-python
+  summary: Wrapper package for OpenCV python bindings.
+  license: MIT
+source:
+  url: https://cdn.jsdelivr.net/pyodide/v0.27.4/full/opencv_python-4.10.0.84-cp312-cp312-pyodide_2024_0_wasm32.whl
+  sha256: da512bf82434bc21936032faa7d33267d66a2a9fc2d19e58d843714d7e546121
+requirements:
+  run:
+    - numpy

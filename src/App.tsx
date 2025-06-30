@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'; 
-//import { loadPyodide } from /* @vite-ignore */ "../public/pyodide"; // Importieren der Pyodide-Bibliothek
 import { Code, BookOpen, GamepadIcon } from 'lucide-react'; // Importieren von Icons
 import Navigation from './components/Navigation'; // Importieren der Navigation-Komponente
 import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-Komponente
@@ -57,6 +56,19 @@ const App: React.FC = () => {
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
     async function initPyodide() {
+      function waitForPyodide() {
+        return new Promise<void>((resolve) => {
+          function check() {
+            if ((window as any).loadPyodide) {
+              resolve();
+            } else {
+              setTimeout(check, 50);
+            }
+          }
+          check();
+        });
+      }
+      await waitForPyodide();
       // @ts-ignore
       const py = await window.loadPyodide({ indexURL: "pyodide/" });
       setPyodide(py);
@@ -152,6 +164,12 @@ const App: React.FC = () => {
 
   // Punkte nur vergeben, wenn KI-Auswertung korrekt ist UND keine Fehlermeldung im Output steht
   const executeCode = async (newInput: string = '') => {
+    if (!pyodide) {
+      setOutput('Python-Interpreter wird noch geladen. Bitte warte einen Moment und versuche es erneut.');
+      setIsError(true);
+      return;
+    }
+    setIsInputRequired(false); // <-- Status immer zurücksetzen, damit Button wieder funktioniert
     resetExecution();
     setIsLoading(true);
     try {
@@ -254,6 +272,7 @@ except Exception as e:
   // Reset-Funktion, um den Zustand zurückzusetzen
   const resetExecution = () => {
     // setInputQueue([]); // Entfernt! Nicht mehr bei jedem Ausführen leeren!
+    setOutput(''); // Ausgabe zurücksetzen
     setIsInputRequired(false); // Eingabe erforderlich-Status zurücksetzen
     setIsError(false); // Fehlerstatus zurücksetzen
   };

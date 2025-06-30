@@ -3,13 +3,11 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { resolve } from 'path';
 import { copy } from 'vite-plugin-copy';
-import monacoEditorPlugin from 'vite-plugin-monaco-editor';
 
 export default defineConfig({
   base: './',
   plugins: [
     react(),
-    monacoEditorPlugin(),
     VitePWA({
       workbox: {
         maximumFileSizeToCacheInBytes: 10 * 1024 * 3024,
@@ -39,19 +37,18 @@ export default defineConfig({
           dest: 'dist/monaco-editor/min/vs',
         },
       ],
-      hook: 'writeBundle', // Oder 'buildEnd'
+      hook: 'writeBundle',
     }),
   ],
   build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        pyodide: resolve(__dirname, 'public/pyodide/pyodide.js'),
       },
     },
-    outDir: 'dist', // Explizit den outDir setzen
+    outDir: 'dist',
   },
   optimizeDeps: {
-    exclude: ['lucide-react'], // pyodide und monaco-editor entfernen
+    exclude: ['lucide-react'],
   },
 });

@@ -15,11 +15,12 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
         // Sicherstellen, dass Monaco global verfügbar ist
         if (window && !((window as any).MonacoEnvironment)) {
             (window as any).MonacoEnvironment = {
-                getWorkerUrl: function (moduleId: string, label: string) {
+                getWorkerUrl: function (_: string, label: string) {
+                    // Für Vite: Worker aus dem public-Ordner laden
                     if (label === 'python') {
-                        return '/dist/min/vs/language/python/python.worker.js';
+                        return '/monaco/python.worker.js';
                     }
-                    return '/dist/min/vs/editor/editor.worker.js';
+                    return '/monaco/editor.worker.js';
                 }
             };
         }
