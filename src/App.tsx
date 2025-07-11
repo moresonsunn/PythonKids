@@ -5,17 +5,10 @@ import CodeEditor from './components/CodeEditor'; // Importieren der CodeEditor-
 import LessonContent from './components/LessonContent'; // Importieren der LessonContent-Komponente
 import { lessons } from './lessons/index'; // Importieren der Lektionen
 import * as tf from '@tensorflow/tfjs';
-import rawTokenizerJson from '../model_web/tokenizer.json';
 
 type TokenizerJson = {
   word_index: { [word: string]: number };
   oov_token?: string;
-};
-
-// Extract word_index and oov_token from the Keras tokenizer JSON structure
-const tokenizerJson: TokenizerJson = {
-  word_index: (rawTokenizerJson as any).config.word_index,
-  oov_token: (rawTokenizerJson as any).config.oov_token,
 };
 
 function textsToSequences(texts: string[], tokenizerJson: TokenizerJson): number[][] {
@@ -24,7 +17,7 @@ function textsToSequences(texts: string[], tokenizerJson: TokenizerJson): number
   return texts.map(text =>
     text
       .toLowerCase()
-      .replace(/[^\wäöüß]+/gi, " ")
+      .replace(/[\wäöüß]+/gi, " ")
       .split(/\s+/)
       .map(word => wordIndex[word] || oovTokenIndex)
   );
@@ -53,6 +46,9 @@ const App: React.FC = () => {
   // Modell-Referenz für KI
   const modelRef = useRef<tf.LayersModel | null>(null);
 
+  // State for tokenizer JSON loaded from local file
+  const [tokenizerJson, setTokenizerJson] = useState<TokenizerJson | null>(null);
+
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
     async function initPyodide() {
@@ -69,8 +65,11 @@ const App: React.FC = () => {
         });
       }
       await waitForPyodide();
+      // Use offline path from preload.js
       // @ts-ignore
-      const py = await window.loadPyodide({ indexURL: "pyodide/" });
+      const pyodideDir = window.offlinePaths?.pyodideDir;
+      // @ts-ignore
+      const py = await (window as any).loadPyodide({ indexURL: `file://${pyodideDir}/` });
       setPyodide(py);
     }
     initPyodide();
@@ -80,13 +79,41 @@ const App: React.FC = () => {
   useEffect(() => {
     const loadModel = async () => {
       try {
-        modelRef.current = await tf.loadLayersModel('/model_web/model.json');
-        console.log("Modell erfolgreich geladen.");
+        // Use offline path from preload.js
+        // @ts-ignore
+        const modelPath = window.offlinePaths?.modelJson;
+        if (modelPath) {
+          modelRef.current = await tf.loadLayersModel(`file://${modelPath}`);
+          console.log("Modell erfolgreich geladen.");
+        } else {
+          console.error("Model path not found in offlinePaths.");
+        }
       } catch (error) {
         console.error("Fehler beim Laden des Modells:", error);
       }
     };
     loadModel();
+  }, []);
+
+  // Load tokenizer JSON from local file
+  useEffect(() => {
+    // @ts-ignore
+    const tokenizerPath = window.offlinePaths?.tokenizerJson;
+    if (tokenizerPath) {
+      fetch(`file://${tokenizerPath}`)
+        .then(res => res.json())
+        .then(json => {
+          setTokenizerJson({
+            word_index: json.config.word_index,
+            oov_token: json.config.oov_token,
+          });
+        })
+        .catch(err => {
+          console.error("Fehler beim Laden des Tokenizer-JSON:", err);
+        });
+    } else {
+      console.error("Tokenizer path not found in offlinePaths.");
+    }
   }, []);
 
   useEffect(() => {
@@ -149,6 +176,10 @@ const App: React.FC = () => {
   const checkOutputWithModel = async (output: string): Promise<boolean> => {
     if (!modelRef.current) {
       console.error("Modell ist nicht geladen.");
+      return false;
+    }
+    if (!tokenizerJson) {
+      console.error("Tokenizer ist nicht geladen.");
       return false;
     }
     const preprocessed = preprocessCode(output);
