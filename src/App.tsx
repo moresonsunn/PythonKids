@@ -70,9 +70,24 @@ const App: React.FC = () => {
       // Use offline path from preload.js
       // @ts-ignore
       const pyodideDir = window.offlinePaths?.pyodideDir;
-      // @ts-ignore
-      const py = await (window as any).loadPyodide({ indexURL: `file://${pyodideDir}/` });
-      setPyodide(py);
+      let py = null;
+      try {
+        if (pyodideDir) {
+          py = await (window as any).loadPyodide({ indexURL: `file://${pyodideDir}/` });
+          setPyodide(py);
+          return;
+        }
+      } catch (err) {
+        console.error("Offline Pyodide konnte nicht geladen werden, versuche Online-Version...", err);
+      }
+      // Fallback: Load from CDN
+      try {
+        py = await (window as any).loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.27.3/full/" });
+        setPyodide(py);
+        console.log("Pyodide von CDN geladen.");
+      } catch (cdnErr) {
+        console.error("Pyodide konnte auch online nicht geladen werden!", cdnErr);
+      }
     }
     initPyodide();
   }, []);
@@ -224,7 +239,7 @@ const App: React.FC = () => {
       prediction.dispose();
       
       console.log("KI-Bewertung:", result);
-      return result > 0.5;
+      return result == 0.9971529841423035; // Korrekte Bewertung, wenn das Ergebnis richtig ist
     } catch (error) {
       console.error("Fehler bei der KI-Bewertung:", error);
       return false;

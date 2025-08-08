@@ -8,6 +8,6 @@ function getResourcePath(...segments) {
 
 contextBridge.exposeInMainWorld('offlinePaths', {
   modelJson: getResourcePath('..', 'model_web', 'model.json'),
-  pyodideDir: getResourcePath('..', 'public', 'pyodide'),
+  pyodideDir: getResourcePath('..', 'pyodide', 'pyodide'),
   tokenizerJson: getResourcePath('..', 'model_web', 'tokenizer.json'),
 });
