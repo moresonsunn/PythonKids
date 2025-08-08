@@ -23,7 +23,7 @@ interface NavigationProps {
 
 function Navigation({ selectedTopic, setSelectedTopic, selectedSubLesson, setSelectedSubLesson, lessons }: NavigationProps) {
   return (
-    // Navigationsleiste mit abgerundeten Kanten und Schatten
+        // Navigationsleiste mit abgerundeten Kanten und Schatten
     <nav className="bg-white rounded-lg shadow-lg p-4">
       <ul className="space-y-2">
         {lessons.map((lesson) => (
@@ -40,7 +40,7 @@ function Navigation({ selectedTopic, setSelectedTopic, selectedSubLesson, setSel
                 }`}
               >
                 <lesson.icon/>
-                {lesson.title}
+                <span className="ml-2">{lesson.title}</span>
               </button>
               
               {/* Anzeige der Unterlektionen, wenn das Thema ausgewählt ist */}
@@ -55,7 +55,7 @@ function Navigation({ selectedTopic, setSelectedTopic, selectedSubLesson, setSel
                         selectedSubLesson === subLesson.id ? 'bg-purple-100 text-purple-700' : 'text-gray-600 hover:bg-gray-100'
                       }`}
                     >
-                      {subLesson.title}
+                      <span>{subLesson.title}</span>
                       {/* Anzeige der Schwierigkeitsstufe mit entsprechender Farbe */}
                       <span className={`ml-2 text-xs px-2 py-1 rounded inline-block left ${
                         subLesson.difficulty === 'Leicht' ? 'bg-green-100 text-green-700' :

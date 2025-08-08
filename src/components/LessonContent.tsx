@@ -79,7 +79,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
         
         <div className="bg-blue-50 p-4 rounded-md">
           <h4 className="font-bold text-blue-700 mb-2">Wie funktioniert das?</h4>
-          <pre className="text-gray-700 ">{currentLesson.functions}</pre>
+          <pre className="text-gray-700">{currentLesson.functions}</pre>
         </div>
         
         <div className="bg-green-50 p-4 rounded-md">
