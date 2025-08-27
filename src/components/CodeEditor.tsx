@@ -54,7 +54,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
                 onChange={(value) => setCode(value || "")}
                 onMount={handleEditorDidMount}
                 options={{
-                    fontSize: 13,
+                    fontSize: 12,
                     fontFamily: "'Comic Code', 'Cascadia Code', monospace",
                     minimap: { enabled: false },
                     scrollBeyondLastLine: false,

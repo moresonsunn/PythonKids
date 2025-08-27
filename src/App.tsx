@@ -402,7 +402,7 @@ except Exception as e:
           </div>
         </div>
       </nav>
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="w-full bg-gray-100 rounded-full h-2 mb-2">
           <div
             className="bg-indigo-300 h-2 rounded-full transition-all duration-300"
