@@ -48,7 +48,7 @@ export default function CodeEditor({ code, setCode, onRun }: CodeEditorProps) {
                 </button>
             </div>
             <Editor
-                height="300px"
+                height="392px"
                 defaultLanguage="python"
                 value={code}
                 onChange={(value) => setCode(value || "")}

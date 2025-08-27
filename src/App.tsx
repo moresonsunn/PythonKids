@@ -370,7 +370,7 @@ except Exception as e:
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100">
       <nav className="bg-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
               <Code className="h-8 w-8 text-indigo-600" />
@@ -402,7 +402,7 @@ except Exception as e:
           </div>
         </div>
       </nav>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="w-full bg-gray-100 rounded-full h-2 mb-2">
           <div
             className="bg-indigo-300 h-2 rounded-full transition-all duration-300"
