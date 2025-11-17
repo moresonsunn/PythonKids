@@ -2,58 +2,55 @@ import { Repeat } from "lucide-react";
 import { Lesson } from "../components/LessonContent";
 
 export const loops: Lesson = {
-    id: 'loops',
-    title: 'Schleifen',
-    icon: Repeat,
-    definition:'Schleifen erlauben es, Code mehrmals auszuführen.\n\
-\n\
-For-Schleife:\n\
-Wird genutzt, wenn du weißt, wie oft du etwas wiederholen möchtest.',
-    functions: 'for Element in Liste: \n\
-    Befehl\n\
-    \n\
-    While-Schleife:\n\
-    Anzahl an Wiederholungen',
-    Example:'for i in range(5):  # Wiederhole 5 Mal\n\
-| | print("Hallo!")\n\
+  id: 'loops',
+  title: 'Schleifen',
+  icon: Repeat,
+  definition:'Schleifen sparen Zeit, wenn du Anweisungen mehrfach brauchst.\n\
+For-Schleifen arbeiten mit abzählbaren Bereichen, while-Schleifen mit Bedingungen.',
+  functions: 'For-Schleife:\n\
+for i in range(3):\n\
+| | print(i)  # 0,1,2\n\
 While-Schleife:\n\
-Wird genutzt, wenn du eine Bedingung hast, die während der Ausführung überprüft wird.\n\
-\n\
-count = 0\n\
-while count < 5:\n\
-| | print("Zahl:", count)\n\
-| | count += 1\n\
-| | break  # Beende die Schleife, wenn count 5 erreicht',
+zahl = 3\n\
+while zahl > 0:\n\
+| | print(zahl)\n\
+| | zahl -= 1  # Zustand anpassen!',
+  Example:'for i in range(1, 4):\n\
+| | print(f"Runde {i}")\n\
+zahl = 3\n\
+while zahl >= 1:\n\
+| | print(f"Countdown: {zahl}")\n\
+| | zahl -= 1',
     subLessons: [
       {
         id: 'loops-1',
         title: 'For-Schleifen',
         difficulty: 'Leicht',
-        content: 'Schleifen mit einer festen Anzahl an Durchläufen.',
-        initialCode: 'for zahl in range(5):\n',
-        task: 'Gebe die Zahlen von 1 bis 5 aus',
-        solution: 'for zahl in range(1, 6):\n    print(zahl)',
-        hint: 'Nutze range(1, 6) für die Zahlen von 1 bis 5'
+        content: 'Nutze range(start, stop), um eine klar definierte Anzahl an Schritten zu erhalten.',
+        initialCode: 'for zahl in range(1, 4):\n    ',
+        task: 'Gib die Zahlen 1, 2 und 3 untereinander aus.',
+        solution: 'for zahl in range(1, 4):\n    print(zahl)',
+        hint: 'Der zweite Wert in range ist exklusiv: range(1, 4) erzeugt 1,2,3.'
       },
       {
         id: 'loops-2',
         title: 'While-Schleifen',
         difficulty: 'Mittel',
-        content: 'Schleifen mit einer Bedingung.',
-        initialCode: 'zahl = 1\nwhile zahl <= 5:\n',
-        task: 'Gebe die Zahlen von 5 bis 1 aus',
-        solution: 'zahl = 5\nwhile zahl >= 1:\n    print(zahl)\n    zahl += 1',
-        hint: 'Vergiss nicht die Abbruchbedingung'
+        content: 'Überlege dir, wann die Schleife stoppen soll, und verändere die Variable entsprechend.',
+        initialCode: 'zahl = 3\nwhile zahl >= 1:\n    ',
+        task: 'Lass einen kurzen Countdown 3, 2, 1 entstehen.',
+        solution: 'zahl = 3\nwhile zahl >= 1:\n    print(zahl)\n    zahl -= 1',
+        hint: 'Ohne zahl -= 1 würde die Bedingung immer wahr bleiben – Endlosschleife!'
       },
       {
         id: 'loops-3',
         title: 'Schleifen abbrechen',
         difficulty: 'Schwer',
-        content: 'Schleifen vorzeitig beenden.',
-        initialCode: 'for zahl in range(10):',
-        task: 'Beende die Schleife wenn die Zahl 3 erreicht ist',
-        solution: 'for zahl in range(10):\n',
-        hint: 'Nutzte das Schlüsselwort break'
+        content: 'Nutze break, um aus einer Schleife zu springen, sobald ein Kriterium erfüllt ist.',
+        initialCode: 'zahlen = [1, 2, 3, 4]\nfor zahl in zahlen:\n    ',
+        task: 'Gib die Zahlen aus und stoppe, sobald die 3 erreicht wird. Schreibe "Stop bei 3".',
+        solution: 'zahlen = [1, 2, 3, 4]\nfor zahl in zahlen:\n    if zahl == 3:\n        print("Stop bei 3")\n        break\n    print(zahl)',
+        hint: 'Prüfe die Zahl zuerst und nutze dann break.'
       },
     ],
   };

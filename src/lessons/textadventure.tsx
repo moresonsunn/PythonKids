@@ -5,39 +5,40 @@ export const textadventure: Lesson = {
     id: 'textadventure',
     title: 'Text-Adventure',
     icon: Swords,
-    definition: 'Ein Text-Adventure ist ein Spiel, bei dem der Spieler durch Texteingaben mit der Spielwelt interagiert. Der Spieler erhält eine Beschreibung der Umgebung und kann durch Eingabe von Befehlen Aktionen ausführen.',
-    functions: 'In einem Text-Adventure können verschiedene Funktionen implementiert werden, z. B.:\nSpielerbewegungen (nach Norden, Süden, Osten, Westen), Interaktionen mit Objekten (nehmen, benutzen, untersuchen), Dialoge mit NPCs (nicht-spielbaren Charakteren).',
-    Example: 'Ein einfaches Text-Adventure könnte so aussehen:\n"Du befindest dich in einem dunklen Raum. Es gibt eine Tür im Norden und eine Tür im Osten. Was möchtest du tun?"\n> Norden\n"Du gehst durch die Tür und betrittst einen hellen Raum. Es gibt ein Schwert auf dem Boden. Was möchtest du tun?"\n> Nehmen\n"Du nimmst das Schwert."',
+  definition: 'Ein Text-Adventure ist ein interaktives Buch.\n\
+Dein Programm erzählt eine Szene, fragt nach einer Aktion und reagiert auf die Eingabe.',
+  functions: 'Du verbindest Variablen (Zustand der Welt), input() (Aktionen der Spielenden) und Bedingungen (Was passiert als Nächstes?).',
+  Example: 'ort = "Raum"\nprint("Du stehst in einem Raum. Eine Tür führt nach Norden.")\nantwort = input("Wohin willst du gehen? ")\nif antwort.lower() == "norden":\n| | ort = "Flur"\n| | print("Du öffnest die Tür und gehst in den Flur.")\nelse:\n| | print("Du bleibst im Raum.")',
     subLessons: [
       {
         id: 'textadventure-1',
         title: 'Grundlagen',
         difficulty: 'Leicht',
-        content: 'Erstelle ein einfaches Text-Adventure mit begrenzten Funktionen.',
+        content: 'Definiere mindestens zwei Orte und beschreibe jeden Ort kurz.',
         initialCode: '',
-        task: 'Erstelle eine Umgebung mit mindestens zwei Räumen und einer Verbindung zwischen ihnen. Der Code der schon im Editor ist, müsst ihr löschen.',
+        task: 'Beschreibe Raum A und Raum B. Frage den Spieler, ob er wechseln möchte, und gib passende Texte aus.',
         solution: '',
-        hint: 'Definiere die Räume und Verbindungen als Variablen.'
+        hint: 'Speichere den aktuellen Raum in einer Variable und ändere sie bei Bedarf.'
       },
       {
         id: 'textadventure-2',
         title: 'Erweitert',
         difficulty: 'Mittel',
-        content: 'Erweitere das Text-Adventure um zusätzliche Funktionen.',
+        content: 'Halte fest, ob ein Gegenstand aufgehoben wurde, und nutze das in späteren Ausgaben.',
         initialCode: '',
-        task: 'Füge mindestens eine Interaktion mit einem Objekt hinzu.',
+        task: 'Lege ein Objekt in einen Raum und lass den Spieler entscheiden, ob er es nimmt.',
         solution: '',
-        hint: 'Definiere das Objekt als Variable und implementiere eine Funktion, um damit zu interagieren.'
+        hint: 'Ein boolescher Wert wie hat_objekt = False hilft dir beim Verfolgen.',
       },
       {
         id: 'textadventure-3',
         title: 'Fortgeschritten',
         difficulty: 'Schwer',
-        content: 'Implementiere ein komplexes Text-Adventure mit vielen Funktionen.',
+        content: 'Lass Entscheidungen Einfluss auf den Dialog mit dem NPC haben.',
         initialCode: '',
-        task: 'Füge mindestens eine NPC-Interaktion hinzu. Und lasse deinen gedanken freien lauf.',
+        task: 'Frage den Spieler, wie er mit einem NPC sprechen möchte, und reagiere mit unterschiedlichen Texten.',
         solution: '',
-        hint: 'Definiere den NPC als Variable und implementiere eine Funktion, um mit ihm zu interagieren.'
+        hint: 'Nutze mehrere if/elif-Zweige für verschiedene Antworten.'
       }
     ]
   };

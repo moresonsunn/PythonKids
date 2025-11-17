@@ -5,39 +5,43 @@ export const errors: Lesson = {
     id: 'errors',
     title: 'Fehlerausgaben',
     icon: AlertCircle,
-    definition: 'Beim Programmieren passieren Fehler – und das ist völlig normal! Python hilft dir, diese Fehler zu finden, indem es dir anzeigt, was falsch ist und wo der Fehler liegt. Arten von Fehlern:\nSyntaxfehler: Falsche Schreibweise, z. B. fehlende Klammern oder Anführungszeichen.\nLogikfehler: Das Programm läuft, aber es tut nicht das, was du willst.\nRuntime-Fehler: Fehler, die während der Programmausführung auftreten, z. B. eine Division durch null.',
-    functions: 'Python hilft dir: Es zeigt dir die Zeile des Fehlers und eine kurze Beschreibung, z. B.:',
-    Example: 'print("Hallo\n      ^\nSyntaxError: unterminated string literal (detected at line 1)',
+    definition: 'Fehler sind Lernchancen: Die Meldung verrät dir Dateiname, Zeile und Fehlertyp.\n\
+Lies die letzte Zeile der Ausgabe besonders genau – hier steht meist die Lösungsidee.',
+    functions: 'Typische Fehlerklassen:\n\
+- SyntaxError: Python kann den Code nicht lesen (z. B. fehlendes Anführungszeichen).\n\
+- ZeroDivisionError: Eine Division hat einen Null-Divisor.\n\
+- ValueError/Logikfehler: Der Code läuft, aber deine Idee war falsch formuliert.',
+    Example: '# Fehlersuche: Meldung lesen, Ursache ändern\nprint("Hallo")  # korrekt\nprint("Welt)   # SyntaxError, schließendes Anführungszeichen fehlt',
     subLessons: [
       {
         id: 'errors-1',
         title: 'Syntaxfehler',
         difficulty: 'Leicht',
-        content: 'Fehlermeldungen in Python verstehen.',
+        content: 'Korrigiere Schritt für Schritt, bis keine Fehlermeldung mehr auftaucht.',
         initialCode: 'print("Hallo Welt',
-        task: 'Guck dir die Fehlermeldung an und korrigiere den Code.',
+        task: 'Schließe die Zeichenkette korrekt, damit der Code läuft.',
         solution: 'print("Hallo Welt")',
-        hint: 'Vergiss nicht die schließende Klammer.'
+        hint: 'Achte auf Paare: "Text" oder \'Text\'.'
       },
       {
         id: 'errors-2',
         title: 'Laufzeitfehler',
         difficulty: 'Mittel',
-        content: 'Fehler während der Ausführung des Programms.',
+        content: 'Verhindere zur Laufzeit Situationen, die unmöglich sind (z. B. Teilen durch 0).',
         initialCode: 'zahl = 5\nprint(zahl / 0)',
-        task: 'Guck dir die Fehlermeldung an und korrigiere den Code.',
-        solution: 'zahl = 5\nprint(zahl / 0)',
-        hint: 'Teile durch 0.'
+        task: 'Verhindere die Division durch Null.',
+        solution: 'zahl = 5\ndivisor = 1\nprint(zahl / divisor)',
+        hint: 'Überprüfe die Werte, bevor du eine Operation ausführst.'
       },
       {
         id: 'errors-3',
         title: 'Logikfehler',
         difficulty: 'Schwer',
-        content: 'Fehler in der Logik des Programms.',
+        content: 'Logikfehler erkennst du daran, dass zwar kein Fehler erscheint, aber das Ergebnis nicht stimmt.',
         initialCode: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")',
-        task: 'Finde denn Fehler und ändere ihn. Überprüfe, ob die Ausgabe richtig ist.',
-        solution: 'zahl = 50\nif zahl > 10:\n    print("Zahl ist größer als 10")',
-        hint: 'Ändere das Vergleichszeichen.'
+        task: 'Passe die Bedingung an, damit sie für kleinere Zahlen ebenfalls reagiert.',
+        solution: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")\nelse:\n    print("Zahl ist 10 oder kleiner")',
+        hint: 'Denke in Fällen: Was soll passieren, wenn die Bedingung nicht erfüllt ist?'
       }
     ],
   };

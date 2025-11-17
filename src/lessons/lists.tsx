@@ -5,39 +5,39 @@ export const lists: Lesson = {
     id: 'lists',
     title: 'Listen',
     icon: ListOrdered,
-    definition: 'Listen sind wie eine Sammlung von Dingen, die du in einer bestimmten Reihenfolge speichern kannst. Sie können Zahlen, Texte oder sogar andere Listen enthalten. Der Index einer Liste beginnt bei 0, d. h. das erste Element hat den Index 0, das zweite den Index 1 usw. Du kannst Elemente ändern, hinzufügen oder löschen.',
-    functions: 'Eine Liste mit eckigen Klammern [] erstellen, z. B.:',
-    Example: 'lieblingsessen = ["Pizza", "Burger", "Pasta"]\nprint(lieblingsessen[0])  # Ausgabe: Pizza\nlieblingsessen.append("Salat")  # Fügt ein neues Element hinzu',
+  definition: 'Listen speichern mehrere Werte geordnet hintereinander. Du kannst sie durchsuchen, erweitern und nach Position sortieren.',
+  functions: 'len(liste) zählt Einträge. append(x) hängt etwas hinten an. Mit eckigen Klammern wählst du ein Element über seinen Index.',
+  Example: 'farben = ["rot", "blau", "grün"]\nprint(f"Erster Eintrag: {farben[0]}")\nfarben.append("gelb")\nprint(f"Alle Farben: {farben}")',
     subLessons: [
       {
         id: 'lists-1',
         title: 'Listen erstellen',
         difficulty: 'Leicht',
-        content: 'Lerne, wie man Listen erstellt und verwendet.',
-        initialCode: 'farben = []\n',
-        task: 'Erstelle eine Liste mit deinen Lieblingsfarben und gebe deine lieblingsfarben aus.',
-        solution: 'farben = ["Rot", "Grün", "Blau"]\nprint(farben)',
-        hint: 'Nutze eckige Klammern [] und vergiss nicht die Anführungszeichen.'
+        content: 'Übe das Schreiben einer Liste mit mindestens drei Elementen.',
+        initialCode: 'aufgaben = []\n',
+        task: 'Erstelle eine Liste mit drei Hausaufgaben und gib die Liste aus.',
+        solution: 'aufgaben = ["Mathe", "Deutsch", "Englisch"]\nprint(aufgaben)',
+        hint: 'Zwischen den Elementen stehen Kommas, die gesamte Liste steckt in [].'
       },
       {
         id: 'lists-2',
         title: 'Elemente aus Listen auswählen',
         difficulty: 'Mittel',
-        content: 'Einzelne Elemente aus Listen auswählen.',
-        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Wähle das erste Element aus der Liste aus.',
-        solution: 'print(farben[0])',
-        hint: 'Nutze den Index des Elements in eckigen Klammern beim print.'
+        content: 'Wähle ein Element per Index aus.',
+        initialCode: 'aufgaben = ["Mathe", "Deutsch", "Englisch"]',
+        task: 'Gib das zweite Element aus der Liste aus.',
+        solution: 'print(aufgaben[1])',
+        hint: 'Denke daran: liste[0] erstes Element, liste[1] zweites Element.'
       },
       {
         id: 'lists-3',
         title: 'Listen verändern',
         difficulty: 'Schwer',
-        content: 'Elemente hinzufügen, entfernen und verändern.',
-        initialCode: 'farben = ["Rot", "Grün", "Blau"]',
-        task: 'Füge der Liste eine weitere Farbe hinzu, das mithilfe von code, und gebe die Liste aus.',
-        solution: 'farben.append("Gelb")\nprint(farben)',
-        hint: 'Nutze dafür die Methode append().'
+        content: 'Erweitere deine Liste gezielt, ohne die vorhandenen Werte zu überschreiben.',
+        initialCode: 'aufgaben = ["Mathe", "Deutsch"]',
+        task: 'Füge "Sport" zur Liste hinzu und gib die Liste aus.',
+        solution: 'aufgaben.append("Sport")\nprint(aufgaben)',
+        hint: 'Mit append() hängst du ein neues Element ans Ende der Liste.'
       },
     ],
   };

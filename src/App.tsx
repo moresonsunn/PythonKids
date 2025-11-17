@@ -13,23 +13,209 @@ type TokenizerJson = {
   oov_token?: string;
 };
 
+const embeddedTokenizer: TokenizerJson = {
+  word_index: JSON.parse(rawTokenizerJson.config.word_index),
+  oov_token: rawTokenizerJson.config.oov_token,
+};
+
 function textsToSequences(texts: string[], tokenizerJson: TokenizerJson): number[][] {
   const wordIndex = tokenizerJson.word_index;
   const oovTokenIndex = tokenizerJson.oov_token ? wordIndex[tokenizerJson.oov_token] : 1;
   return texts.map(text =>
     text
       .toLowerCase()
-      .replace(/[\wäöüß]+/gi, " ")
+      .replace(/[^\wäöüß]+/gi, " ")
       .split(/\s+/)
+      .filter(Boolean)
       .map(word => wordIndex[word] || oovTokenIndex)
   );
 }
 
 function preprocessCode(code: string): string {
   code = code.replace(/'[^']*'/g, "'<NAME>'");
+  code = code.replace(/"[^"]*"/g, '"<NAME>"');
   code = code.replace(/\b\d+\b/g, "<ZAHL>");
   return code;
 }
+
+const normalizeCode = (source: string) => source.toLowerCase();
+const hasAssignment = (code: string) => /\b[a-zA-Z_][\w]*\s*=/.test(code);
+const hasStringLiteral = (code: string) => /["'][^"']+["']/.test(code);
+const hasNumberLiteral = (code: string) => /\b\d+\b/.test(code);
+
+const containsAllFragments = (output: string, fragments: string[]) => {
+  const lower = output.toLowerCase();
+  return fragments.every(fragment => lower.includes(fragment.toLowerCase()));
+};
+
+const looksLikeCollection = (output: string, open: string, close: string) =>
+  output.includes(open) && output.includes(close);
+
+const extractIntegerLines = (output: string) =>
+  output
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => /^-?\d+$/.test(line))
+    .map(Number);
+
+const matchesSequence = (output: string, expected: number[]) => {
+  const numbers = extractIntegerLines(output);
+  if (numbers.length < expected.length) return false;
+  return expected.every((value, index) => numbers[index] === value);
+};
+
+const isBooleanText = (output: string) => {
+  const normalized = output.trim().toLowerCase();
+  return normalized === 'true' || normalized === 'false';
+};
+
+const errorHelp: Record<string, string> = {
+  SyntaxError: 'Syntaxfehler: Prüfe, ob alle Klammern, Doppelpunkte oder Anführungszeichen korrekt gesetzt sind.',
+  NameError: 'NameError: Nutzt du den richtigen Variablennamen?',
+  IndentationError: 'Einrückungsfehler: Achte auf eine konsistente Einrückung mit Leerzeichen oder Tabs.',
+  TypeError: 'TypeError: Prüfe, ob du passende Datentypen kombinierst (z. B. Zahl vs. Text).',
+  ValueError: 'ValueError: Sind deine Eingaben im richtigen Format?',
+  ZeroDivisionError: 'ZeroDivisionError: Teilen durch 0 ist nicht erlaubt.',
+  IndexError: 'IndexError: Bleibe innerhalb der Grenzen einer Liste oder eines anderen Index-basierten Objekts.',
+  KeyError: 'KeyError: Verwende einen Schlüssel, der im Dictionary existiert.',
+  AttributeError: 'AttributeError: Greifst du auf eine vorhandene Methode oder ein vorhandenes Attribut zu?',
+  ModuleNotFoundError: 'ModuleNotFoundError: Wurde das Modul korrekt installiert und importiert?',
+  RecursionError: 'RecursionError: Deine Funktion ruft sich zu oft selbst auf – prüfe die Abbruchbedingung.',
+  UnboundLocalError: 'UnboundLocalError: Nutzt du Variablen, bevor sie deklariert oder zugewiesen wurden?',
+};
+
+type LessonValidationRule = {
+  outputRegex?: RegExp;
+  requiredIncludes?: string[];
+  validator?: (output: string) => boolean;
+};
+
+const lessonValidationRules: Record<string, LessonValidationRule> = {
+  'variables-1': { validator: (output) => containsAllFragments(output, ['willkommen']) },
+  'variables-2': { validator: (output) => containsAllFragments(output, ['tage geübt']) },
+  'variables-3': { validator: (output) => containsAllFragments(output, ['jahre']) && containsAllFragments(output, ['ist']) },
+  'operators-1': { validator: (output) => containsAllFragments(output, ['fläche']) },
+  'operators-2': { validator: isBooleanText },
+  'operators-3': { validator: isBooleanText },
+  'input-1': { validator: (output) => containsAllFragments(output, ['hallo']) },
+  'input-2': { validator: (output) => containsAllFragments(output, ['summe']) },
+  'input-3': { validator: (output) => containsAllFragments(output, ['stunden']) },
+  'lists-1': { validator: (output) => looksLikeCollection(output, '[', ']') },
+  'lists-2': { validator: (output) => containsAllFragments(output, ['deutsch']) },
+  'lists-3': { validator: (output) => containsAllFragments(output, ['sport']) },
+  'loops-1': { validator: (output) => matchesSequence(output, [1, 2, 3]) },
+  'loops-2': { validator: (output) => matchesSequence(output, [3, 2, 1]) },
+  'loops-3': { validator: (output) => containsAllFragments(output, ['stop bei 3']) },
+  'conditions-1': { validator: (output) => containsAllFragments(output, ['level']) },
+  'conditions-2': {
+    validator: (output) => ['heiß', 'angenehm', 'kalt'].some(word => containsAllFragments(output, [word])),
+  },
+  'conditions-3': {
+    validator: (output) => containsAllFragments(output, ['bedingung']) || containsAllFragments(output, ['mindestens']),
+  },
+  'dictionaries-1': { validator: (output) => looksLikeCollection(output, '{', '}') && output.includes(':') },
+  'dictionaries-2': { validator: (output) => containsAllFragments(output, ['noah']) },
+  'dictionaries-3': { validator: (output) => containsAllFragments(output, ['ella']) },
+  'functions-1': { validator: (output) => containsAllFragments(output, ['lieblingsfarbe']) },
+  'functions-2': { validator: (output) => extractIntegerLines(output).length >= 1 },
+  'functions-3': { validator: (output) => /\d/.test(output) },
+  'errors-1': { validator: (output) => containsAllFragments(output, ['hallo welt']) },
+  'errors-2': { validator: (output) => /\d/.test(output) && !output.toLowerCase().includes('fehler') },
+  'errors-3': { validator: (output) => containsAllFragments(output, ['zahl']) },
+};
+
+const topicCodeValidators: Record<string, (code: string) => boolean> = {
+  variables: (code) => {
+    const normalized = normalizeCode(code);
+    return hasAssignment(normalized) && !/(\bfor\b|\bwhile\b|\bdef\b|\binput\b)/.test(normalized);
+  },
+  operators: (code) => {
+    const normalized = normalizeCode(code);
+    return /[+\-*/]/.test(normalized) || /(==|!=|<=|>=)/.test(normalized) || /(\band\b|\bor\b)/.test(normalized);
+  },
+  input: (code) => /\binput\s*\(/i.test(code),
+  lists: (code) => /\[[^\]]*\]/.test(code) || /\.append\s*\(/i.test(code),
+  dictionaries: (code) => /\{[^}]+:[^}]+\}/.test(code) || /\.update\s*\(/i.test(code),
+  loops: (code) => /\b(for|while)\b/i.test(code),
+  conditions: (code) => /\bif\b/i.test(code),
+  functions: (code) => /\bdef\b/i.test(code),
+  errors: (code) => code.trim().length > 0,
+  textadventure: (code) => code.trim().length > 0,
+};
+
+const subLessonCodeValidators: Record<string, (code: string) => boolean> = {
+  'variables-1': (code) => {
+    const normalized = normalizeCode(code);
+    return hasAssignment(code) && hasStringLiteral(code) && /print\s*\(/.test(normalized) && !/\binput\b/.test(normalized);
+  },
+  'variables-2': (code) => {
+    const normalized = normalizeCode(code);
+    return hasAssignment(code) && hasNumberLiteral(code) && /print\s*\(/.test(normalized);
+  },
+  'variables-3': (code) => {
+    const assignmentCount = (code.match(/\b[a-zA-Z_][\w]*\s*=/g) || []).length;
+    const usesFormattedOutput = /f["']/.test(code) || /format\s*\(/i.test(code) || /\+/.test(code);
+    return assignmentCount >= 2 && usesFormattedOutput;
+  },
+  'operators-1': (code) => /\*/.test(code) && /print/.test(normalizeCode(code)),
+  'operators-2': (code) => /(==|!=|<=|>=)/.test(code),
+  'operators-3': (code) => /(\band\b|\bor\b)/.test(normalizeCode(code)),
+  'input-1': (code) => /\binput\s*\(/i.test(code) && /print\s*\(/i.test(code),
+  'input-2': (code) => (code.match(/input\s*\(/gi)?.length ?? 0) >= 2 && /\+/.test(code),
+  'input-3': (code) => (code.match(/input\s*\(/gi)?.length ?? 0) >= 2 && (/f["']/.test(code) || /format\s*\(/i.test(code)),
+  'lists-1': (code) => /\[[^\]]+\]/.test(code) && /print/.test(normalizeCode(code)),
+  'lists-2': (code) => /print\s*\([^\[]*\[[^\]]+\]\s*\)/i.test(code),
+  'lists-3': (code) => /\.append\s*\(/i.test(code),
+  'loops-1': (code) => /\bfor\b/i.test(code) && /range\s*\(/i.test(code),
+  'loops-2': (code) => /\bwhile\b/i.test(code),
+  'loops-3': (code) => /\bfor\b/i.test(code) && /\bbreak\b/i.test(code),
+  'conditions-1': (code) => (code.match(/\bif\b/gi)?.length ?? 0) >= 1,
+  'conditions-2': (code) => /\belif\b/i.test(code),
+  'conditions-3': (code) => /(\band\b|\bor\b)/i.test(code),
+  'dictionaries-1': (code) => /\{[^}]+:[^}]+\}/.test(code),
+  'dictionaries-2': (code) => /print\s*\(.*\[["'][^"']+["']\]\s*\)/i.test(code),
+  'dictionaries-3': (code) => /\.update\s*\(/i.test(code) || /\[["'][^"']+["']\]\s*=/.test(code),
+  'functions-1': (code) => {
+    const normalized = normalizeCode(code);
+    return /\bdef\b/.test(normalized) && (/return/.test(normalized) || /print/.test(normalized));
+  },
+  'functions-2': (code) => /\bdef\b/i.test(code) && /\+/.test(code),
+  'functions-3': (code) => {
+    const normalized = normalizeCode(code);
+    return /\bdef\b/.test(normalized) && (/\*/.test(code) || /return/.test(normalized));
+  },
+};
+
+const codeMatchesTopic = (topicId: string, source: string) => {
+  const validator = topicCodeValidators[topicId];
+  return validator ? validator(source) : true;
+};
+
+const codeMatchesSubLesson = (subLessonId: string, source: string) => {
+  const validator = subLessonCodeValidators[subLessonId];
+  return validator ? validator(source) : true;
+};
+
+const resolveTopicName = (topicId: string) => {
+  const topic = lessons.find((lesson) => lesson.id === topicId);
+  return (topic as any)?.title || (topic as any)?.name || topicId;
+};
+
+const doesOutputMatchLesson = (subLesson: any, output: string): boolean => {
+  if (!subLesson) return false;
+  const trimmed = output.trim();
+  if (!trimmed) return false;
+
+  const rule = subLesson ? lessonValidationRules[subLesson.id] : undefined;
+  if (rule) {
+    if (rule.validator && !rule.validator(trimmed)) return false;
+    if (rule.outputRegex && !rule.outputRegex.test(trimmed)) return false;
+    if (rule.requiredIncludes && !rule.requiredIncludes.every((fragment) => trimmed.includes(fragment))) {
+      return false;
+    }
+  }
+  return true;
+};
 
 const App: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState('variables'); // Standardmäßig die erste Lektion auswählen
@@ -45,11 +231,20 @@ const App: React.FC = () => {
   const [, setIsLoading] = useState(false); // Ladezustand
   const [completedLessons, setCompletedLessons] = useState<string[]>([]); // Abgeschlossene Lektionen
 
+  const totalSubLessons = useMemo(
+    () => lessons.reduce((sum, lesson) => sum + lesson.subLessons.length, 0),
+    []
+  );
+  const calculateProgress = () => {
+    if (!totalSubLessons) return 0;
+    return Math.min(100, Math.round((completedLessons.length / totalSubLessons) * 100));
+  };
+
   // Modell-Referenz für KI
   const modelRef = useRef<tf.LayersModel | null>(null);
 
   // State for tokenizer JSON loaded from local file
-  const [tokenizerJson, setTokenizerJson] = useState<TokenizerJson | null>(null);
+  const [tokenizerJson] = useState<TokenizerJson>(embeddedTokenizer);
 
   // useEffect-Hook zum Initialisieren von Pyodide
   useEffect(() => {
@@ -123,123 +318,26 @@ const App: React.FC = () => {
     loadModel();
   }, []);
 
-  // Load tokenizer JSON from local file
-  useEffect(() => {
-    // @ts-ignore
-    const tokenizerPath = window.offlinePaths?.tokenizerJson;
-    if (tokenizerPath) {
-      fetch(`file://${tokenizerPath}`)
-        .then(res => res.json())
-        .then(json => {
-          setTokenizerJson({
-            word_index: json.config.word_index,
-            oov_token: json.config.oov_token,
-          });
-          console.log("Tokenizer erfolgreich geladen.");
-        })
-        .catch(err => {
-          console.error("Fehler beim Laden des Tokenizer-JSON:", err);
-          // Fallback: Verwende den eingebetteten Tokenizer
-          setTokenizerJson({
-            word_index: JSON.parse(rawTokenizerJson.config.word_index),
-            oov_token: rawTokenizerJson.config.oov_token,
-          });
-          console.log("Fallback Tokenizer verwendet.");
-        });
-    } else {
-      console.error("Tokenizer path not found in offlinePaths.");
-      // Fallback: Verwende den eingebetteten Tokenizer
-      setTokenizerJson({
-        word_index: JSON.parse(rawTokenizerJson.config.word_index),
-        oov_token: rawTokenizerJson.config.oov_token,
-      });
-      console.log("Fallback Tokenizer verwendet.");
-    }
-  }, []);
-
-  useEffect(() => {
-    const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
-    const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
-
-    // Nur den Code zurücksetzen, wenn die aktuelle Lektion nicht das Text-Adventure ist
-    if (currentLesson?.id !== 'textadventure' && currentSubLesson) {
-      setCode(currentSubLesson.initialCode);
-    }
-  }, [selectedTopic, selectedSubLesson]);
-
-  // Punkte pro SubLesson (z.B. gleichmäßig verteilt)
-  const subLessonPoints = useMemo(() => {
-    const points: Record<string, number> = {};
-    const totalPoints = 100;
-    let totalSubLessons = 0;
-    lessons.forEach(lesson => {
-      lesson.subLessons.forEach(sub => {
-        totalSubLessons += 1;
-        points[sub.id] = 0; // Platzhalter, wird gleich gesetzt
-      });
-    });
-    const pointsPerSubLesson = Math.floor(totalPoints / totalSubLessons);
-    Object.keys(points).forEach(id => {
-      points[id] = pointsPerSubLesson;
-    });
-    // Restpunkte auf die ersten Lektionen verteilen
-    let rest = totalPoints - pointsPerSubLesson * totalSubLessons;
-    Object.keys(points).slice(0, rest).forEach(id => {
-      points[id] += 1;
-    });
-    return points;
-  }, [lessons]);
-
-  const calculateProgress = () => {
-    let points = 0;
-    completedLessons.forEach(id => {
-      points += subLessonPoints[id] || 0;
-    });
-    return points;
-  };
-
-  // Fehlermeldungen und Erklärungen
-  const errorHelp: Record<string, string> = {
-    "SyntaxError": "Syntaxfehler: Prüfe, ob alle Klammern, Doppelpunkte oder Anführungszeichen korrekt gesetzt sind.",
-    "NameError": "Unbekannter Name: Überprüfe, ob du alle Variablen oder Funktionen korrekt benannt hast.",
-    "IndentationError": "Einrückungsfehler: Achte auf die korrekte Einrückung mit Leerzeichen oder Tabs.",
-    "TypeError": "Typfehler: Prüfe, ob du passende Datentypen (z. B. Zahl vs. Text) verwendest.",
-    "ZeroDivisionError": "Division durch Null: Eine Zahl darf nicht durch Null geteilt werden.",
-    "IndexError": "Indexfehler: Prüfe, ob du innerhalb der Grenzen einer Liste oder eines anderen Index-basierten Objekts bleibst.",
-    "KeyError": "Schlüsselfehler: Prüfe, ob du den richtigen Schlüssel in Dictionaries verwendest.",
-    "AttributeError": "Attributfehler: Prüfe, ob du auf existierende Attribute oder Methoden zugreifst.",
-    "ValueError": "Wertfehler: Prüfe, ob der eingegebene Wert den erwarteten Typ oder das erwartete Format hat.",
-    "ModuleNotFoundError": "Modul nicht gefunden: Prüfe, ob du das Modul korrekt importiert und installiert hast.",
-    "RecursionError": "Rekursionsfehler: Deine Funktion ruft sich zu oft selbst auf - prüfe deine Abbruchbedingung.",
-    "UnboundLocalError": "Ungebundener Lokaler Fehler: Prüfe, ob du eine Variable verwendest, bevor sie deklariert wurde."
-  };
-
-  const checkOutputWithModel = async (output: string): Promise<boolean> => {
-    if (!modelRef.current) {
-      console.error("Modell ist nicht geladen.");
+  const checkCodeWithModel = async (source: string): Promise<boolean> => {
+    if (!modelRef.current || !tokenizerJson) {
+      console.error("Modell oder Tokenizer ist nicht geladen.");
       return false;
     }
-    if (!tokenizerJson) {
-      console.error("Tokenizer ist nicht geladen.");
-      return false;
-    }
-    
+
     try {
-      const preprocessed = preprocessCode(output);
-      let seq = textsToSequences([preprocessed], tokenizerJson);
-      while (seq[0].length < 50) seq[0].push(0);
-      if (seq[0].length > 50) seq[0] = seq[0].slice(0, 50);
+      const preprocessed = preprocessCode(source);
+      const seq = textsToSequences([preprocessed], tokenizerJson).map(sequence => {
+        const padded = [...sequence];
+        while (padded.length < 50) padded.push(0);
+        return padded.slice(0, 50);
+      });
 
-      const inputTensor = tf.tensor2d(seq, [1, 50]);
-      const prediction = modelRef.current.predict(inputTensor) as tf.Tensor;
-      const result = (await prediction.data())[0];
-      
-      // Cleanup tensors
-      inputTensor.dispose();
-      prediction.dispose();
-      
-      console.log("KI-Bewertung:", result);
-      return result == 0.9971529841423035; // Korrekte Bewertung, wenn das Ergebnis richtig ist
+      return tf.tidy(() => {
+        const inputTensor = tf.tensor2d(seq, [1, 50]);
+        const prediction = modelRef.current!.predict(inputTensor) as tf.Tensor;
+        const score = prediction.dataSync()[0];
+        return score >= 0.5;
+      });
     } catch (error) {
       console.error("Fehler bei der KI-Bewertung:", error);
       return false;
@@ -253,7 +351,34 @@ const App: React.FC = () => {
       setIsError(true);
       return;
     }
-    setIsInputRequired(false); // <-- Status immer zurücksetzen, damit Button wieder funktioniert
+    const currentLesson = lessons.find((lesson) => lesson.id === selectedTopic);
+    const currentSubLesson = currentLesson?.subLessons.find(
+      (sub) => sub.id === selectedSubLesson
+    );
+    if (!currentLesson || !currentSubLesson) {
+      setIsError(true);
+      setOutput('Für diese Auswahl konnte keine Aufgabe gefunden werden.');
+      return;
+    }
+    if (!codeMatchesTopic(selectedTopic, code)) {
+      setIsError(true);
+      setIsLoading(false);
+      setOutput(
+        `Dein Code passt nicht zum aktuellen Thema "${resolveTopicName(selectedTopic)}". ` +
+        "Bitte orientiere dich an der Aufgabenstellung."
+      );
+      return;
+    }
+    if (!codeMatchesSubLesson(selectedSubLesson, code)) {
+      setIsError(true);
+      setIsLoading(false);
+      setOutput(
+        `Dein Code erfüllt nicht die Anforderungen der Aufgabe "${currentSubLesson.title}". ` +
+        'Bitte trage eine Lösung ein, die zur aktuellen Übung passt.'
+      );
+      return;
+    }
+    setIsInputRequired(false);
     resetExecution();
     setIsLoading(true);
     try {
@@ -301,6 +426,9 @@ except Exception as e:
       }
 
       let output = pyodide.runPython("sys.stdout.getvalue()");
+      const trimmedOutput = output?.trim() ?? '';
+      const normalizedOutput = trimmedOutput || 'Keine Ausgabe';
+      setOutput(normalizedOutput);
 
       // Prüfen, ob eine Eingabe erforderlich ist
       if (output && output.includes("Eingabe erforderlich")) {
@@ -309,30 +437,30 @@ except Exception as e:
         return; // Keine Modellprüfung, sondern auf Eingabe warten!
       }
 
+      setInputQueue([]);
+
       // Prüfen auf Fehlermeldungen im Output
       const hasError =
         /Fehler:|Syntaxfehler|SyntaxError|Exception|Traceback|Einrückungsfehler|TypeError|NameError|IndentationError|ZeroDivisionError|Keine Ausgabe|IndexError|KeyError|AttributeError|ValueError|ModuleNotFoundError|RecursionError|UnboundLocalError/.test(
           output
         );
 
-      // KI prüft die Ausgabe und den Code (über Output)
-      const isCorrect = !hasError && (await checkOutputWithModel(output.trim()));
-      const currentLesson = lessons.find(lesson => lesson.id === selectedTopic);
-      const currentSubLesson = currentLesson?.subLessons.find(sub => sub.id === selectedSubLesson);
+      const matchesLessonExpectations = doesOutputMatchLesson(currentSubLesson, output);
+      const isCorrect =
+        !hasError &&
+        matchesLessonExpectations &&
+        (await checkCodeWithModel(code));
 
       if (isCorrect && currentSubLesson) {
-        // Punkte nur vergeben, wenn KI-Auswertung korrekt ist und keine Fehlermeldung im Output steht
         if (!completedLessons.includes(selectedSubLesson)) {
           setCompletedLessons([...completedLessons, selectedSubLesson]);
         }
         setIsError(false);
-        setOutput("Das Ergebnis ist korrekt!\n\nAusgabe:\n" + output.trim());
       } else {
         setIsError(true);
         setOutput(
-          "Das Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code.\n\n" +
-          "Fehlerausgabe:\n" +
-          (output && output.trim() !== "" ? output : "Keine Ausgabe")
+          normalizedOutput +
+            "\n\nDas Ergebnis ist nicht korrekt oder passt nicht zur aktuellen Aufgabe. Bitte überprüfe deinen Code."
         );
         console.error("Falsches Ergebnis oder falsche Lektion:", output);
         return;
@@ -365,6 +493,14 @@ except Exception as e:
   // inputQueue nur beim Wechsel der Lektion/Unterlektion zurücksetzen!
   useEffect(() => {
     setInputQueue([]);
+  }, [selectedTopic, selectedSubLesson]);
+
+  useEffect(() => {
+    const currentLesson = lessons.find((lesson) => lesson.id === selectedTopic);
+    const currentSubLesson = currentLesson?.subLessons.find(
+      (sub) => sub.id === selectedSubLesson
+    );
+    setCode(currentSubLesson?.initialCode || '');
   }, [selectedTopic, selectedSubLesson]);
 
   return (

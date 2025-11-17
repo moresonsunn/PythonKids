@@ -5,39 +5,44 @@ export const variables: Lesson = {
   id: 'variables',
   title: 'Variablen',
   icon: CircleDot,
-  definition: 'Variablen sind wie Behälter, in denen du Informationen speicherst, um sie später im Programm zu verwenden. Sie haben Namen, die du festlegst, und sie können verschiedene Arten von Daten speichern, wie Zahlen (Int), Texte (Str) oder sogar Listen.',
-  functions: 'Einen Namen für die Variable auswählen (z. B. alter, name, punkte).\nDann einen Wert der Variable mit einem Gleichheitszeichen "=" zuweisen.',
-  Example: 'zahl = 10  # Speichert die Zahl 10 in der Variable "zahl"\ntext = "Hallo, Welt!"  # Speichert den Text in der Variable "text"\nist_wahr = True  # Speichert einen Wahrheitswert\nprint(text) # Ausgabe: Hallo, Welt!\nprint(f"Die Zahl ist {zahl}") # Ausgabe: Die Zahl ist 10',
+  definition: 'Variablen sind benannte Speicherplätze im Arbeitsspeicher.\n\
+Sie ermöglichen dir, ein Ergebnis zwischenzuspeichern, mit ihm zu rechnen\n\
+oder es an anderer Stelle wiederzuverwenden.',
+  functions: 'Gute Praxis:\n\
+- Wähle sprechende Namen (z. B. punkte_stand).\n\
+- Mit = weist du den Wert zu und kannst ihn später überschreiben.\n\
+- print() macht sichtbar, was aktuell gespeichert ist.',
+  Example: 'name = "Lina"\nlieblingszahl = 7\nname = name.upper()  # Variablen können angepasst werden\nprint(f"Hallo {name}, meine Zahl ist {lieblingszahl}")',
   subLessons: [
     {
       id: 'variables-1',
       title: 'Erste Schritte mit Variablen',
       difficulty: 'Leicht',
-      content: 'Lerne, wie man Variablen erstellt und verwendet.',
-      initialCode: 'name = ',
-      task: 'Erstelle eine Variable mit deinem Namen und gebe sie aus, so dass dein Name ausgegeben wird.',
-      solution: 'name = "Dein Name"\nprint(name)',
-      hint: 'Denk an die Anführungszeichen beim Text!'
+      content: 'Trainiere, einen Text sauber zu speichern und wieder auszugeben.',
+      initialCode: 'username = ',
+      task: 'Speichere deinen Namen in der Variable "username" und gib "Willkommen, <Name>!" aus.',
+      solution: 'username = "Mia"\nprint(f"Willkommen, {username}!")',
+      hint: 'Lege zuerst die Variable an, dann kannst du sie in einem f-String wiederverwenden.'
     },
     {
       id: 'variables-2',
       title: 'Rechnen mit Variablen',
       difficulty: 'Mittel',
-      content: 'Mathematische Operationen mit Variablen.',
-      initialCode: 'alter = ',
-      task: 'Erstelle eine Variable mit deinem Alter und gebe sie aus.',
-      solution: 'alter = 10\nprint(alter)',
-      hint: 'Nutze den Plus-Operator.'
+      content: 'Sammle Messwerte oder Ergebnisse in Zahlenvariablen.',
+      initialCode: 'tage_geuebt = ',
+      task: 'Speichere, wie viele Tage du diese Woche geübt hast, und gib "Tage geübt: X" aus.',
+      solution: 'tage_geuebt = 5\nprint(f"Tage geübt: {tage_geuebt}")',
+      hint: 'Zahlen werden ohne Anführungszeichen geschrieben, sonst wären sie Texte.'
     },
     {
       id: 'variables-3',
       title: 'Variablen kombinieren',
       difficulty: 'Schwer',
-      content: 'Text und Zahlen zusammen verwenden.',
-      initialCode: 'alter = \nname = ',
-      task: 'Erstelle zwei Variablen, z.B. name und alter, und gebe sie zusammen aus, z.B. "Max ist 10 Jahre alt".',
-      solution: 'name = "Max"\nalter = 10\nprint(f"{name} ist {alter} Jahre alt")',
-      hint: 'Nutze f-Strings mit {}.'
+      content: 'Beschreibe eine Situation durch mehrere Werte und verknüpfe sie.',
+      initialCode: 'name = \nalter = ',
+      task: 'Kombiniere zwei Variablen zu einem Satz wie "Mia ist 11 Jahre alt".',
+      solution: 'name = "Mia"\nalter = 11\nprint(f"{name} ist {alter} Jahre alt")',
+      hint: 'Mit f-Strings kannst du mehrere gespeicherte Werte in einem Satz kombinieren.'
     }
   ],
 };

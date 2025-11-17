@@ -5,39 +5,43 @@ export const dictionaries: Lesson = {
     id: 'dictionaries',
     title: 'Dictionaries',
     icon: RotateCw,
-    definition: 'Dictionaries sind wie Listen, aber statt einer Position haben sie Schlüssel, um Werte zu speichern. Warum? Sie sind ideal, wenn du Daten strukturieren möchtest, z. B. eine Telefonnummer für jede Person.',
-    functions: 'Ein Dictionary mit geschweiften Klammern {} erstellen, z. B.:',
-    Example: 'telefonbuch = {"Anna": "12345", "Ben": "67890"}\nprint(telefonbuch["Anna"])  # Ausgabe: 12345',
+  definition: 'Ein Dictionary ist wie ein echtes Telefonbuch: jeder Schlüssel (z. B. Name) zeigt auf genau einen Wert (z. B. Nummer).\n\
+Damit kannst du Informationen schnell wiederfinden, ohne Positionen mitzuzählen.',
+  functions: 'Weitere Helfer:\n\
+update({...}) fügt neue Paare hinzu.\n\
+get("Name") liefert den Wert oder None.\n\
+keys() zeigt alle vorhandenen Schlüssel.',
+  Example: 'telefonbuch = {"Anna": "12345", "Ben": "67890"}\ntelefonbuch.update({"Clara": "55555"})\nprint(telefonbuch.get("Anna"))\nprint(list(telefonbuch.keys()))',
     subLessons: [
       {
         id: 'dictionaries-1',
         title: 'Dictionaries erstellen',
         difficulty: 'Leicht',
-        content: 'Schlüssel-Wert-Paare in Python.',
-        initialCode: 'farben = {}',
-        task: 'Erstelle ein Dictionary mit deinen Lieblingsfarben. Hex-Codes können im Internet gesucht werden. Ansonsten nutze die Farben Rot, Grün, Blau und Lila : #ff0000, #00ff00, #0000ff, #800080',
-        solution: 'farben = {"rot", "grün", "blau""}\nprint(farben)',
-        hint: 'Nutze geschweifte Klammern {}.'
+        content: 'Schreibe zwei Paare in geschweiften Klammern.',
+        initialCode: 'kontakte = {}',
+        task: 'Erstelle ein Telefonbuch mit zwei Personen und gib das Dictionary aus.',
+        solution: 'kontakte = {"Lina": "0151-123", "Noah": "0176-456"}\nprint(kontakte)',
+        hint: 'Jeder Schlüssel braucht einen Wert: "Name": "Nummer".'
       },
       {
         id: 'dictionaries-2',
         title: 'Elemente aus Dictionaries auswählen',
         difficulty: 'Mittel',
-        content: 'Einzelne Elemente aus Dictionaries auswählen.',
-        initialCode: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}',
-        task: 'Wähle die Farbe Grün aus dem Dictionary aus.',
-        solution: 'print(farben["grün"])',
-        hint: 'Nutze den Schlüssel des Elements.'
+        content: 'Frage einen Wert mit seinem Schlüssel ab.',
+        initialCode: 'kontakte = {"Lina": "0151-123", "Noah": "0176-456"}',
+        task: 'Gib die Nummer von Noah aus.',
+        solution: 'print(kontakte["Noah"])',
+        hint: 'Zugriff erfolgt mit dem Schlüssel in eckigen Klammern.'
       },
       {
         id: 'dictionaries-3',
         title: 'Dictionaries verändern',
         difficulty: 'Schwer',
-        content: 'Elemente hinzufügen, entfernen und verändern.',
-        initialCode: 'farben = {"rot": "#ff0000", "grün": "#00ff00", "blau": "#0000ff"}',
-        task: 'Füge dem Dictionary eine weitere Farbe hinzu. Falls Internet verfügbar ist google denn Hex-Code für deine Farbe. Falls du keine Farbe hast, nutze Gelb: #ffff00',
-        solution: 'farben.update({"gelb": "#ffff00"})\nprint(farben)',
-        hint: 'Nutze den Schlüssel zum Hinzufügen.'
+        content: 'Füge einen neuen Schlüssel mit update() hinzu.',
+        initialCode: 'kontakte = {"Lina": "0151-123", "Noah": "0176-456"}',
+        task: 'Füge "Ella" mit einer eigenen Nummer hinzu und gib das Dictionary aus.',
+        solution: 'kontakte.update({"Ella": "030-789"})\nprint(kontakte)',
+        hint: 'Mit update({...}) kannst du mehrere neue Paare auf einmal ergänzen.'
       },
     ],
   };

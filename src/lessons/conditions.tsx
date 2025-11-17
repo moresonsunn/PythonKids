@@ -2,57 +2,55 @@ import { GitFork } from "lucide-react";
 import { Lesson } from "../components/LessonContent";
 
 export const conditions: Lesson = {
-    id: 'conditions',
-    title: 'Verzweigungen',
-    icon: GitFork,
-    definition:'Mit Bedingungen kannst du steuern, was dein Programm tun soll, abhängig von bestimmten Eingaben oder Zuständen.\n\
-\n\
-if Bedingung: \n\
-    Befehl\n\
-elif Andere_Bedingung:\n\
-    Anderer_Befehl\n\
+  id: 'conditions',
+  title: 'Verzweigungen',
+  icon: GitFork,
+  definition:'Bedingungen entscheiden, welcher Programmzweig ausgeführt wird.\n\
+Du formulierst eine Frage, Python antwortet mit True oder False.',
+  functions: 'Struktur:\n\
+if Bedingung:\n\
+| | mache etwas\n\
+elif andere_Bedingung:\n\
+| | reagiere anders\n\
 else:\n\
-    Standard_Befehl',
-    functions: 'if: Führt den Codeblock aus, wenn die Bedingung wahr ist.\n\
-elif: Führt den Codeblock aus, wenn die vorherige Bedingung falsch ist.\n\
-else: Führt den Codeblock aus, wenn keine der Bedingungen wahr ist.',
-    Example:'zahl = 10 \n\
-if zahl > 5: \n\
-| | print("Die Zahl ist groß.") \n\
-elif zahl == 5:\n\
-| | print("Die Zahl ist mittel.")\n\
+| | Standardaktion, falls alles andere falsch ist',
+  Example:'punktzahl = 8\n\
+if punktzahl > 10:\n\
+| | print("Wow, Bonus!")\n\
+elif punktzahl >= 5:\n\
+| | print("Gute Arbeit")\n\
 else:\n\
-| | print("Die Zahl ist klein.")',
+| | print("Weiter üben")',
     subLessons: [
       {
         id: 'conditions-1',
         title: 'If-Verzweigungen',
         difficulty: 'Leicht',
-        content: 'Einfache Bedingungen in Python.',
-        initialCode: 'zahl = 5\nif zahl > 0:\n    print("Zahl ist größer als 0")',
-        task: 'Füge eine weitere Bedingung hinzu',
-        solution: 'zahl = 10\nif zahl > 5:\n    print("Zahl ist größer als 0")\nif zahl < 10:\n    print("Zahl ist kleiner als 10")',
-        hint: 'Nutze das Schlüsselwort if'  
+        content: 'Starte mit einer klaren Bedingung und reagiere nur in diesem Fall.',
+        initialCode: 'punkte = 12\n',
+        task: 'Gib "Level geschafft!" aus, wenn die Punkte mindestens 10 betragen.',
+        solution: 'punkte = 12\nif punkte >= 10:\n    print("Level geschafft!")',
+        hint: 'Vergleiche den Wert mit >= und gib nur bei erfüllter Bedingung etwas aus.'  
       },
       {
         id: 'conditions-2',
         title: 'Else-Verzweigungen',
         difficulty: 'Mittel',
-        content: 'Zweigungen mit else und elif.',
-        initialCode: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")\nelse:\n    print("Zahl ist kleiner oder gleich 10")',
-        task: 'Füge eine elif-Bedingung hinzu',
-        solution: 'zahl = 5\nif zahl > 10:\n    print("Zahl ist größer als 10")\nelif zahl < 10:\n    print("Zahl ist kleiner als 10")',
-        hint: 'Nutze das Schlüsselwort elif'
+        content: 'Ordne Fälle von oben nach unten: zuerst der speziellste, am Ende der Standardfall.',
+        initialCode: 'temperatur = 18\n',
+        task: 'Gib aus, ob es heiß (>25°), angenehm (15-25°) oder kalt ist.',
+        solution: 'temperatur = 18\nif temperatur > 25:\n    print("Es ist heiß.")\nelif temperatur >= 15:\n    print("Es ist angenehm.")\nelse:\n    print("Es ist kalt.")',
+        hint: 'Sobald ein Block ausgeführt wurde, werden die übrigen übersprungen.'
       },
       {
         id: 'conditions-3',
         title: 'Bedingungen kombinieren',
         difficulty: 'Schwer',
-        content: 'Mehrere Bedingungen miteinander verknüpfen.',
-        initialCode: 'zahl = 5\nif zahl > 0:\n',
-        task: 'Füge eine weitere Bedingung hinzu die "and" oder "or" verwendet',
-        solution: 'zahl = 5\nif zahl > 0 and zahl < 10:\n    print("Zahl ist zwischen 0 und 10")\nif zahl % 2 == 0:\n    print("Zahl ist gerade")',
-        hint: 'Nutze das Prozentzeichen für den Modulo-Operator'
+        content: 'Verknüpfe Zahlenbereiche und Eigenschaften zu einer einzigen Bedingung.',
+        initialCode: 'zahl = 7\n',
+        task: 'Prüfe, ob die Zahl zwischen 1 und 10 liegt und gerade ist. Gib eine passende Nachricht aus.',
+        solution: 'zahl = 7\nif zahl > 1 and zahl < 10 and zahl % 2 == 0:\n    print("Die Zahl erfüllt beide Bedingungen.")\nelse:\n    print("Mindestens eine Bedingung passt nicht.")',
+        hint: 'Kombiniere Bedingungen mit and und nutze % 2 für gerade Zahlen.'
       },
     ],
   };
