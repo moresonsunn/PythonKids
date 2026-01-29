@@ -10,7 +10,7 @@ Sie ermöglichen dir, ein Ergebnis zwischenzuspeichern, mit ihm zu rechnen\n\
 oder es an anderer Stelle wiederzuverwenden.',
   functions: 'Gute Praxis:\n\
 - Wähle sprechende Namen (z. B. punkte_stand).\n\
-- Mit = weist du den Wert zu und kannst ihn später überschreiben.\n\
+- Mit = weist du einen Wert zu und kannst ihn später überschreiben.\n\
 - print() macht sichtbar, was aktuell gespeichert ist.',
   Example: 'name = "Lina"\nlieblingszahl = 7\nname = name.upper()  # Variablen können angepasst werden\nprint(f"Hallo {name}, meine Zahl ist {lieblingszahl}")',
   subLessons: [

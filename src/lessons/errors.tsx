@@ -6,7 +6,7 @@ export const errors: Lesson = {
     title: 'Fehlerausgaben',
     icon: AlertCircle,
     definition: 'Fehler sind Lernchancen: Die Meldung verrät dir Dateiname, Zeile und Fehlertyp.\n\
-Lies die letzte Zeile der Ausgabe besonders genau – hier steht meist die Lösungsidee.',
+Ließ die letzte Zeile der Ausgabe besonders genau – hier steht meist die Lösungsidee.',
     functions: 'Typische Fehlerklassen:\n\
 - SyntaxError: Python kann den Code nicht lesen (z. B. fehlendes Anführungszeichen).\n\
 - ZeroDivisionError: Eine Division hat einen Null-Divisor.\n\

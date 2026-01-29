@@ -9,7 +9,7 @@ export const loops: Lesson = {
 For-Schleifen arbeiten mit abzählbaren Bereichen, while-Schleifen mit Bedingungen.',
   functions: 'For-Schleife:\n\
 for i in range(3):\n\
-| | print(i)  # 0,1,2\n\
+| | print(i)  # 0, 1, 2\n\
 While-Schleife:\n\
 zahl = 3\n\
 while zahl > 0:\n\
@@ -30,7 +30,7 @@ while zahl >= 1:\n\
         initialCode: 'for zahl in range(1, 4):\n    ',
         task: 'Gib die Zahlen 1, 2 und 3 untereinander aus.',
         solution: 'for zahl in range(1, 4):\n    print(zahl)',
-        hint: 'Der zweite Wert in range ist exklusiv: range(1, 4) erzeugt 1,2,3.'
+        hint: 'Der zweite Wert in range ist exklusiv: range(1, 4) erzeugt 1, 2, 3.'
       },
       {
         id: 'loops-2',

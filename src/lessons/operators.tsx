@@ -19,7 +19,7 @@ Python unterscheidet Rechen-, Vergleichs- und logische Operatoren.',
         difficulty: 'Leicht',
         content: 'Nutze den Multiplikationsoperator, um Flächen oder Produkte zu bestimmen.',
         initialCode: 'laenge = 7\nbreite = 3',
-        task: 'Berechne die Fläche eines Rechtecks mit Länge und Breite.',
+        task: 'Berechne die Fläche eines Rechtecks mit Länge und Breite. Speichere zuerst die Fläche in einer Variable und gib sie dann aus.',
         solution: 'flaeche = laenge * breite\nprint(f"Fläche: {flaeche}")',
         hint: 'Schreibe laenge * breite und speichere das Ergebnis in einer Variable.'
       },

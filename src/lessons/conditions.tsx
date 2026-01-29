@@ -13,7 +13,7 @@ if Bedingung:\n\
 elif andere_Bedingung:\n\
 | | reagiere anders\n\
 else:\n\
-| | Standardaktion, falls alles andere falsch ist',
+| | Standardaktion, falls alles andere falsch ist.',
   Example:'punktzahl = 8\n\
 if punktzahl > 10:\n\
 | | print("Wow, Bonus!")\n\

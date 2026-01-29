@@ -1,8 +1,9 @@
 // index.js
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
+import fs from 'fs';
 
 // Die aktuelle Dateipfad auflösen
 const __filename = fileURLToPath(import.meta.url);
@@ -10,16 +11,25 @@ const __dirname = dirname(__filename);
 
 let win;
 
-app.on('ready', () => {
+// Register file protocol for loading local resources
+app.whenReady().then(() => {
+    // Allow loading local files
+    protocol.registerFileProtocol('local-file', (request, callback) => {
+        const url = request.url.replace('local-file://', '');
+        callback({ path: decodeURIComponent(url) });
+    });
+
     win = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true,
-            preload: path.join(__dirname, 'preload.js'), // Optional: preload-Skript
+            nodeIntegration: false,
+            contextIsolation: true,
+            webSecurity: false, // Allow loading from file:// protocol
+            preload: path.join(__dirname, 'preload.js'),
         },
     });
-    win.maximize(); // Maximiere das Fenster
+    win.maximize();
     win.loadFile(path.join(__dirname, 'dist', 'index.html'));
 
-    // Optional: DevTools öffnen
+    // Enable DevTools for debugging (can be removed in production)
     // win.webContents.openDevTools();
 });

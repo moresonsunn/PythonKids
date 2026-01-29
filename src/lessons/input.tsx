@@ -3,7 +3,7 @@ import { Lesson } from "../components/LessonContent";
 
 export const input: Lesson = {
     id: 'input',
-    title: 'Input Befehle',
+    title: 'Input-Befehle',
     icon: KeyRound,
   definition: 'Mit input() führst du einen Dialog zwischen Mensch und Programm.\n\
 Du bekommst immer einen Text zurück und entscheidest selbst, wie du ihn weiterverarbeitest.',

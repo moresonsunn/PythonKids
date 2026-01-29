@@ -56,7 +56,8 @@
     "productName": "PythonKids",
     "files": [
       "dist/**/*",
-      "index.js"
+      "index.js",
+      "preload.js"
     ],
     "directories": {
       "buildResources": "assets"

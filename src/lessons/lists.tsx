@@ -27,7 +27,7 @@ export const lists: Lesson = {
         initialCode: 'aufgaben = ["Mathe", "Deutsch", "Englisch"]',
         task: 'Gib das zweite Element aus der Liste aus.',
         solution: 'print(aufgaben[1])',
-        hint: 'Denke daran: liste[0] erstes Element, liste[1] zweites Element.'
+        hint: 'Denke daran: liste[0] ist das erste Element, liste[1] das zweite Element.'
       },
       {
         id: 'lists-3',
